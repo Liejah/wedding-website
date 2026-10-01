@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+app_backup.py
+app_before_photo_fix.py
+app_before_settings_fix.py
+app_full_editor_backup.py
+wedding_data_backup.json
+wedding_settings_backup.json
+templates/*_backup.html
+templates/*_before_full_editor.html

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -51,10 +51,24 @@ html {
 }
 
 body {
-    background: var(--cream);
     color: var(--dark);
     font-family: "{{ settings.bodyFont }}", sans-serif;
     overflow-x: hidden;
+}
+
+{% if settings.backgroundStyle == "white" %}
+body {
+    background: #FFFFFF;
+}
+{% elif settings.backgroundStyle == "rose" %}
+body {
+    background: #F4E3E0;
+}
+{% else %}
+body {
+    background: var(--cream);
+}
+{% endif %}
 }
 
 nav {
@@ -71,7 +85,7 @@ nav {
 }
 
 .logo {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "{{ settings.headingFont }}", serif;
     font-size: 28px;
 }
 
@@ -122,7 +136,7 @@ nav {
 }
 
 .hero h1 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "{{ settings.headingFont }}", serif;
     font-size: clamp(65px, 11vw, 145px);
     font-weight: 400;
     line-height: .82;
@@ -134,7 +148,7 @@ nav {
 }
 
 .tagline {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "{{ settings.headingFont }}", serif;
     font-size: 25px;
     margin-bottom: 30px;
 }
@@ -188,7 +202,7 @@ section {
 }
 
 h2 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "{{ settings.headingFont }}", serif;
     font-size: clamp(45px, 7vw, 75px);
     font-weight: 500;
     line-height: .95;
@@ -200,7 +214,7 @@ h2 em {
 }
 
 .description {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "{{ settings.headingFont }}", serif;
     font-size: 20px;
     line-height: 1.7;
 }
@@ -236,7 +250,7 @@ h2 em {
 }
 
 .count-box span {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "{{ settings.headingFont }}", serif;
     font-size: 45px;
     color: var(--main);
 }
@@ -1015,12 +1029,13 @@ RSVP
      HERO
 ===================================================== -->
 
+{% if settings.showHero %}
 <section class="hero">
 
 <div class="hero-content">
 
 <p class="eyebrow">
-WE ARE GETTING MARRIED
+{{ settings.heroTitle }}
 </p>
 
 <h1>
@@ -1034,14 +1049,14 @@ WE ARE GETTING MARRIED
 </h1>
 
 <p class="tagline">
-{{ settings.tagline }}
+{{ settings.heroSubtitle }}
 </p>
 
 <div class="date">
 
 {{ settings.weddingDate }}
 
-•
+â€¢
 
 {{ settings.weddingTime }}
 
@@ -1059,6 +1074,7 @@ VIEW INVITATION
 </div>
 
 </section>
+{% endif %}
 
 
 <!-- =====================================================
@@ -1086,7 +1102,7 @@ closest to our hearts.
 </p>
 
 <div class="flourish">
-❦
+â¦
 </div>
 
 </div>
@@ -1154,18 +1170,16 @@ class="photos-section"
 <div class="center">
 
 <p class="eyebrow rose">
-OUR FAVORITE MOMENTS
+{{ settings.featuresTitle }}
 </p>
 
 <h2>
-Moments worth <em>remembering.</em>
+{{ settings.featuresSubtitle }}
 </h2>
 
 <p class="description">
-
 Click a feature to open
 its complete collection.
-
 </p>
 
 </div>
@@ -1205,7 +1219,7 @@ font-size:30px;
 color:var(--main);
 "
 >
-❦
+â¦
 </div>
 
 {% endif %}
@@ -1308,7 +1322,7 @@ class="feature-viewer"
 class="viewer-close"
 onclick="closeFeature('{{ feature.id }}')"
 >
-×
+Ã—
 </div>
 
 <div class="feature-viewer-inner">
@@ -1377,6 +1391,7 @@ to this feature yet.
      STORY
 ===================================================== -->
 
+{% if settings.showStory %}
 <section id="story">
 
 <div class="story">
@@ -1397,12 +1412,11 @@ alt="Our wedding memory"
 <div class="story-text">
 
 <p class="eyebrow rose">
-OUR STORY
+{{ settings.storySubtitle }}
 </p>
 
 <h2>
-From a moment
-to a <em>lifetime.</em>
+{{ settings.storyTitle }}
 </h2>
 
 <p>
@@ -1428,23 +1442,25 @@ to a <em>lifetime.</em>
 </div>
 
 </section>
+{% endif %}
 
 
 <!-- =====================================================
      DETAILS
 ===================================================== -->
 
+{% if settings.showDetails %}
 <section
 id="details"
 class="details"
 >
 
 <p class="eyebrow rose">
-THE CELEBRATION
+{{ settings.detailsSubtitle }}
 </p>
 
 <h2>
-Join us as we say <em>"I do."</em>
+{{ settings.detailsTitle }}
 </h2>
 
 <div class="details-grid">
@@ -1452,7 +1468,7 @@ Join us as we say <em>"I do."</em>
 <div class="detail-card">
 
 <div class="icon">
-♡
+â™¡
 </div>
 
 <h3>
@@ -1475,7 +1491,7 @@ WHEN
 <div class="detail-card">
 
 <div class="icon">
-⌂
+âŒ‚
 </div>
 
 <h3>
@@ -1492,7 +1508,7 @@ WHERE
 <div class="detail-card">
 
 <div class="icon">
-✦
+âœ¦
 </div>
 
 <h3>
@@ -1508,27 +1524,25 @@ DRESS CODE
 </div>
 
 </section>
+{% endif %}
 
 
 <!-- =====================================================
      RSVP
 ===================================================== -->
 
+{% if settings.showRSVP %}
 <section
 id="rsvp"
 class="rsvp"
 >
 
 <p class="eyebrow rose">
-RSVP
+{{ settings.rsvpTitle }}
 </p>
 
 <h2>
-
-Will you celebrate
-<br>
-with <em>us?</em>
-
+{{ settings.rsvpSubtitle }}
 </h2>
 
 <p>
@@ -1543,21 +1557,22 @@ RSVP BY EMAIL
 </a>
 
 </section>
+{% endif %}
 
 
+{% if settings.showFooter %}
 <footer>
 
-Made with love ·
+{{ settings.footerText }}
 
-{{ settings.partner1 }}
+<br>
 
-&
-
-{{ settings.partner2 }}
-
-· 2026
+<small>
+{{ settings.footerCopyright }}
+</small>
 
 </footer>
+{% endif %}
 
 
 <!-- =====================================================
@@ -1574,14 +1589,14 @@ onclick="closeLightbox()"
 class="lightbox-close"
 onclick="event.stopPropagation();closeLightbox()"
 >
-×
+Ã—
 </div>
 
 <button
 class="lightbox-prev"
 onclick="event.stopPropagation();previousPhoto()"
 >
-‹
+â€¹
 </button>
 
 <img
@@ -1595,7 +1610,7 @@ onclick="event.stopPropagation()"
 class="lightbox-next"
 onclick="event.stopPropagation();nextPhoto()"
 >
-›
+â€º
 </button>
 
 </div>
@@ -1861,7 +1876,7 @@ setInterval(
     updateCountdown,
     1000
 );
-</script>
+
 
 /* =====================================================
    FEATURE OPEN / CLOSE

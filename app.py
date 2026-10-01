@@ -1,3 +1,4 @@
+
 from flask import (
     Flask,
     render_template,
@@ -36,8 +37,7 @@ ADMIN_USERNAME = os.environ.get(
 )
 
 ADMIN_PASSWORD = os.environ.get(
-    "ADMIN_PASSWORD",
-    "zyie010101"
+    "ADMIN_PASSWORD"
 )
 
 
@@ -95,6 +95,10 @@ ALLOWED_EXTENSIONS = {
 
 DEFAULT_SETTINGS = {
 
+    # -----------------------------------------------------
+    # BASIC INFORMATION
+    # -----------------------------------------------------
+
     "partner1": "Stevenson",
 
     "partner2": "Zyril Mae",
@@ -126,25 +130,149 @@ DEFAULT_SETTINGS = {
     "story2":
         "Now, we're beginning our next chapter together and we would love for you to be part of it.",
 
+
+    # -----------------------------------------------------
+    # COLORS
+    # -----------------------------------------------------
+
     "mainColor":
         "#D9A9A3",
 
-            "backgroundStyle": "cream",
+    "backgroundStyle":
+        "cream",
 
-    "headingFont": "Cormorant Garamond",
 
-    "bodyFont": "Montserrat",
+    # -----------------------------------------------------
+    # TYPOGRAPHY
+    # -----------------------------------------------------
 
-    "petals": True,
+    "headingFont":
+        "Cormorant Garamond",
 
-    "lightbox": True,
+    "bodyFont":
+        "Montserrat",
 
-    "animations": True
+
+    # -----------------------------------------------------
+    # EFFECTS
+    # -----------------------------------------------------
+
+    "petals":
+        True,
+
+    "lightbox":
+        True,
+
+    "animations":
+        True,
+
+
+    # -----------------------------------------------------
+    # SECTION VISIBILITY
+    # -----------------------------------------------------
+
+    "showHero":
+        True,
+
+    "showStory":
+        True,
+
+    "showDetails":
+        True,
+
+    "showFeatures":
+        True,
+
+    "showAlbum":
+        True,
+
+    "showRSVP":
+        True,
+
+    "showFooter":
+        True,
+
+
+    # -----------------------------------------------------
+    # HERO
+    # -----------------------------------------------------
+
+    "heroTitle":
+        "We're Getting Married",
+
+    "heroSubtitle":
+        "Join us as we begin forever together.",
+
+
+    # -----------------------------------------------------
+    # STORY SECTION
+    # -----------------------------------------------------
+
+    "storyTitle":
+        "Our Story",
+
+    "storySubtitle":
+        "A little piece of our journey together.",
+
+
+    # -----------------------------------------------------
+    # DETAILS SECTION
+    # -----------------------------------------------------
+
+    "detailsTitle":
+        "Wedding Details",
+
+    "detailsSubtitle":
+        "Everything you need to know about our special day.",
+
+
+    # -----------------------------------------------------
+    # FEATURES SECTION
+    # -----------------------------------------------------
+
+    "featuresTitle":
+        "Our Memories",
+
+    "featuresSubtitle":
+        "Moments that made our story beautiful.",
+
+
+    # -----------------------------------------------------
+    # ALBUM SECTION
+    # -----------------------------------------------------
+
+    "albumTitle":
+        "The Album",
+
+    "albumSubtitle":
+        "A collection of memories we will treasure forever.",
+
+
+    # -----------------------------------------------------
+    # RSVP SECTION
+    # -----------------------------------------------------
+
+    "rsvpTitle":
+        "Will You Join Us?",
+
+    "rsvpSubtitle":
+        "We would love to celebrate this special day with you.",
+
+
+    # -----------------------------------------------------
+    # FOOTER
+    # -----------------------------------------------------
+
+    "footerText":
+        "With love, Stevenson & Zyril Mae",
+
+    "footerCopyright":
+        "© 2026 Stevenson & Zyril Mae"
 }
 
 
 # =========================================================
-# DEFAULT ALBUMS
+# DEFAULT FEATURE ALBUMS
 # =========================================================
 
 DEFAULT_ALBUMS = {
@@ -153,31 +281,45 @@ DEFAULT_ALBUMS = {
 
         {
             "id": "our-day",
+
             "title": "OUR DAY",
-            "subtitle": "The beginning of forever.",
+
+            "subtitle":
+                "The beginning of forever.",
+
             "description":
                 "Beautiful moments from our special day.",
+
             "photos": []
         },
 
         {
             "id": "together",
+
             "title": "TOGETHER",
-            "subtitle": "Every moment with you.",
+
+            "subtitle":
+                "Every moment with you.",
+
             "description":
                 "The memories we created together.",
+
             "photos": []
         },
 
         {
             "id": "forever",
+
             "title": "FOREVER",
-            "subtitle": "Our love story continues.",
+
+            "subtitle":
+                "Our love story continues.",
+
             "description":
                 "The moments we will treasure forever.",
+
             "photos": []
         }
-
     ],
 
     "album": []
@@ -190,17 +332,32 @@ DEFAULT_ALBUMS = {
 
 def save_settings(settings):
 
-    with open(
-        SETTINGS_FILE,
-        "w",
-        encoding="utf-8"
-    ) as file:
+    temporary_file = SETTINGS_FILE + ".tmp"
 
-        json.dump(
-            settings,
-            file,
-            indent=4,
-            ensure_ascii=False
+    try:
+
+        with open(
+            temporary_file,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                settings,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        os.replace(
+            temporary_file,
+            SETTINGS_FILE
+        )
+
+    except OSError as error:
+
+        print(
+            f"Error saving settings: {error}"
         )
 
 
@@ -228,7 +385,8 @@ def load_settings():
 
     except (
         json.JSONDecodeError,
-        OSError
+        OSError,
+        TypeError
     ):
 
         settings = DEFAULT_SETTINGS.copy()
@@ -271,17 +429,32 @@ def load_settings():
 
 def save_albums(data):
 
-    with open(
-        ALBUMS_FILE,
-        "w",
-        encoding="utf-8"
-    ) as file:
+    temporary_file = ALBUMS_FILE + ".tmp"
 
-        json.dump(
-            data,
-            file,
-            indent=4,
-            ensure_ascii=False
+    try:
+
+        with open(
+            temporary_file,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            json.dump(
+                data,
+                file,
+                indent=4,
+                ensure_ascii=False
+            )
+
+        os.replace(
+            temporary_file,
+            ALBUMS_FILE
+        )
+
+    except OSError as error:
+
+        print(
+            f"Error saving albums: {error}"
         )
 
 
@@ -309,7 +482,8 @@ def load_albums():
 
     except (
         json.JSONDecodeError,
-        OSError
+        OSError,
+        TypeError
     ):
 
         data = DEFAULT_ALBUMS.copy()
@@ -331,13 +505,45 @@ def load_albums():
 
     if "features" not in data:
 
-        data["features"] = (
-            DEFAULT_ALBUMS["features"]
-        )
+        data["features"] = []
 
     if "album" not in data:
 
         data["album"] = []
+
+    # Make sure all default features exist
+    existing_ids = {
+        feature.get("id")
+        for feature in data["features"]
+        if isinstance(feature, dict)
+    }
+
+    for default_feature in DEFAULT_ALBUMS["features"]:
+
+        if default_feature["id"] not in existing_ids:
+
+            data["features"].append(
+                default_feature.copy()
+            )
+
+    # Make sure every feature has photos
+    for feature in data["features"]:
+
+        if "photos" not in feature:
+
+            feature["photos"] = []
+
+        if "title" not in feature:
+
+            feature["title"] = ""
+
+        if "subtitle" not in feature:
+
+            feature["subtitle"] = ""
+
+        if "description" not in feature:
+
+            feature["description"] = ""
 
     return data
 
@@ -488,7 +694,7 @@ def admin():
 
 
 # =========================================================
-# SAVE WEBSITE SETTINGS
+# SAVE ALL WEBSITE SETTINGS
 # =========================================================
 
 @app.route(
@@ -500,7 +706,11 @@ def admin_save():
 
     settings = load_settings()
 
-    fields = [
+    # =====================================================
+    # TEXT SETTINGS
+    # =====================================================
+
+    text_fields = [
         "partner1",
         "partner2",
         "tagline",
@@ -513,17 +723,242 @@ def admin_save():
         "story1",
         "story2",
         "mainColor",
-        "bodyFont"
+
+        # Design
+        "backgroundStyle",
+        "headingFont",
+        "bodyFont",
+
+        # Hero
+        "heroTitle",
+        "heroSubtitle",
+
+        # Story
+        "storyTitle",
+        "storySubtitle",
+
+        # Details
+        "detailsTitle",
+        "detailsSubtitle",
+
+        # Features
+        "featuresTitle",
+        "featuresSubtitle",
+
+        # Album
+        "albumTitle",
+        "albumSubtitle",
+
+        # RSVP
+        "rsvpTitle",
+        "rsvpSubtitle",
+
+        # Footer
+        "footerText",
+        "footerCopyright"
     ]
 
-    for field in fields:
+    for field in text_fields:
+
         if field in request.form:
+
             settings[field] = request.form.get(
                 field,
                 ""
             ).strip()
 
+
+    # =====================================================
+    # WEBSITE SECTION VISIBILITY
+    # =====================================================
+
+    visibility_fields = [
+        "showHero",
+        "showStory",
+        "showDetails",
+        "showFeatures",
+        "showAlbum",
+        "showRSVP",
+        "showFooter"
+    ]
+
+    for field in visibility_fields:
+
+        settings[field] = (
+            field in request.form
+        )
+
+
+    # =====================================================
+    # WEBSITE EFFECTS
+    # =====================================================
+
+    effect_fields = [
+        "petals",
+        "lightbox",
+        "animations"
+    ]
+
+    for field in effect_fields:
+
+        settings[field] = (
+            field in request.form
+        )
+
+
+    # =====================================================
+    # VALIDATE BACKGROUND
+    # =====================================================
+
+    allowed_backgrounds = [
+        "cream",
+        "white",
+        "rose"
+    ]
+
+    if settings.get(
+        "backgroundStyle"
+    ) not in allowed_backgrounds:
+
+        settings["backgroundStyle"] = "cream"
+
+
+    # =====================================================
+    # VALIDATE HEADING FONT
+    # =====================================================
+
+    allowed_heading_fonts = [
+        "Cormorant Garamond",
+        "Georgia",
+        "Times New Roman"
+    ]
+
+    if settings.get(
+        "headingFont"
+    ) not in allowed_heading_fonts:
+
+        settings["headingFont"] = (
+            "Cormorant Garamond"
+        )
+
+
+    # =====================================================
+    # VALIDATE BODY FONT
+    # =====================================================
+
+    allowed_body_fonts = [
+        "Montserrat",
+        "Arial",
+        "Georgia"
+    ]
+
+    if settings.get(
+        "bodyFont"
+    ) not in allowed_body_fonts:
+
+        settings["bodyFont"] = "Montserrat"
+
+
+    # =====================================================
+    # VALIDATE MAIN COLOR
+    # =====================================================
+
+    main_color = settings.get(
+        "mainColor",
+        "#D9A9A3"
+    ).strip()
+
+    valid_color = False
+
+    if main_color.startswith("#"):
+
+        if len(main_color) in (4, 7):
+
+            try:
+
+                int(
+                    main_color[1:],
+                    16
+                )
+
+                valid_color = True
+
+            except ValueError:
+
+                valid_color = False
+
+
+    if not valid_color:
+
+        settings["mainColor"] = "#D9A9A3"
+
+
+    # =====================================================
+    # SAVE EVERYTHING
+    # =====================================================
+
     save_settings(settings)
+
+
+    # =====================================================
+    # RETURN TO ADMIN
+    # =====================================================
+
+    return redirect(
+        url_for(
+            "admin",
+            saved="1"
+        )
+    )
+
+
+
+# =========================================================
+# SAVE FEATURE SETTINGS
+# =========================================================
+
+@app.route(
+    "/admin/save-feature",
+    methods=["POST"]
+)
+@admin_required
+def save_feature():
+
+    feature_id = request.form.get(
+        "feature_id",
+        ""
+    ).strip()
+
+    if not feature_id:
+
+        return redirect(
+            url_for("admin")
+        )
+
+    data = load_albums()
+
+    for feature in data["features"]:
+
+        if feature.get("id") == feature_id:
+
+            feature["title"] = request.form.get(
+                "title",
+                feature.get("title", "")
+            ).strip()
+
+            feature["subtitle"] = request.form.get(
+                "subtitle",
+                feature.get("subtitle", "")
+            ).strip()
+
+            feature["description"] = request.form.get(
+                "description",
+                feature.get("description", "")
+            ).strip()
+
+            break
+
+    save_albums(data)
 
     return redirect(
         url_for(
@@ -551,19 +986,28 @@ def admin_upload():
     destination = request.form.get(
         "destination",
         "album"
-    )
+    ).strip()
+
 
     if photo is None:
 
         return redirect(
-            url_for("admin")
+            url_for(
+                "admin",
+                error="Please select a photo."
+            )
         )
+
 
     if photo.filename == "":
 
         return redirect(
-            url_for("admin")
+            url_for(
+                "admin",
+                error="Please select a photo."
+            )
         )
+
 
     if not allowed_file(
         photo.filename
@@ -579,9 +1023,11 @@ def admin_upload():
             )
         )
 
+
     filename = secure_filename(
         photo.filename
     )
+
 
     if not filename:
 
@@ -591,6 +1037,11 @@ def admin_upload():
                 error="Invalid filename."
             )
         )
+
+
+    # -----------------------------------------------------
+    # PREVENT DUPLICATE FILENAMES
+    # -----------------------------------------------------
 
     base, extension = os.path.splitext(
         filename
@@ -614,10 +1065,16 @@ def admin_upload():
 
         counter += 1
 
+
     file_path = os.path.join(
         UPLOAD_FOLDER,
         filename
     )
+
+
+    # -----------------------------------------------------
+    # SAVE FILE
+    # -----------------------------------------------------
 
     try:
 
@@ -634,7 +1091,13 @@ def admin_upload():
             )
         )
 
+
+    # -----------------------------------------------------
+    # ASSIGN PHOTO
+    # -----------------------------------------------------
+
     data = load_albums()
+
 
     if destination == "album":
 
@@ -648,7 +1111,12 @@ def admin_upload():
 
         for feature in data["features"]:
 
-            if feature["id"] == destination:
+            if feature.get("id") == destination:
+
+                feature.setdefault(
+                    "photos",
+                    []
+                )
 
                 feature["photos"].append(
                     filename
@@ -658,13 +1126,16 @@ def admin_upload():
 
                 break
 
+
         if not found:
 
             data["album"].append(
                 filename
             )
 
+
     save_albums(data)
+
 
     return redirect(
         url_for(
@@ -690,9 +1161,11 @@ def delete_photo():
         ""
     ).strip()
 
+
     safe_filename = secure_filename(
         filename
     )
+
 
     if not safe_filename:
 
@@ -700,30 +1173,49 @@ def delete_photo():
             url_for("admin")
         )
 
+
     data = load_albums()
 
+
+    # Remove from general album
+
     data["album"] = [
+
         photo
+
         for photo in data["album"]
+
         if photo != safe_filename
     ]
+
+
+    # Remove from feature albums
 
     for feature in data["features"]:
 
         feature["photos"] = [
 
             photo
-            for photo in feature["photos"]
-            if photo != safe_filename
 
+            for photo in feature.get(
+                "photos",
+                []
+            )
+
+            if photo != safe_filename
         ]
 
+
     save_albums(data)
+
+
+    # Delete physical file
 
     file_path = os.path.join(
         UPLOAD_FOLDER,
         safe_filename
     )
+
 
     if os.path.isfile(
         file_path
@@ -738,6 +1230,7 @@ def delete_photo():
         except OSError:
 
             pass
+
 
     return redirect(
         url_for("admin")
@@ -759,11 +1252,13 @@ def uploaded_file(
         filename
     )
 
+
     if not safe_filename:
 
         return redirect(
             url_for("home")
         )
+
 
     return send_from_directory(
         UPLOAD_FOLDER,
@@ -812,11 +1307,13 @@ def file_too_large(error):
 @app.errorhandler(404)
 def page_not_found(error):
 
+    data = load_albums()
+
     return render_template(
         "index.html",
         settings=load_settings(),
-        features=load_albums()["features"],
-        album=load_albums()["album"]
+        features=data["features"],
+        album=data["album"]
     ), 404
 
 
@@ -825,7 +1322,13 @@ def page_not_found(error):
 # =========================================================
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+
+    port = int(
+        os.environ.get(
+            "PORT",
+            5000
+        )
+    )
 
     app.run(
         host="0.0.0.0",

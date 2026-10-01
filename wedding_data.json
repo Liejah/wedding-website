@@ -5,22 +5,30 @@
             "title": "OUR DAY",
             "subtitle": "The beginning of forever.",
             "description": "Beautiful moments from our special day.",
-            "photos": []
+            "photos": [
+                "Screenshot_2026-09-17_164030_1.png"
+            ]
         },
         {
             "id": "together",
             "title": "TOGETHER",
             "subtitle": "Every moment with you.",
             "description": "The memories we created together.",
-            "photos": []
+            "photos": [
+                "Screenshot_2026-09-17_164030_1_1.png"
+            ]
         },
         {
             "id": "forever",
             "title": "FOREVER",
             "subtitle": "Our love story continues.",
             "description": "The moments we will treasure forever.",
-            "photos": []
+            "photos": [
+                "Screenshot_2026-09-17_164030_1_1_1.png"
+            ]
         }
     ],
-    "album": []
+    "album": [
+        "Screenshot_2026-09-17_164030_1_2.png"
+    ]
 }
