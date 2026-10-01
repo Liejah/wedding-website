@@ -127,7 +127,19 @@ DEFAULT_SETTINGS = {
         "Now, we're beginning our next chapter together and we would love for you to be part of it.",
 
     "mainColor":
-        "#D9A9A3"
+        "#D9A9A3",
+
+            "backgroundStyle": "cream",
+
+    "headingFont": "Cormorant Garamond",
+
+    "bodyFont": "Montserrat",
+
+    "petals": True,
+
+    "lightbox": True,
+
+    "animations": True
 }
 
 
@@ -489,7 +501,6 @@ def admin_save():
     settings = load_settings()
 
     fields = [
-
         "partner1",
         "partner2",
         "tagline",
@@ -501,14 +512,12 @@ def admin_save():
         "rsvpMessage",
         "story1",
         "story2",
-        "mainColor"
-
+        "mainColor",
+        "bodyFont"
     ]
 
     for field in fields:
-
         if field in request.form:
-
             settings[field] = request.form.get(
                 field,
                 ""

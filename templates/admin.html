@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,321 +11,345 @@ name="viewport"
 content="width=device-width, initial-scale=1.0"
 >
 
-<title>Wedding Admin</title>
+<title>Wedding Admin Editor</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+rel="stylesheet"
+>
 
 <style>
+
+:root {
+    --rose: #d9a9a3;
+    --dark: #4b3034;
+    --cream: #f8f2f0;
+    --white: #ffffff;
+    --border: #ead8d5;
+    --danger: #b84c4c;
+}
 
 * {
     box-sizing: border-box;
 }
 
 body {
-
     margin: 0;
-
-    font-family: Arial, sans-serif;
-
-    background: #f7f2f0;
-
-    color: #333;
-
+    background: var(--cream);
+    color: var(--dark);
+    font-family: "Montserrat", sans-serif;
 }
 
+/* HEADER */
+
 header {
-
-    background: #d9a9a3;
-
+    background: var(--dark);
     color: white;
-
-    padding: 20px;
-
+    padding: 18px 6%;
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 header h1 {
     margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.public-button,
+.logout {
+    text-decoration: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.public-button {
+    background: var(--rose);
 }
 
 .logout {
-
-    color: white;
-
-    text-decoration: none;
-
-    background: #8f625d;
-
-    padding: 10px 15px;
-
-    border-radius: 8px;
-
+    background: #6e494e;
 }
 
+/* LAYOUT */
+
 .container {
-
-    max-width: 1150px;
-
+    max-width: 1200px;
     margin: 30px auto;
-
     padding: 0 20px;
-
 }
 
 .card {
-
     background: white;
-
-    padding: 25px;
-
+    padding: 30px;
     margin-bottom: 25px;
-
-    border-radius: 15px;
-
-    box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.08);
-
+    border-radius: 16px;
+    box-shadow: 0 5px 25px rgba(75,48,52,.08);
 }
 
-h2 {
-
-    color: #8f625d;
-
+.card h2 {
     margin-top: 0;
-
+    color: var(--dark);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    font-weight: 600;
 }
+
+.card-description {
+    color: #777;
+    line-height: 1.7;
+}
+
+/* FORM */
 
 label {
-
     display: block;
-
-    margin-top: 15px;
-
-    margin-bottom: 5px;
-
-    font-weight: bold;
-
+    margin-top: 18px;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 13px;
 }
 
 input,
 textarea,
 select {
-
     width: 100%;
-
     padding: 12px;
-
-    border:
-        1px solid #ddd;
-
+    border: 1px solid #ddd;
     border-radius: 8px;
-
-    font-size: 15px;
-
+    font-family: inherit;
+    font-size: 14px;
+    background: white;
 }
 
 textarea {
-
-    min-height: 100px;
-
+    min-height: 110px;
     resize: vertical;
+}
 
+input[type="color"] {
+    height: 50px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    width: auto;
 }
 
 button {
-
-    margin-top: 20px;
-
-    padding: 12px 20px;
-
     border: none;
-
     border-radius: 8px;
-
-    background: #d9a9a3;
-
+    padding: 12px 20px;
+    margin-top: 20px;
+    background: var(--rose);
     color: white;
-
-    font-size: 15px;
-
+    font-size: 14px;
     cursor: pointer;
-
+    font-family: inherit;
 }
 
 button:hover {
-
-    background: #b9857f;
-
+    opacity: .85;
 }
+
+.save-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 15px;
+    background: var(--dark);
+}
+
+/* DESIGN GRID */
+
+.design-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.design-box {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    background: #fffaf8;
+}
+
+.design-box h3 {
+    margin-top: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 24px;
+}
+
+/* SWITCH */
+
+.switch-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.switch-row:last-child {
+    border-bottom: none;
+}
+
+.switch-row label {
+    margin: 0;
+}
+
+/* PHOTOS */
 
 .upload-box {
-
-    border:
-        2px dashed #d9a9a3;
-
-    padding: 25px;
-
+    border: 2px dashed var(--rose);
+    padding: 30px;
     text-align: center;
-
     border-radius: 12px;
-
-    margin-top: 20px;
-
-}
-
-.success {
-
-    background: #dff3e3;
-
-    color: #286b3a;
-
-    padding: 12px;
-
-    border-radius: 8px;
-
-    margin-bottom: 20px;
-
-}
-
-.error {
-
-    background: #f8dddd;
-
-    color: #8b2d2d;
-
-    padding: 12px;
-
-    border-radius: 8px;
-
-    margin-bottom: 20px;
-
-}
-
-.feature {
-
-    border:
-        1px solid #ead8d5;
-
-    border-radius: 15px;
-
-    padding: 22px;
-
-    margin-top: 25px;
-
     background: #fffaf8;
-
 }
 
-.feature h3 {
-
-    color: #8f625d;
-
-    font-family:
-        Georgia,
-        serif;
-
-    font-size: 25px;
-
-    margin-top: 0;
-
+.feature-section {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    margin-top: 25px;
 }
 
-.feature-photo-grid {
+.feature-section h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    margin: 0 0 5px;
+}
 
+.feature-section p {
+    color: #777;
+}
+
+.photos {
     display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(180px, 1fr)
-        );
-
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 18px;
-
     margin-top: 20px;
-
 }
 
 .photo {
-
     background: white;
-
-    padding: 8px;
-
+    border: 1px solid var(--border);
+    padding: 10px;
     border-radius: 12px;
-
-    border:
-        1px solid #ead8d5;
-
 }
 
 .photo img {
-
     width: 100%;
-
     height: 180px;
-
     object-fit: cover;
-
     border-radius: 8px;
-
 }
 
 .photo-name {
-
-    font-size: 12px;
-
-    word-break: break-word;
-
+    font-size: 11px;
     margin: 10px 0;
-
+    word-break: break-word;
     color: #777;
-
 }
 
 .delete {
-
-    background: #b84c4c;
-
     width: 100%;
-
+    background: var(--danger);
     margin-top: 0;
-
 }
 
-.delete:hover {
+/* ALERTS */
 
-    background: #963939;
-
+.success,
+.error {
+    padding: 14px;
+    border-radius: 9px;
+    margin-bottom: 20px;
 }
 
-.public-button {
+.success {
+    background: #dff3e3;
+    color: #286b3a;
+}
 
+.error {
+    background: #f8dddd;
+    color: #8b2d2d;
+}
+
+/* PREVIEW */
+
+.preview-button {
     display: inline-block;
-
-    margin-top: 10px;
-
-    padding: 12px 20px;
-
-    background: #8f625d;
-
+    background: var(--rose);
     color: white;
-
+    padding: 14px 22px;
     text-decoration: none;
-
     border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    header {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .header-actions {
+        gap: 5px;
+    }
+
+    .public-button,
+    .logout {
+        padding: 8px;
+        font-size: 10px;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .design-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .photos {
+        grid-template-columns: 1fr 1fr;
+    }
 
 }
 
-.help {
+@media(max-width:450px) {
 
-    color: #777;
-
-    line-height: 1.6;
+    .photos {
+        grid-template-columns: 1fr;
+    }
 
 }
 
@@ -337,39 +362,47 @@ button:hover {
 <header>
 
 <h1>
-💍 Wedding Admin
+💍 Wedding Editor
 </h1>
+
+<div class="header-actions">
+
+<a
+class="public-button"
+href="{{ url_for('home') }}"
+target="_blank"
+>
+VIEW WEBSITE
+</a>
 
 <a
 class="logout"
 href="{{ url_for('admin_logout') }}"
 >
-Log Out
+LOG OUT
 </a>
+
+</div>
 
 </header>
 
-
 <div class="container">
-
 
 {% if request.args.get("saved") %}
 
 <div class="success">
-✅ Website information saved successfully!
+✅ Website information saved successfully.
 </div>
 
 {% endif %}
-
 
 {% if request.args.get("uploaded") %}
 
 <div class="success">
-✅ Photo uploaded successfully!
+✅ Photo uploaded successfully.
 </div>
 
 {% endif %}
-
 
 {% if request.args.get("error") %}
 
@@ -381,23 +414,23 @@ Log Out
 
 
 <!-- =====================================================
-     WEBSITE INFORMATION
+     BASIC INFORMATION
 ===================================================== -->
 
 <div class="card">
 
-<h2>
-📝 Wedding Information
-</h2>
+<h2>📝 Basic Information</h2>
+
+<p class="card-description">
+Edit the information displayed throughout your wedding website.
+</p>
 
 <form
 method="POST"
 action="{{ url_for('admin_save') }}"
 >
 
-<label>
-Partner 1
-</label>
+<label>Partner 1</label>
 
 <input
 type="text"
@@ -405,9 +438,7 @@ name="partner1"
 value="{{ settings.partner1 }}"
 >
 
-<label>
-Partner 2
-</label>
+<label>Partner 2</label>
 
 <input
 type="text"
@@ -415,9 +446,7 @@ name="partner2"
 value="{{ settings.partner2 }}"
 >
 
-<label>
-Tagline
-</label>
+<label>Tagline</label>
 
 <input
 type="text"
@@ -425,29 +454,25 @@ name="tagline"
 value="{{ settings.tagline }}"
 >
 
-<label>
-Wedding Date
-</label>
+<label>Wedding Date</label>
 
 <input
 type="text"
 name="weddingDate"
 value="{{ settings.weddingDate }}"
+placeholder="December 12, 2026"
 >
 
-<label>
-Wedding Time
-</label>
+<label>Wedding Time</label>
 
 <input
 type="text"
 name="weddingTime"
 value="{{ settings.weddingTime }}"
+placeholder="4:00 PM"
 >
 
-<label>
-Venue
-</label>
+<label>Venue</label>
 
 <input
 type="text"
@@ -455,9 +480,7 @@ name="venue"
 value="{{ settings.venue }}"
 >
 
-<label>
-Dress Code
-</label>
+<label>Dress Code</label>
 
 <input
 type="text"
@@ -465,9 +488,7 @@ name="dressCode"
 value="{{ settings.dressCode }}"
 >
 
-<label>
-RSVP Email
-</label>
+<label>RSVP Email</label>
 
 <input
 type="email"
@@ -475,42 +496,23 @@ name="rsvpEmail"
 value="{{ settings.rsvpEmail }}"
 >
 
-<label>
-RSVP Message
-</label>
+<label>RSVP Message</label>
 
-<textarea
-name="rsvpMessage"
->{{ settings.rsvpMessage }}</textarea>
+<textarea name="rsvpMessage">{{ settings.rsvpMessage }}</textarea>
 
-<label>
-Our Story — Part 1
-</label>
+<label>Our Story — Part 1</label>
 
-<textarea
-name="story1"
->{{ settings.story1 }}</textarea>
+<textarea name="story1">{{ settings.story1 }}</textarea>
 
-<label>
-Our Story — Part 2
-</label>
+<label>Our Story — Part 2</label>
 
-<textarea
-name="story2"
->{{ settings.story2 }}</textarea>
+<textarea name="story2">{{ settings.story2 }}</textarea>
 
-<label>
-Main Website Color
-</label>
-
-<input
-type="color"
-name="mainColor"
-value="{{ settings.mainColor }}"
+<button
+class="save-button"
+type="submit"
 >
-
-<button type="submit">
-💾 Save Changes
+💾 SAVE INFORMATION
 </button>
 
 </form>
@@ -519,39 +521,181 @@ value="{{ settings.mainColor }}"
 
 
 <!-- =====================================================
-     FEATURE PHOTO UPLOADS
+     DESIGN EDITOR
 ===================================================== -->
 
 <div class="card">
 
-<h2>
-📸 Feature Albums
-</h2>
+<h2>🎨 Design Editor</h2>
 
-<p class="help">
-
-Each feature has its own collection.
-
-Choose a feature below and upload
-photos specifically for that feature.
-
-When visitors click that feature,
-they will see only its photos.
-
+<p class="card-description">
+Customize the appearance of your wedding website.
 </p>
 
+<form
+method="POST"
+action="{{ url_for('admin_save') }}"
+>
 
-{% for feature in features %}
+<div class="design-grid">
 
-<div class="feature">
+<div class="design-box">
 
-<h3>
-{{ feature.title }}
-</h3>
+<h3>🌹 Colors</h3>
 
-<p>
-{{ feature.subtitle }}
+<label>Main Website Color</label>
+
+<input
+type="color"
+name="mainColor"
+value="{{ settings.mainColor }}"
+>
+
+<label>Background Style</label>
+
+<select name="backgroundStyle">
+
+<option value="cream">
+Elegant Cream
+</option>
+
+<option value="white">
+Classic White
+</option>
+
+<option value="rose">
+Soft Rose
+</option>
+
+</select>
+
+</div>
+
+
+<div class="design-box">
+
+<h3>🖋️ Typography</h3>
+
+<label>Heading Font</label>
+
+<select name="headingFont">
+
+<option value="Cormorant Garamond">
+Cormorant Garamond
+</option>
+
+<option value="Georgia">
+Georgia
+</option>
+
+<option value="Times New Roman">
+Times New Roman
+</option>
+
+</select>
+
+<label>Body Font</label>
+
+<select name="bodyFont">
+
+<option value="Montserrat">
+Montserrat
+</option>
+
+<option value="Arial">
+Arial
+</option>
+
+<option value="Georgia">
+Georgia
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="design-box" style="margin-top:20px;">
+
+<h3>✨ Website Effects</h3>
+
+<div class="switch-row">
+
+<label for="petals">
+🌸 Falling Petals
+</label>
+
+<input
+id="petals"
+type="checkbox"
+name="petals"
+value="1"
+checked
+>
+
+</div>
+
+<div class="switch-row">
+
+<label for="lightbox">
+🖼️ Photo Lightbox
+</label>
+
+<input
+id="lightbox"
+type="checkbox"
+name="lightbox"
+value="1"
+checked
+>
+
+</div>
+
+<div class="switch-row">
+
+<label for="animations">
+✨ Website Animations
+</label>
+
+<input
+id="animations"
+type="checkbox"
+name="animations"
+value="1"
+checked
+>
+
+</div>
+
+</div>
+
+<button
+class="save-button"
+type="submit"
+>
+💾 SAVE DESIGN
+</button>
+
+</form>
+
+</div>
+
+
+<!-- =====================================================
+     PHOTO UPLOAD
+===================================================== -->
+
+<div class="card">
+
+<h2>📸 Photo Manager</h2>
+
+<p class="card-description">
+Upload as many photos as you want and assign each photo to a
+specific feature.
 </p>
+
+<div class="upload-box">
 
 <form
 method="POST"
@@ -559,15 +703,7 @@ action="{{ url_for('admin_upload') }}"
 enctype="multipart/form-data"
 >
 
-<input
-type="hidden"
-name="destination"
-value="{{ feature.id }}"
->
-
-<label>
-Add photo to {{ feature.title }}
-</label>
+<label>Select Photo</label>
 
 <input
 type="file"
@@ -576,16 +712,62 @@ accept="image/*"
 required
 >
 
+<label>Put Photo In</label>
+
+<select name="destination">
+
+<option value="album">
+🖼️ General Album
+</option>
+
+<option value="our-day">
+OUR DAY
+</option>
+
+<option value="together">
+TOGETHER
+</option>
+
+<option value="forever">
+FOREVER
+</option>
+
+</select>
+
 <button type="submit">
-📤 Add Photo to {{ feature.title }}
+📤 UPLOAD PHOTO
 </button>
 
 </form>
 
+</div>
+
+
+<!-- FEATURE PHOTO MANAGEMENT -->
+
+{% for feature in features %}
+
+<div class="feature-section">
+
+<h3>
+{% if feature.id == "our-day" %}
+💍
+{% elif feature.id == "together" %}
+💕
+{% else %}
+♾️
+{% endif %}
+
+{{ feature.title }}
+</h3>
+
+<p>
+{{ feature.subtitle }}
+</p>
 
 {% if feature.photos %}
 
-<div class="feature-photo-grid">
+<div class="photos">
 
 {% for photo in feature.photos %}
 
@@ -616,7 +798,7 @@ value="{{ photo }}"
 type="submit"
 class="delete"
 >
-🗑️ Delete
+🗑️ DELETE
 </button>
 
 </form>
@@ -629,8 +811,8 @@ class="delete"
 
 {% else %}
 
-<p class="help">
-No photos in this feature yet.
+<p>
+No photos assigned to this feature yet.
 </p>
 
 {% endif %}
@@ -639,55 +821,20 @@ No photos in this feature yet.
 
 {% endfor %}
 
-</div>
 
+<!-- GENERAL ALBUM -->
 
-<!-- =====================================================
-     GENERAL ALBUM
-===================================================== -->
+<div class="feature-section">
 
-<div class="card">
+<h3>🖼️ GENERAL ALBUM</h3>
 
-<h2>
-🖼️ General Album
-</h2>
-
-<p class="help">
-
-These photos appear in the main
-"The Album" section.
-
+<p>
+Photos stored in the main wedding album.
 </p>
-
-<form
-method="POST"
-action="{{ url_for('admin_upload') }}"
-enctype="multipart/form-data"
->
-
-<input
-type="hidden"
-name="destination"
-value="album"
->
-
-<input
-type="file"
-name="photo"
-accept="image/*"
-required
->
-
-<button type="submit">
-📤 Add Photo to General Album
-</button>
-
-</form>
-
 
 {% if album %}
 
-<div class="feature-photo-grid">
+<div class="photos">
 
 {% for photo in album %}
 
@@ -695,7 +842,7 @@ required
 
 <img
 src="{{ url_for('uploaded_file', filename=photo) }}"
-alt="Wedding photo"
+alt="Wedding album photo"
 >
 
 <div class="photo-name">
@@ -718,7 +865,7 @@ value="{{ photo }}"
 type="submit"
 class="delete"
 >
-🗑️ Delete
+🗑️ DELETE
 </button>
 
 </form>
@@ -729,41 +876,45 @@ class="delete"
 
 </div>
 
+{% else %}
+
+<p>
+No general album photos yet.
+</p>
+
 {% endif %}
+
+</div>
 
 </div>
 
 
 <!-- =====================================================
-     PUBLIC WEBSITE
+     WEBSITE PREVIEW
 ===================================================== -->
 
 <div class="card">
 
-<h2>
-🌐 Public Website
-</h2>
+<h2>🌐 Public Website</h2>
 
-<p class="help">
-
-Open the public wedding page here.
-This does NOT open the admin panel.
-
+<p class="card-description">
+Your wedding website is public. Use the button below to open
+the exact same website that your guests see.
 </p>
 
 <a
-class="public-button"
+class="preview-button"
 href="{{ url_for('home') }}"
 target="_blank"
 >
-👀 View Public Wedding Website
+👀 OPEN PUBLIC WEBSITE
 </a>
 
 </div>
-
 
 </div>
 
 </body>
 
 </html>
+```
