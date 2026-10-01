@@ -1,0 +1,26 @@
+{
+    "our-day": {
+        "title": "Our Day",
+        "subtitle": "The moments that made our day unforgettable.",
+        "photos": [
+            "Screenshot_2026-08-22_104954.png",
+            "Screenshot_2026-09-17_163221.png",
+            "Screenshot_2026-07-29_090040.png",
+            "Screenshot_2026-09-17_164030.png"
+        ]
+    },
+    "together": {
+        "title": "Together",
+        "subtitle": "The little moments that became our favorite memories.",
+        "photos": [
+            "Screenshot_2026-09-17_144426.png"
+        ]
+    },
+    "forever": {
+        "title": "Forever",
+        "subtitle": "A collection of memories as we begin forever.",
+        "photos": [
+            "Screenshot_2026-08-21_161848.png"
+        ]
+    }
+}

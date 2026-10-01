@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Wedding Admin Login
+</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-family: Arial, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d9a9a3,
+            #8f625d
+        );
+
+    padding: 20px;
+
+}
+
+.login-box {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.2);
+
+    text-align: center;
+
+}
+
+.logo {
+
+    font-size: 45px;
+
+    margin-bottom: 10px;
+
+}
+
+h1 {
+
+    margin:
+        0 0 10px;
+
+    color: #4b3034;
+
+}
+
+.subtitle {
+
+    color: #777;
+
+    margin-bottom: 30px;
+
+}
+
+label {
+
+    display: block;
+
+    text-align: left;
+
+    margin:
+        15px 0 6px;
+
+    font-weight: bold;
+
+    color: #555;
+
+}
+
+input {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border:
+        1px solid #ddd;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+}
+
+button {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #d9a9a3;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+
+button:hover {
+
+    background: #b9857f;
+
+}
+
+.error {
+
+    background: #f8dddd;
+
+    color: #8b2d2d;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    margin-bottom: 20px;
+
+}
+
+.back {
+
+    display: inline-block;
+
+    margin-top: 20px;
+
+    color: #8f625d;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<div class="logo">
+💍
+</div>
+
+<h1>
+Wedding Admin
+</h1>
+
+<p class="subtitle">
+Private administration area
+</p>
+
+
+{% if error %}
+
+<div class="error">
+❌ {{ error }}
+</div>
+
+{% endif %}
+
+
+<form
+method="POST"
+action="{{ url_for('admin_login') }}"
+>
+
+<label>
+Username
+</label>
+
+<input
+type="text"
+name="username"
+placeholder="Enter username"
+required
+autocomplete="username"
+>
+
+
+<label>
+Password
+</label>
+
+<input
+type="password"
+name="password"
+placeholder="Enter password"
+required
+autocomplete="current-password"
+>
+
+
+<button type="submit">
+🔐 Login
+</button>
+
+</form>
+
+
+<a
+class="back"
+href="{{ url_for('home') }}"
+>
+← Back to Wedding Website
+</a>
+
+</div>
+
+</body>
+
+</html>

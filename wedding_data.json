@@ -1,0 +1,26 @@
+{
+    "features": [
+        {
+            "id": "our-day",
+            "title": "OUR DAY",
+            "subtitle": "The beginning of forever.",
+            "description": "Beautiful moments from our special day.",
+            "photos": []
+        },
+        {
+            "id": "together",
+            "title": "TOGETHER",
+            "subtitle": "Every moment with you.",
+            "description": "The memories we created together.",
+            "photos": []
+        },
+        {
+            "id": "forever",
+            "title": "FOREVER",
+            "subtitle": "Our love story continues.",
+            "description": "The moments we will treasure forever.",
+            "photos": []
+        }
+    ],
+    "album": []
+}

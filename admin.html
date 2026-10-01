@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Wedding Admin</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background: #f7f2f0;
+
+    color: #333;
+
+}
+
+header {
+
+    background: #d9a9a3;
+
+    color: white;
+
+    padding: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+header h1 {
+    margin: 0;
+}
+
+.logout {
+
+    color: white;
+
+    text-decoration: none;
+
+    background: #8f625d;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+}
+
+.container {
+
+    max-width: 1150px;
+
+    margin: 30px auto;
+
+    padding: 0 20px;
+
+}
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.08);
+
+}
+
+h2 {
+
+    color: #8f625d;
+
+    margin-top: 0;
+
+}
+
+label {
+
+    display: block;
+
+    margin-top: 15px;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+
+}
+
+input,
+textarea,
+select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+        1px solid #ddd;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+}
+
+textarea {
+
+    min-height: 100px;
+
+    resize: vertical;
+
+}
+
+button {
+
+    margin-top: 20px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #d9a9a3;
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+}
+
+button:hover {
+
+    background: #b9857f;
+
+}
+
+.upload-box {
+
+    border:
+        2px dashed #d9a9a3;
+
+    padding: 25px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    margin-top: 20px;
+
+}
+
+.success {
+
+    background: #dff3e3;
+
+    color: #286b3a;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    margin-bottom: 20px;
+
+}
+
+.error {
+
+    background: #f8dddd;
+
+    color: #8b2d2d;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    margin-bottom: 20px;
+
+}
+
+.feature {
+
+    border:
+        1px solid #ead8d5;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    margin-top: 25px;
+
+    background: #fffaf8;
+
+}
+
+.feature h3 {
+
+    color: #8f625d;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 25px;
+
+    margin-top: 0;
+
+}
+
+.feature-photo-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px, 1fr)
+        );
+
+    gap: 18px;
+
+    margin-top: 20px;
+
+}
+
+.photo {
+
+    background: white;
+
+    padding: 8px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid #ead8d5;
+
+}
+
+.photo img {
+
+    width: 100%;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+
+}
+
+.photo-name {
+
+    font-size: 12px;
+
+    word-break: break-word;
+
+    margin: 10px 0;
+
+    color: #777;
+
+}
+
+.delete {
+
+    background: #b84c4c;
+
+    width: 100%;
+
+    margin-top: 0;
+
+}
+
+.delete:hover {
+
+    background: #963939;
+
+}
+
+.public-button {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 12px 20px;
+
+    background: #8f625d;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+}
+
+.help {
+
+    color: #777;
+
+    line-height: 1.6;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>
+💍 Wedding Admin
+</h1>
+
+<a
+class="logout"
+href="{{ url_for('admin_logout') }}"
+>
+Log Out
+</a>
+
+</header>
+
+
+<div class="container">
+
+
+{% if request.args.get("saved") %}
+
+<div class="success">
+✅ Website information saved successfully!
+</div>
+
+{% endif %}
+
+
+{% if request.args.get("uploaded") %}
+
+<div class="success">
+✅ Photo uploaded successfully!
+</div>
+
+{% endif %}
+
+
+{% if request.args.get("error") %}
+
+<div class="error">
+❌ {{ request.args.get("error") }}
+</div>
+
+{% endif %}
+
+
+<!-- =====================================================
+     WEBSITE INFORMATION
+===================================================== -->
+
+<div class="card">
+
+<h2>
+📝 Wedding Information
+</h2>
+
+<form
+method="POST"
+action="{{ url_for('admin_save') }}"
+>
+
+<label>
+Partner 1
+</label>
+
+<input
+type="text"
+name="partner1"
+value="{{ settings.partner1 }}"
+>
+
+<label>
+Partner 2
+</label>
+
+<input
+type="text"
+name="partner2"
+value="{{ settings.partner2 }}"
+>
+
+<label>
+Tagline
+</label>
+
+<input
+type="text"
+name="tagline"
+value="{{ settings.tagline }}"
+>
+
+<label>
+Wedding Date
+</label>
+
+<input
+type="text"
+name="weddingDate"
+value="{{ settings.weddingDate }}"
+>
+
+<label>
+Wedding Time
+</label>
+
+<input
+type="text"
+name="weddingTime"
+value="{{ settings.weddingTime }}"
+>
+
+<label>
+Venue
+</label>
+
+<input
+type="text"
+name="venue"
+value="{{ settings.venue }}"
+>
+
+<label>
+Dress Code
+</label>
+
+<input
+type="text"
+name="dressCode"
+value="{{ settings.dressCode }}"
+>
+
+<label>
+RSVP Email
+</label>
+
+<input
+type="email"
+name="rsvpEmail"
+value="{{ settings.rsvpEmail }}"
+>
+
+<label>
+RSVP Message
+</label>
+
+<textarea
+name="rsvpMessage"
+>{{ settings.rsvpMessage }}</textarea>
+
+<label>
+Our Story — Part 1
+</label>
+
+<textarea
+name="story1"
+>{{ settings.story1 }}</textarea>
+
+<label>
+Our Story — Part 2
+</label>
+
+<textarea
+name="story2"
+>{{ settings.story2 }}</textarea>
+
+<label>
+Main Website Color
+</label>
+
+<input
+type="color"
+name="mainColor"
+value="{{ settings.mainColor }}"
+>
+
+<button type="submit">
+💾 Save Changes
+</button>
+
+</form>
+
+</div>
+
+
+<!-- =====================================================
+     FEATURE PHOTO UPLOADS
+===================================================== -->
+
+<div class="card">
+
+<h2>
+📸 Feature Albums
+</h2>
+
+<p class="help">
+
+Each feature has its own collection.
+
+Choose a feature below and upload
+photos specifically for that feature.
+
+When visitors click that feature,
+they will see only its photos.
+
+</p>
+
+
+{% for feature in features %}
+
+<div class="feature">
+
+<h3>
+{{ feature.title }}
+</h3>
+
+<p>
+{{ feature.subtitle }}
+</p>
+
+<form
+method="POST"
+action="{{ url_for('admin_upload') }}"
+enctype="multipart/form-data"
+>
+
+<input
+type="hidden"
+name="destination"
+value="{{ feature.id }}"
+>
+
+<label>
+Add photo to {{ feature.title }}
+</label>
+
+<input
+type="file"
+name="photo"
+accept="image/*"
+required
+>
+
+<button type="submit">
+📤 Add Photo to {{ feature.title }}
+</button>
+
+</form>
+
+
+{% if feature.photos %}
+
+<div class="feature-photo-grid">
+
+{% for photo in feature.photos %}
+
+<div class="photo">
+
+<img
+src="{{ url_for('uploaded_file', filename=photo) }}"
+alt="{{ feature.title }}"
+>
+
+<div class="photo-name">
+{{ photo }}
+</div>
+
+<form
+method="POST"
+action="{{ url_for('delete_photo') }}"
+onsubmit="return confirm('Delete this photo?');"
+>
+
+<input
+type="hidden"
+name="filename"
+value="{{ photo }}"
+>
+
+<button
+type="submit"
+class="delete"
+>
+🗑️ Delete
+</button>
+
+</form>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<p class="help">
+No photos in this feature yet.
+</p>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+<!-- =====================================================
+     GENERAL ALBUM
+===================================================== -->
+
+<div class="card">
+
+<h2>
+🖼️ General Album
+</h2>
+
+<p class="help">
+
+These photos appear in the main
+"The Album" section.
+
+</p>
+
+<form
+method="POST"
+action="{{ url_for('admin_upload') }}"
+enctype="multipart/form-data"
+>
+
+<input
+type="hidden"
+name="destination"
+value="album"
+>
+
+<input
+type="file"
+name="photo"
+accept="image/*"
+required
+>
+
+<button type="submit">
+📤 Add Photo to General Album
+</button>
+
+</form>
+
+
+{% if album %}
+
+<div class="feature-photo-grid">
+
+{% for photo in album %}
+
+<div class="photo">
+
+<img
+src="{{ url_for('uploaded_file', filename=photo) }}"
+alt="Wedding photo"
+>
+
+<div class="photo-name">
+{{ photo }}
+</div>
+
+<form
+method="POST"
+action="{{ url_for('delete_photo') }}"
+onsubmit="return confirm('Delete this photo?');"
+>
+
+<input
+type="hidden"
+name="filename"
+value="{{ photo }}"
+>
+
+<button
+type="submit"
+class="delete"
+>
+🗑️ Delete
+</button>
+
+</form>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+<!-- =====================================================
+     PUBLIC WEBSITE
+===================================================== -->
+
+<div class="card">
+
+<h2>
+🌐 Public Website
+</h2>
+
+<p class="help">
+
+Open the public wedding page here.
+This does NOT open the admin panel.
+
+</p>
+
+<a
+class="public-button"
+href="{{ url_for('home') }}"
+target="_blank"
+>
+👀 View Public Wedding Website
+</a>
+
+</div>
+
+
+</div>
+
+</body>
+
+</html>
