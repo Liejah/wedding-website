@@ -37,6 +37,7 @@ rel="stylesheet"
     --light: #F4E3E0;
     --cream: #FFF9F7;
     --dark: #4B3034;
+    --white: #FFFFFF;
 }
 
 * {
@@ -52,7 +53,7 @@ html {
 body {
     background: var(--cream);
     color: var(--dark);
-    font-family: "Montserrat", sans-serif;
+    font-family: "{{ settings.bodyFont }}", sans-serif;
     overflow-x: hidden;
 }
 
@@ -1606,7 +1607,6 @@ onclick="event.stopPropagation();nextPhoto()"
    COUNTDOWN
 ===================================================== */
 
-<script>
 function updateCountdown() {
 
     const dateText = {{ settings.weddingDate|tojson }};
@@ -1863,6 +1863,104 @@ setInterval(
 );
 </script>
 
+/* =====================================================
+   FEATURE OPEN / CLOSE
+===================================================== */
+
+function openFeature(featureId) {
+
+    const viewer =
+        document.getElementById(
+            "viewer-" + featureId
+        );
+
+    if (!viewer) {
+        return;
+    }
+
+    viewer.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+    /*
+     * Update the URL without reloading
+     * the public website.
+     */
+    history.pushState(
+        null,
+        "",
+        "#feature-" + featureId
+    );
+}
+
+
+function closeFeature(featureId) {
+
+    const viewer =
+        document.getElementById(
+            "viewer-" + featureId
+        );
+
+    if (!viewer) {
+        return;
+    }
+
+    viewer.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+    /*
+     * Remove the feature hash.
+     */
+    history.pushState(
+        null,
+        "",
+        window.location.pathname
+    );
+}
+
+
+/* =====================================================
+   CLOSE FEATURE WITH ESCAPE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+        document
+            .querySelectorAll(".feature-viewer.active")
+            .forEach(function(viewer) {
+
+                viewer.classList.remove("active");
+
+            });
+
+        /*
+         * Only restore page scrolling if
+         * the photo lightbox is also closed.
+         */
+        const lightbox =
+            document.getElementById("lightbox");
+
+        if (
+            !lightbox ||
+            !lightbox.classList.contains("active")
+        ) {
+            document.body.style.overflow = "";
+        }
+
+        history.pushState(
+            null,
+            "",
+            window.location.pathname
+        );
+    }
+);
 
 /* =====================================================
    LIGHTBOX DATA
