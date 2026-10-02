@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,17 +60,17 @@ a{
     overflow:hidden;
 
     background:
-        radial-gradient(
-            circle at 78% 22%,
-            rgba(255,224,214,.10),
-            transparent 24%
-        ),
-        linear-gradient(
-            135deg,
-            #7c4b4b 0%,
-            #8f5b5a 52%,
-            #704444 100%
-        );
+      radial-gradient(
+        circle at 78% 22%,
+        rgba(255,224,214,.10),
+        transparent 24%
+      ),
+      linear-gradient(
+        135deg,
+        #7c4b4b 0%,
+        #8f5b5a 52%,
+        #704444 100%
+      );
 }
 
 .hero:after{
@@ -79,17 +80,17 @@ a{
     pointer-events:none;
 
     background:
-        radial-gradient(
-            circle at 12% 85%,
-            rgba(255,232,220,.06),
-            transparent 22%
-        ),
-        linear-gradient(
-            115deg,
-            transparent 0 70%,
-            rgba(255,255,255,.025) 70% 71%,
-            transparent 71%
-        );
+      radial-gradient(
+        circle at 12% 85%,
+        rgba(255,232,220,.06),
+        transparent 22%
+      ),
+      linear-gradient(
+        115deg,
+        transparent 0 70%,
+        rgba(255,255,255,.025) 70% 71%,
+        transparent 71%
+      );
 }
 
 .floral{
@@ -206,7 +207,6 @@ nav{
     left:0;
     width:100%;
     z-index:5;
-
     padding:25px 6%;
 
     display:flex;
@@ -237,7 +237,7 @@ nav{
 }
 
 /* =========================
-   SECTIONS
+   GENERAL SECTIONS
 ========================= */
 
 .section{
@@ -372,14 +372,12 @@ h2 em{
 
     padding:45px 25px 22px;
 
-    background:
-        linear-gradient(
-            transparent,
-            rgba(65,39,39,.68)
-        );
+    background:linear-gradient(
+        transparent,
+        rgba(65,39,39,.68)
+    );
 
     color:#fff;
-
     font-size:10px;
     letter-spacing:3px;
 }
@@ -394,7 +392,6 @@ h2 em{
 
     display:grid;
     grid-template-columns:1fr 1fr;
-
     gap:9%;
     align-items:center;
 }
@@ -403,7 +400,6 @@ h2 em{
     min-height:520px;
 
     background:#8e5b5a;
-
     position:relative;
     overflow:hidden;
 
@@ -420,8 +416,8 @@ h2 em{
 
     width:100%;
     height:100%;
-
     object-fit:cover;
+
     opacity:.75;
 }
 
@@ -430,17 +426,15 @@ h2 em{
     position:absolute;
     inset:0;
 
-    background:
-        linear-gradient(
-            transparent,
-            rgba(62,36,36,.65)
-        );
+    background:linear-gradient(
+        transparent,
+        rgba(62,36,36,.65)
+    );
 }
 
 .story-box span{
     position:relative;
     z-index:2;
-
     letter-spacing:4px;
     font-size:10px;
 }
@@ -476,7 +470,6 @@ h2 em{
 
     display:grid;
     grid-template-columns:repeat(3,1fr);
-
     gap:18px;
 }
 
@@ -542,7 +535,6 @@ h2 em{
 
 footer{
     text-align:center;
-
     padding:35px;
 
     background:#704444;
@@ -554,19 +546,16 @@ footer{
 
 /* =========================
    MUSIC BUTTON
-   This button is ONLY a
-   public play/pause button.
-   Music configuration is
-   controlled from /admin.
+   Controlled ONLY by
+   admin settings
 ========================= */
 
 .music-badge{
     position:fixed;
-
     right:20px;
     bottom:20px;
 
-    z-index:9999;
+    z-index:50;
 
     width:52px;
     height:52px;
@@ -588,13 +577,7 @@ footer{
 
     cursor:pointer;
 
-    font-size:18px;
-
-    transition:.25s;
-}
-
-.music-badge:hover{
-    transform:scale(1.08);
+    font-size:19px;
 }
 
 .music-badge.show{
@@ -687,11 +670,6 @@ footer{
     .section{
         padding:80px 6%;
     }
-
-    .music-badge{
-        right:15px;
-        bottom:15px;
-    }
 }
 
 </style>
@@ -713,11 +691,25 @@ footer{
 
     <div class="nav-links">
 
-        <a href="#story">OUR STORY</a>
-        <a href="#countdown">COUNTDOWN</a>
-        <a href="#photos">PHOTOS</a>
-        <a href="#details">DETAILS</a>
-        <a href="#rsvp">RSVP</a>
+        <a href="#story">
+            OUR STORY
+        </a>
+
+        <a href="#countdown">
+            COUNTDOWN
+        </a>
+
+        <a href="#photos">
+            PHOTOS
+        </a>
+
+        <a href="#details">
+            DETAILS
+        </a>
+
+        <a href="#rsvp">
+            RSVP
+        </a>
 
     </div>
 
@@ -768,7 +760,10 @@ footer{
 
         <br>
 
-        <a class="invite-btn" href="#countdown">
+        <a
+            class="invite-btn"
+            href="#countdown"
+        >
             VIEW INVITATION ›
         </a>
 
@@ -778,7 +773,7 @@ footer{
 
 
 <!-- =========================
-     INTRO
+     SAVE THE DATE
 ========================= -->
 
 <section class="section">
@@ -886,32 +881,39 @@ footer{
 
         {% for number in [1,2,3] %}
 
-            {% set photo = photos[number-1] if photos|length >= number else "" %}
+        {% set photo =
+            photos[number-1]
+            if photos|length >= number
+            else ""
+        %}
 
-            <div class="photo-card {% if number == 1 %}large{% endif %}">
+        <div
+            class="photo-card
+            {% if number == 1 %}large{% endif %}"
+        >
 
-                {% if photo %}
+            {% if photo %}
 
-                    <img
-                        src="{{ url_for('uploaded_file', filename=photo) }}"
-                        alt="Wedding memory"
-                    >
+            <img
+                src="{{ url_for('uploaded_file', filename=photo) }}"
+                alt="Wedding memory"
+            >
 
+            {% endif %}
+
+            <div class="photo-label">
+
+                {% if number == 1 %}
+                    OUR DAY
+                {% elif number == 2 %}
+                    TOGETHER
+                {% else %}
+                    FOREVER
                 {% endif %}
 
-                <div class="photo-label">
-
-                    {% if number == 1 %}
-                        OUR DAY
-                    {% elif number == 2 %}
-                        TOGETHER
-                    {% else %}
-                        FOREVER
-                    {% endif %}
-
-                </div>
-
             </div>
+
+        </div>
 
         {% endfor %}
 
@@ -935,10 +937,10 @@ footer{
 
             {% if photos %}
 
-                <img
-                    src="{{ url_for('uploaded_file', filename=photos[0]) }}"
-                    alt="Wedding photo"
-                >
+            <img
+                src="{{ url_for('uploaded_file', filename=photos[0]) }}"
+                alt="Wedding photo"
+            >
 
             {% endif %}
 
@@ -958,7 +960,8 @@ footer{
             </p>
 
             <h2>
-                From a moment to a <em>lifetime.</em>
+                From a moment to a
+                <em>lifetime.</em>
             </h2>
 
             <p>
@@ -970,11 +973,9 @@ footer{
             </p>
 
             <div class="signature">
-
                 {{ settings.partner1 }}
                 &amp;
                 {{ settings.partner2 }}
-
             </div>
 
         </div>
@@ -1003,7 +1004,8 @@ footer{
         </p>
 
         <h2>
-            Join us as we say <em>"I do."</em>
+            Join us as we say
+            <em>"I do."</em>
         </h2>
 
     </div>
@@ -1114,18 +1116,17 @@ footer{
 
 
 <!-- ==================================================
-     WEDDING MUSIC
-
+     MUSIC
+     
      IMPORTANT:
-     The music settings come ONLY from the admin panel.
+     This entire section is controlled by the ADMIN PANEL.
 
-     The public visitor gets only a play/pause button.
+     If music_enabled = false:
+         No audio player is created.
+         No music button is displayed.
 
-     There are NO public controls for:
-     - uploading music
-     - choosing URL
-     - changing volume
-     - enabling/disabling music
+     If music_enabled = true:
+         The selected URL/upload is used.
 ================================================== -->
 
 {% if settings.music_enabled %}
@@ -1158,7 +1159,6 @@ footer{
         id="musicButton"
         type="button"
         aria-label="Play or pause wedding music"
-        title="Play / Pause Music"
     >
         ♫
     </button>
@@ -1168,99 +1168,90 @@ footer{
 
 <script>
 
-/* =========================
+/* ==================================================
    COUNTDOWN
-========================= */
+================================================== */
 
-(function(){
+function updateCountdown(){
 
-    const daysElement =
+    const target =
+        new Date(
+            "{{ settings.weddingDate }} {{ settings.weddingTime }}"
+        );
+
+    const now = new Date();
+
+    let diff = target - now;
+
+    if(diff < 0){
+        diff = 0;
+    }
+
+    const days =
         document.getElementById("days");
 
-    const hoursElement =
+    const hours =
         document.getElementById("hours");
 
-    const minutesElement =
+    const minutes =
         document.getElementById("minutes");
 
-    const secondsElement =
+    const seconds =
         document.getElementById("seconds");
 
 
-    function updateCountdown(){
+    if(days){
 
-        const target =
-            new Date(
-                "{{ settings.weddingDate }} {{ settings.weddingTime }}"
-            );
-
-        const now =
-            new Date();
-
-        let diff =
-            target - now;
-
-
-        if(diff < 0){
-            diff = 0;
-        }
-
-
-        if(daysElement){
-
-            daysElement.textContent =
-                String(
-                    Math.floor(diff / 86400000)
-                ).padStart(2,"0");
-
-        }
-
-
-        if(hoursElement){
-
-            hoursElement.textContent =
-                String(
-                    Math.floor(diff / 3600000) % 24
-                ).padStart(2,"0");
-
-        }
-
-
-        if(minutesElement){
-
-            minutesElement.textContent =
-                String(
-                    Math.floor(diff / 60000) % 60
-                ).padStart(2,"0");
-
-        }
-
-
-        if(secondsElement){
-
-            secondsElement.textContent =
-                String(
-                    Math.floor(diff / 1000) % 60
-                ).padStart(2,"0");
-
-        }
+        days.textContent =
+            String(
+                Math.floor(diff / 86400000)
+            ).padStart(2,"0");
 
     }
 
 
-    updateCountdown();
+    if(hours){
 
-    setInterval(
-        updateCountdown,
-        1000
-    );
+        hours.textContent =
+            String(
+                Math.floor(diff / 3600000) % 24
+            ).padStart(2,"0");
 
-})();
+    }
 
 
-/* =========================
-   WEDDING MUSIC
-========================= */
+    if(minutes){
+
+        minutes.textContent =
+            String(
+                Math.floor(diff / 60000) % 60
+            ).padStart(2,"0");
+
+    }
+
+
+    if(seconds){
+
+        seconds.textContent =
+            String(
+                Math.floor(diff / 1000) % 60
+            ).padStart(2,"0");
+
+    }
+
+}
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+/* ==================================================
+   BACKGROUND MUSIC
+================================================== */
 
 {% if settings.music_enabled %}
 
@@ -1278,47 +1269,59 @@ footer{
     }
 
 
-    /* Volume comes ONLY from admin settings. */
+    /*
+       Volume comes ONLY from the admin panel.
+    */
 
-    let configuredVolume =
+    let adminVolume =
         Number(
-            {{ settings.music_volume|default(0.35) }}
+            "{{ settings.music_volume|default(0.35) }}"
         );
 
 
     if(
-        Number.isNaN(configuredVolume) ||
-        configuredVolume < 0 ||
-        configuredVolume > 1
+        isNaN(adminVolume) ||
+        adminVolume < 0 ||
+        adminVolume > 1
     ){
-        configuredVolume = 0.35;
+
+        adminVolume = 0.35;
+
     }
 
 
-    music.volume =
-        configuredVolume;
+    music.volume = adminVolume;
 
 
-    /* Check whether an actual music source exists. */
+    /*
+       Check whether the admin actually selected
+       a music source.
+    */
 
     const hasSource =
-        Boolean(
-            music.querySelector("source") &&
-            music.querySelector("source").getAttribute("src")
-        );
+        music.querySelector("source") &&
+        music.querySelector("source").getAttribute("src");
 
 
     if(!hasSource){
+
         return;
+
     }
 
 
-    /* Show the public music button. */
+    /*
+       Show the music button.
+    */
 
     musicButton.classList.add("show");
 
 
-    function setPlayingState(){
+    /*
+       Update button appearance.
+    */
+
+    function setPlaying(){
 
         musicButton.classList.add("playing");
 
@@ -1332,7 +1335,7 @@ footer{
     }
 
 
-    function setPausedState(){
+    function setPaused(){
 
         musicButton.classList.remove("playing");
 
@@ -1346,119 +1349,145 @@ footer{
     }
 
 
-    function playMusic(){
+    /*
+       Play music.
+       
+       Browsers may block automatic playback.
+       In that case the visitor simply clicks
+       the music button.
+    */
 
-        music.play()
-            .then(function(){
+    function startMusic(){
 
-                setPlayingState();
-
-            })
-            .catch(function(){
-
-                /*
-                   Browser autoplay protection may prevent
-                   automatic playback until the visitor interacts.
-                */
-
-                setPausedState();
-
-            });
-
-    }
+        if(!music.paused){
+            setPlaying();
+            return;
+        }
 
 
-    function toggleMusic(){
+        const playPromise =
+            music.play();
 
-        if(music.paused){
 
-            playMusic();
+        if(playPromise !== undefined){
 
-        }else{
+            playPromise
+                .then(function(){
 
-            music.pause();
+                    setPlaying();
 
-            setPausedState();
+                })
+                .catch(function(){
+
+                    setPaused();
+
+                });
 
         }
 
     }
 
 
+    /*
+       Music button.
+    */
+
     musicButton.addEventListener(
         "click",
-        function(event){
+        function(){
 
-            event.preventDefault();
+            if(music.paused){
 
-            event.stopPropagation();
+                startMusic();
 
-            toggleMusic();
+            }else{
+
+                music.pause();
+
+                setPaused();
+
+            }
 
         }
     );
 
 
+    /*
+       Keep button synchronized with
+       the actual audio state.
+    */
+
     music.addEventListener(
         "play",
-        setPlayingState
+        setPlaying
     );
 
 
     music.addEventListener(
         "pause",
-        setPausedState
+        setPaused
     );
 
 
     /*
-       Try to start automatically.
-
-       Some browsers will block this.
-       If blocked, the button remains visible and
-       the first visitor interaction starts the music.
+       Try autoplay once when the page loads.
+       Browser restrictions may prevent it.
     */
 
-    playMusic();
+    startMusic();
+
+
+    /*
+       If autoplay is blocked, start the music
+       after the visitor's first interaction.
+    */
+
+    let interactionStarted = false;
 
 
     function firstInteraction(){
 
-        if(music.paused){
-
-            playMusic();
-
+        if(interactionStarted){
+            return;
         }
+
+        interactionStarted = true;
+
+        startMusic();
+
+
+        document.removeEventListener(
+            "click",
+            firstInteraction
+        );
+
+        document.removeEventListener(
+            "touchstart",
+            firstInteraction
+        );
+
+        document.removeEventListener(
+            "keydown",
+            firstInteraction
+        );
 
     }
 
 
     document.addEventListener(
         "click",
-        firstInteraction,
-        {
-            once:true
-        }
+        firstInteraction
     );
-
 
     document.addEventListener(
         "touchstart",
-        firstInteraction,
-        {
-            once:true
-        }
+        firstInteraction
     );
-
 
     document.addEventListener(
         "keydown",
-        firstInteraction,
-        {
-            once:true
-        }
+        firstInteraction
     );
-
 
 })();
 
@@ -1468,3 +1497,4 @@ footer{
 
 </body>
 </html>
+```
