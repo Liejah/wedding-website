@@ -86,6 +86,11 @@ DEFAULT_SETTINGS = {
     ),
 
     "mainColor": "#B97878",
+        "music_enabled": False,
+    "music_source": "upload",
+    "music_url": "",
+    "music_file": "",
+    "music_volume": 0.35
 
     # --------------------------------------------------------
     # MUSIC
@@ -340,6 +345,180 @@ def admin_required(function):
 # ============================================================
 # PUBLIC WEBSITE
 # ============================================================
+
+@app.route("/admin/music", methods=["POST"])
+@admin_required
+def admin_music():
+    settings = load_settings()
+
+    # Enable / disable music
+    settings["music_enabled"] = (
+        request.form.get("music_enabled") == "on"
+    )
+
+    # Music source
+    source = request.form.get("music_source", "upload")
+
+    if source not in {"upload", "url"}:
+        source = "upload"
+
+    settings["music_source"] = source
+
+    # Music URL
+    settings["music_url"] = request.form.get(
+        "music_url", ""
+    ).strip()
+
+    # Volume
+    try:
+        volume = float(
+            request.form.get("music_volume", "0.35")
+        )
+    except (TypeError, ValueError):
+        volume = 0.35
+
+    settings["music_volume"] = max(
+        0.0,
+        min(1.0, volume)
+    )
+
+    # Uploaded music
+    audio = request.files.get("music_file")
+
+    if audio and audio.filename:
+
+        if not allowed_file(
+            audio.filename,
+            AUDIO_EXTENSIONS
+        ):
+            flash(
+                "Unsupported music file. "
+                "Use MP3, WAV, OGG, M4A, AAC or WEBM.",
+                "error"
+            )
+            return redirect(
+                url_for("admin") + "#music"
+            )
+
+        filename = unique_filename(audio.filename)
+
+        if not filename:
+            flash(
+                "Invalid music filename.",
+                "error"
+            )
+            return redirect(
+                url_for("admin") + "#music"
+            )
+
+        # Remove previous uploaded music
+        old_file = settings.get(
+            "music_file",
+            ""
+        )
+
+        if old_file:
+            old_path = os.path.join(
+                UPLOAD_FOLDER,
+                os.path.basename(old_file)
+            )
+
+            if os.path.isfile(old_path):
+                try:
+                    os.remove(old_path)
+                except OSError:
+                    pass
+
+        try:
+            audio.save(
+                os.path.join(
+                    UPLOAD_FOLDER,
+                    filename
+                )
+            )
+        except OSError:
+            flash(
+                "There was a problem uploading the music.",
+                "error"
+            )
+            return redirect(
+                url_for("admin") + "#music"
+            )
+
+        settings["music_file"] = filename
+
+    # Upload mode requires an uploaded file
+    if (
+        source == "upload"
+        and not settings.get("music_file")
+    ):
+        flash(
+            "Please upload a music file or choose Music URL.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#music"
+        )
+
+    # URL mode requires a URL
+    if (
+        source == "url"
+        and not settings.get("music_url")
+    ):
+        flash(
+            "Please enter a music URL.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#music"
+        )
+
+    save_settings(settings)
+
+    flash(
+        "Background music settings saved!",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#music"
+    )
+
+@app.route("/admin/music/remove", methods=["POST"])
+@admin_required
+def remove_music():
+    settings = load_settings()
+
+    old_file = settings.get(
+        "music_file",
+        ""
+    )
+
+    if old_file:
+        old_path = os.path.join(
+            UPLOAD_FOLDER,
+            os.path.basename(old_file)
+        )
+
+        if os.path.isfile(old_path):
+            try:
+                os.remove(old_path)
+            except OSError:
+                pass
+
+    settings["music_file"] = ""
+    settings["music_enabled"] = False
+
+    save_settings(settings)
+
+    flash(
+        "Background music removed.",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#music"
+    )
 
 @app.route("/")
 def home():
