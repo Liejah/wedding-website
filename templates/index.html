@@ -1,14 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>{{ settings.partner1 }} & {{ settings.partner2 }} | Wedding</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
     --rose:#8f5a5a;
     --rose-dark:#704444;
@@ -18,15 +22,33 @@
     --white:#fff;
     --line:rgba(255,247,242,.75);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:var(--cream);
     color:var(--ink);
     font-family:Montserrat,sans-serif;
     overflow-x:hidden;
 }
-a{text-decoration:none}
+
+a{
+    text-decoration:none;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
     min-height:100vh;
     position:relative;
@@ -36,19 +58,41 @@ a{text-decoration:none}
     text-align:center;
     color:#fff;
     overflow:hidden;
+
     background:
-      radial-gradient(circle at 78% 22%,rgba(255,224,214,.10),transparent 24%),
-      linear-gradient(135deg,#7c4b4b 0%,#8f5b5a 52%,#704444 100%);
+        radial-gradient(
+            circle at 78% 22%,
+            rgba(255,224,214,.10),
+            transparent 24%
+        ),
+        linear-gradient(
+            135deg,
+            #7c4b4b 0%,
+            #8f5b5a 52%,
+            #704444 100%
+        );
 }
+
 .hero:after{
     content:"";
     position:absolute;
     inset:0;
     pointer-events:none;
+
     background:
-      radial-gradient(circle at 12% 85%,rgba(255,232,220,.06),transparent 22%),
-      linear-gradient(115deg,transparent 0 70%,rgba(255,255,255,.025) 70% 71%,transparent 71%);
+        radial-gradient(
+            circle at 12% 85%,
+            rgba(255,232,220,.06),
+            transparent 22%
+        ),
+        linear-gradient(
+            115deg,
+            transparent 0 70%,
+            rgba(255,255,255,.025) 70% 71%,
+            transparent 71%
+        );
 }
+
 .floral{
     position:absolute;
     width:clamp(250px,30vw,520px);
@@ -57,8 +101,18 @@ a{text-decoration:none}
     z-index:1;
     filter:saturate(.82);
 }
-.floral.left{left:-20px;top:-10px}
-.floral.right{right:-35px;bottom:-25px;transform:rotate(180deg)}
+
+.floral.left{
+    left:-20px;
+    top:-10px;
+}
+
+.floral.right{
+    right:-35px;
+    bottom:-25px;
+    transform:rotate(180deg);
+}
+
 .hero-content{
     width:min(1200px,92%);
     position:relative;
@@ -66,12 +120,14 @@ a{text-decoration:none}
     padding:50px 20px;
     animation:rise 1s ease both;
 }
+
 .eyebrow{
     font-size:clamp(10px,1vw,14px);
     letter-spacing:7px;
     margin-bottom:30px;
     font-weight:400;
 }
+
 .rule{
     width:220px;
     height:1px;
@@ -79,6 +135,7 @@ a{text-decoration:none}
     margin:0 auto 22px;
     position:relative;
 }
+
 .rule:after{
     content:"♥";
     position:absolute;
@@ -90,6 +147,7 @@ a{text-decoration:none}
     color:#f6d8c8;
     font-size:25px;
 }
+
 .hero h1{
     font-family:"Cormorant Garamond",serif;
     font-weight:500;
@@ -98,18 +156,21 @@ a{text-decoration:none}
     letter-spacing:-3px;
     margin-bottom:30px;
 }
+
 .hero h1 i{
     font-size:.54em;
     font-weight:400;
     letter-spacing:0;
     color:#f2d7cd;
 }
+
 .tagline{
     font-family:"Cormorant Garamond",serif;
     font-size:clamp(22px,2.4vw,32px);
     font-style:italic;
     margin-bottom:40px;
 }
+
 .date{
     display:inline-block;
     min-width:min(600px,90%);
@@ -119,6 +180,7 @@ a{text-decoration:none}
     font-size:13px;
     text-transform:uppercase;
 }
+
 .invite-btn{
     display:inline-block;
     margin-top:42px;
@@ -129,20 +191,76 @@ a{text-decoration:none}
     font-size:12px;
     transition:.3s;
 }
-.invite-btn:hover{transform:translateY(-3px);background:#fff0eb}
+
+.invite-btn:hover{
+    transform:translateY(-3px);
+    background:#fff0eb;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
 nav{
-    position:absolute;top:0;left:0;width:100%;z-index:5;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:5;
+
     padding:25px 6%;
-    display:flex;justify-content:space-between;align-items:center;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
     color:#fff;
 }
-.logo{font-family:"Cormorant Garamond",serif;font-size:26px}
-.logo span{color:#f0cfc3}
-.nav-links{display:flex;gap:28px}
-.nav-links a{color:#fff;font-size:10px;letter-spacing:2px}
-.section{padding:110px 7%;background:var(--cream)}
-.center{text-align:center;max-width:1000px;margin:auto}
-.rose-label{font-size:10px;letter-spacing:4px;color:var(--rose);margin-bottom:18px}
+
+.logo{
+    font-family:"Cormorant Garamond",serif;
+    font-size:26px;
+}
+
+.logo span{
+    color:#f0cfc3;
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+}
+
+.nav-links a{
+    color:#fff;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+
+.section{
+    padding:110px 7%;
+    background:var(--cream);
+}
+
+.center{
+    text-align:center;
+    max-width:1000px;
+    margin:auto;
+}
+
+.rose-label{
+    font-size:10px;
+    letter-spacing:4px;
+    color:var(--rose);
+    margin-bottom:18px;
+}
+
 h2{
     font-family:"Cormorant Garamond",serif;
     font-weight:500;
@@ -150,280 +268,1246 @@ h2{
     line-height:1;
     color:#543939;
 }
-h2 em{font-weight:400}
-.description{max-width:650px;margin:28px auto 0;line-height:1.9;color:#765e5e}
-.flourish{margin-top:35px;color:var(--rose);font-size:38px}
-.countdown-section{background:#f3e2de}
-.countdown{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:55px}
+
+h2 em{
+    font-weight:400;
+}
+
+.description{
+    max-width:650px;
+    margin:28px auto 0;
+    line-height:1.9;
+    color:#765e5e;
+}
+
+.flourish{
+    margin-top:35px;
+    color:var(--rose);
+    font-size:38px;
+}
+
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.countdown-section{
+    background:#f3e2de;
+}
+
+.countdown{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:55px;
+}
+
 .count-box{
-    width:145px;height:145px;border:1px solid rgba(143,90,90,.25);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    background:rgba(255,255,255,.45)
+    width:145px;
+    height:145px;
+
+    border:1px solid rgba(143,90,90,.25);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.45);
 }
-.count-box span{font:600 52px "Cormorant Garamond",serif;color:var(--rose)}
-.count-box small{font-size:9px;letter-spacing:3px;margin-top:5px}
-.photos{background:#fffaf7}
+
+.count-box span{
+    font:600 52px "Cormorant Garamond",serif;
+    color:var(--rose);
+}
+
+.count-box small{
+    font-size:9px;
+    letter-spacing:3px;
+    margin-top:5px;
+}
+
+
+/* =========================
+   PHOTOS
+========================= */
+
+.photos{
+    background:#fffaf7;
+}
+
 .featured{
-    max-width:1150px;margin:60px auto 0;
-    display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:280px 280px;gap:18px
+    max-width:1150px;
+    margin:60px auto 0;
+
+    display:grid;
+
+    grid-template-columns:1.5fr 1fr;
+    grid-template-rows:280px 280px;
+
+    gap:18px;
 }
-.photo-card{position:relative;overflow:hidden;background:#ead4cf}
-.photo-card.large{grid-row:span 2}
-.photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:.6s}
-.photo-card:hover img{transform:scale(1.04)}
-.photo-label{
-    position:absolute;left:0;right:0;bottom:0;padding:45px 25px 22px;
-    background:linear-gradient(transparent,rgba(65,39,39,.68));color:#fff;
-    font-size:10px;letter-spacing:3px
-}
-.story{
-    max-width:1150px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:9%;align-items:center
-}
-.story-box{
-    min-height:520px;
-    background:#8e5b5a;
+
+.photo-card{
     position:relative;
     overflow:hidden;
-    display:flex;align-items:flex-end;
-    padding:35px;color:#fff
+    background:#ead4cf;
 }
-.story-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
-.story-box:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(62,36,36,.65))}
-.story-box span{position:relative;z-index:2;letter-spacing:4px;font-size:10px}
-.story-text p{line-height:1.9;color:#765e5e;margin-top:25px}
-.signature{font:italic 28px "Cormorant Garamond",serif;margin-top:35px;color:var(--rose)}
-.details{background:#8d5858;color:#fff}
-.details h2{color:#fff}
+
+.photo-card.large{
+    grid-row:span 2;
+}
+
+.photo-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:.6s;
+}
+
+.photo-card:hover img{
+    transform:scale(1.04);
+}
+
+.photo-label{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:45px 25px 22px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(65,39,39,.68)
+        );
+
+    color:#fff;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+
+/* =========================
+   STORY
+========================= */
+
+.story{
+    max-width:1150px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9%;
+
+    align-items:center;
+}
+
+.story-box{
+    min-height:520px;
+
+    background:#8e5b5a;
+
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:flex-end;
+
+    padding:35px;
+    color:#fff;
+}
+
+.story-box img{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    opacity:.75;
+}
+
+.story-box:after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(62,36,36,.65)
+        );
+}
+
+.story-box span{
+    position:relative;
+    z-index:2;
+
+    letter-spacing:4px;
+    font-size:10px;
+}
+
+.story-text p{
+    line-height:1.9;
+    color:#765e5e;
+    margin-top:25px;
+}
+
+.signature{
+    font:italic 28px "Cormorant Garamond",serif;
+    margin-top:35px;
+    color:var(--rose);
+}
+
+
+/* =========================
+   DETAILS
+========================= */
+
+.details{
+    background:#8d5858;
+    color:#fff;
+}
+
+.details h2{
+    color:#fff;
+}
+
 .details-grid{
-    max-width:1050px;margin:60px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+    max-width:1050px;
+    margin:60px auto 0;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
 }
-.detail-card{text-align:center;border:1px solid rgba(255,255,255,.35);padding:45px 20px}
-.detail-card .icon{font-size:32px;color:#f2d7cd;margin-bottom:18px}
-.detail-card h3{font-size:10px;letter-spacing:3px;font-weight:500;margin-bottom:15px}
-.detail-card p{line-height:1.8;color:#f9e8e2}
-.rsvp{text-align:center;padding:120px 7%;background:#f4e3df}
-.rsvp p{max-width:650px;margin:25px auto;line-height:1.8;color:#765e5e}
-.rsvp a{display:inline-block;margin-top:15px;background:#7e4b4b;color:#fff;padding:19px 36px;letter-spacing:3px;font-size:10px}
-footer{text-align:center;padding:35px;background:#704444;color:#f4ded7;font-size:10px;letter-spacing:2px}
+
+.detail-card{
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.35);
+
+    padding:45px 20px;
+}
+
+.detail-card .icon{
+    font-size:32px;
+    color:#f2d7cd;
+    margin-bottom:18px;
+}
+
+.detail-card h3{
+    font-size:10px;
+    letter-spacing:3px;
+    font-weight:500;
+    margin-bottom:15px;
+}
+
+.detail-card p{
+    line-height:1.8;
+    color:#f9e8e2;
+}
+
+
+/* =========================
+   RSVP
+========================= */
+
+.rsvp{
+    text-align:center;
+    padding:120px 7%;
+    background:#f4e3df;
+}
+
+.rsvp p{
+    max-width:650px;
+    margin:25px auto;
+    line-height:1.8;
+    color:#765e5e;
+}
+
+.rsvp a{
+    display:inline-block;
+    margin-top:15px;
+
+    background:#7e4b4b;
+    color:#fff;
+
+    padding:19px 36px;
+
+    letter-spacing:3px;
+    font-size:10px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+    padding:35px;
+
+    background:#704444;
+    color:#f4ded7;
+
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+
+/* =========================
+   MUSIC BUTTON
+========================= */
 
 .music-badge{
-    position:fixed;right:20px;bottom:20px;z-index:50;
-    width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.5);
-    background:#704444;color:#fff;display:none;align-items:center;justify-content:center;
-    box-shadow:0 8px 25px rgba(50,25,25,.25);cursor:pointer
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:100;
+
+    width:52px;
+    height:52px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.5);
+
+    background:#704444;
+    color:#fff;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 8px 25px rgba(50,25,25,.25);
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
 }
-.music-badge.show{display:flex}
-.music-badge.playing{animation:pulse 1.5s infinite}
-@keyframes pulse{50%{transform:scale(1.08)}}
-@keyframes rise{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+
+.music-badge.show{
+    display:flex;
+}
+
+.music-badge:hover{
+    transform:scale(1.08);
+}
+
+.music-badge.playing{
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes rise{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
-    nav{padding:18px 5%}.nav-links{display:none}
-    .hero h1{letter-spacing:-1px}
-    .date{min-width:0;width:100%;letter-spacing:2px}
-    .featured{grid-template-columns:1fr;grid-template-rows:360px 230px 230px}
-    .photo-card.large{grid-row:auto}
-    .story{grid-template-columns:1fr}
-    .story-box{min-height:420px}
-    .details-grid{grid-template-columns:1fr}
+
+    nav{
+        padding:18px 5%;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero h1{
+        letter-spacing:-1px;
+    }
+
+    .date{
+        min-width:0;
+        width:100%;
+        letter-spacing:2px;
+    }
+
+    .featured{
+        grid-template-columns:1fr;
+        grid-template-rows:360px 230px 230px;
+    }
+
+    .photo-card.large{
+        grid-row:auto;
+    }
+
+    .story{
+        grid-template-columns:1fr;
+    }
+
+    .story-box{
+        min-height:420px;
+    }
+
+    .details-grid{
+        grid-template-columns:1fr;
+    }
 }
+
 @media(max-width:500px){
-    .hero-content{padding-top:90px}
-    .count-box{width:115px;height:115px}
-    .count-box span{font-size:42px}
-    .section{padding:80px 6%}
+
+    .hero-content{
+        padding-top:90px;
+    }
+
+    .count-box{
+        width:115px;
+        height:115px;
+    }
+
+    .count-box span{
+        font-size:42px;
+    }
+
+    .section{
+        padding:80px 6%;
+    }
+
+    .music-badge{
+        right:15px;
+        bottom:15px;
+    }
 }
+
 </style>
+
 </head>
 
 <body>
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
 <nav>
-    <div class="logo">{{ settings.partner1 }} <span>&</span> {{ settings.partner2 }}</div>
-    <div class="nav-links">
-        <a href="#story">OUR STORY</a>
-        <a href="#countdown">COUNTDOWN</a>
-        <a href="#photos">PHOTOS</a>
-        <a href="#details">DETAILS</a>
-        <a href="#rsvp">RSVP</a>
-    </div>
+
+```
+<div class="logo">
+    {{ settings.partner1 }}
+    <span>&</span>
+    {{ settings.partner2 }}
+</div>
+
+<div class="nav-links">
+
+    <a href="#story">OUR STORY</a>
+    <a href="#countdown">COUNTDOWN</a>
+    <a href="#photos">PHOTOS</a>
+    <a href="#details">DETAILS</a>
+    <a href="#rsvp">RSVP</a>
+
+</div>
+```
+
 </nav>
 
-<section class="hero">
-    <img class="floral left" src="{{ url_for('static', filename='wedding-floral.png') }}" alt="">
-    <img class="floral right" src="{{ url_for('static', filename='wedding-floral.png') }}" alt="">
+<!-- =========================
+     HERO
+========================= -->
 
-    <div class="hero-content">
-        <p class="eyebrow">WE'RE GETTING MARRIED</p>
-        <div class="rule"></div>
-        <h1>{{ settings.partner1 }} <i>&amp;</i> {{ settings.partner2 }}</h1>
-        <p class="tagline">{{ settings.tagline }}</p>
-        <div class="date">{{ settings.weddingDate }} &nbsp; | &nbsp; {{ settings.weddingTime }}</div>
-        <br>
-        <a class="invite-btn" href="#countdown">VIEW INVITATION ›</a>
+<section class="hero">
+
+```
+<img
+    class="floral left"
+    src="{{ url_for('static', filename='wedding-floral.png') }}"
+    alt=""
+>
+
+<img
+    class="floral right"
+    src="{{ url_for('static', filename='wedding-floral.png') }}"
+    alt=""
+>
+
+
+<div class="hero-content">
+
+    <p class="eyebrow">
+        WE'RE GETTING MARRIED
+    </p>
+
+    <div class="rule"></div>
+
+    <h1>
+        {{ settings.partner1 }}
+        <i>&amp;</i>
+        {{ settings.partner2 }}
+    </h1>
+
+    <p class="tagline">
+        {{ settings.tagline }}
+    </p>
+
+    <div class="date">
+        {{ settings.weddingDate }}
+        &nbsp; | &nbsp;
+        {{ settings.weddingTime }}
     </div>
+
+    <br>
+
+    <a
+        class="invite-btn"
+        href="#countdown"
+    >
+        VIEW INVITATION ›
+    </a>
+
+</div>
+```
+
 </section>
+
+<!-- =========================
+     SAVE THE DATE
+========================= -->
 
 <section class="section">
-    <div class="center">
-        <p class="rose-label">SAVE THE DATE</p>
-        <h2>A day made for <em>love.</em></h2>
-        <p class="description">
-            We would be delighted to celebrate this beautiful day
-            with the people closest to our hearts.
+
+```
+<div class="center">
+
+    <p class="rose-label">
+        SAVE THE DATE
+    </p>
+
+    <h2>
+        A day made for <em>love.</em>
+    </h2>
+
+    <p class="description">
+        We would be delighted to celebrate this beautiful day
+        with the people closest to our hearts.
+    </p>
+
+    <div class="flourish">
+        ♥
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     COUNTDOWN
+========================= -->
+
+<section
+    class="section countdown-section"
+    id="countdown"
+>
+
+```
+<div class="center">
+
+    <p class="rose-label">
+        COUNTING DOWN TO FOREVER
+    </p>
+
+    <h2>
+        Until we say <em>"I do."</em>
+    </h2>
+
+
+    <div class="countdown">
+
+        <div class="count-box">
+            <span id="days">00</span>
+            <small>DAYS</small>
+        </div>
+
+        <div class="count-box">
+            <span id="hours">00</span>
+            <small>HOURS</small>
+        </div>
+
+        <div class="count-box">
+            <span id="minutes">00</span>
+            <small>MINUTES</small>
+        </div>
+
+        <div class="count-box">
+            <span id="seconds">00</span>
+            <small>SECONDS</small>
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     PHOTOS
+========================= -->
+
+<section
+    class="section photos"
+    id="photos"
+>
+
+```
+<div class="center">
+
+    <p class="rose-label">
+        OUR FAVORITE MOMENTS
+    </p>
+
+    <h2>
+        Moments worth <em>remembering.</em>
+    </h2>
+
+    <p class="description">
+        A collection of beautiful memories and the beginning
+        of our forever.
+    </p>
+
+</div>
+
+
+<div class="featured">
+
+    {% for number in [1,2,3] %}
+
+    {% set photo =
+        photos[number-1]
+        if photos|length >= number
+        else ""
+    %}
+
+    <div
+        class="photo-card
+        {% if number == 1 %}large{% endif %}"
+    >
+
+        {% if photo %}
+
+        <img
+            src="{{ url_for('uploaded_file', filename=photo) }}"
+            alt="Wedding memory"
+        >
+
+        {% endif %}
+
+
+        <div class="photo-label">
+
+            {% if number == 1 %}
+                OUR DAY
+            {% elif number == 2 %}
+                TOGETHER
+            {% else %}
+                FOREVER
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     OUR STORY
+========================= -->
+
+<section
+    class="section"
+    id="story"
+>
+
+```
+<div class="story">
+
+    <div class="story-box">
+
+        {% if photos %}
+
+        <img
+            src="{{ url_for('uploaded_file', filename=photos[0]) }}"
+            alt="Wedding photo"
+        >
+
+        {% endif %}
+
+        <span>
+            {{ settings.partner1 }}
+            &amp;
+            {{ settings.partner2 }}
+        </span>
+
+    </div>
+
+
+    <div class="story-text">
+
+        <p class="rose-label">
+            OUR STORY
         </p>
-        <div class="flourish">♥</div>
-    </div>
-</section>
 
-<section class="section countdown-section" id="countdown">
-    <div class="center">
-        <p class="rose-label">COUNTING DOWN TO FOREVER</p>
-        <h2>Until we say <em>"I do."</em></h2>
-        <div class="countdown">
-            <div class="count-box"><span id="days">00</span><small>DAYS</small></div>
-            <div class="count-box"><span id="hours">00</span><small>HOURS</small></div>
-            <div class="count-box"><span id="minutes">00</span><small>MINUTES</small></div>
-            <div class="count-box"><span id="seconds">00</span><small>SECONDS</small></div>
+        <h2>
+            From a moment to a <em>lifetime.</em>
+        </h2>
+
+        <p>
+            {{ settings.story1 }}
+        </p>
+
+        <p>
+            {{ settings.story2 }}
+        </p>
+
+        <div class="signature">
+            {{ settings.partner1 }}
+            &amp;
+            {{ settings.partner2 }}
         </div>
-    </div>
-</section>
 
-<section class="section photos" id="photos">
-    <div class="center">
-        <p class="rose-label">OUR FAVORITE MOMENTS</p>
-        <h2>Moments worth <em>remembering.</em></h2>
-        <p class="description">A collection of beautiful memories and the beginning of our forever.</p>
     </div>
 
-    <div class="featured">
-        {% for number in [1,2,3] %}
-        {% set photo = photos[number-1] if photos|length >= number else "" %}
-        <div class="photo-card {% if number == 1 %}large{% endif %}">
-            {% if photo %}
-                <img src="{{ url_for('uploaded_file', filename=photo) }}" alt="Wedding memory">
-            {% endif %}
-            <div class="photo-label">
-                {% if number == 1 %}OUR DAY{% elif number == 2 %}TOGETHER{% else %}FOREVER{% endif %}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+</div>
+```
+
 </section>
 
-<section class="section" id="story">
-    <div class="story">
-        <div class="story-box">
-            {% if photos %}
-                <img src="{{ url_for('uploaded_file', filename=photos[0]) }}" alt="Wedding photo">
-            {% endif %}
-            <span>{{ settings.partner1 }} &amp; {{ settings.partner2 }}</span>
+<!-- =========================
+     DETAILS
+========================= -->
+
+<section
+    class="section details"
+    id="details"
+>
+
+```
+<div class="center">
+
+    <p
+        class="rose-label"
+        style="color:#f2d7cd"
+    >
+        THE CELEBRATION
+    </p>
+
+    <h2>
+        Join us as we say <em>"I do."</em>
+    </h2>
+
+</div>
+
+
+<div class="details-grid">
+
+
+    <div class="detail-card">
+
+        <div class="icon">
+            ♡
         </div>
-        <div class="story-text">
-            <p class="rose-label">OUR STORY</p>
-            <h2>From a moment to a <em>lifetime.</em></h2>
-            <p>{{ settings.story1 }}</p>
-            <p>{{ settings.story2 }}</p>
-            <div class="signature">{{ settings.partner1 }} &amp; {{ settings.partner2 }}</div>
-        </div>
+
+        <h3>
+            WHEN
+        </h3>
+
+        <p>
+            {{ settings.weddingDate }}
+            <br>
+            {{ settings.weddingTime }}
+        </p>
+
     </div>
+
+
+    <div class="detail-card">
+
+        <div class="icon">
+            ⌂
+        </div>
+
+        <h3>
+            WHERE
+        </h3>
+
+        <p>
+            {{ settings.venue }}
+        </p>
+
+    </div>
+
+
+    <div class="detail-card">
+
+        <div class="icon">
+            ✦
+        </div>
+
+        <h3>
+            DRESS CODE
+        </h3>
+
+        <p>
+            {{ settings.dressCode }}
+        </p>
+
+    </div>
+
+
+</div>
+```
+
 </section>
 
-<section class="section details" id="details">
-    <div class="center">
-        <p class="rose-label" style="color:#f2d7cd">THE CELEBRATION</p>
-        <h2>Join us as we say <em>"I do."</em></h2>
-    </div>
-    <div class="details-grid">
-        <div class="detail-card">
-            <div class="icon">♡</div>
-            <h3>WHEN</h3>
-            <p>{{ settings.weddingDate }}<br>{{ settings.weddingTime }}</p>
-        </div>
-        <div class="detail-card">
-            <div class="icon">⌂</div>
-            <h3>WHERE</h3>
-            <p>{{ settings.venue }}</p>
-        </div>
-        <div class="detail-card">
-            <div class="icon">✦</div>
-            <h3>DRESS CODE</h3>
-            <p>{{ settings.dressCode }}</p>
-        </div>
-    </div>
+<!-- =========================
+     RSVP
+========================= -->
+
+<section
+    class="rsvp"
+    id="rsvp"
+>
+
+```
+<p class="rose-label">
+    RSVP
+</p>
+
+<h2>
+    Will you celebrate<br>
+    with <em>us?</em>
+</h2>
+
+<p>
+    {{ settings.rsvpMessage }}
+</p>
+
+<a
+    href="mailto:{{ settings.rsvpEmail }}"
+>
+    RSVP BY EMAIL
+</a>
+```
+
 </section>
 
-<section class="rsvp" id="rsvp">
-    <p class="rose-label">RSVP</p>
-    <h2>Will you celebrate<br>with <em>us?</em></h2>
-    <p>{{ settings.rsvpMessage }}</p>
-    <a href="mailto:{{ settings.rsvpEmail }}">RSVP BY EMAIL</a>
-</section>
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
-    Made with love · {{ settings.partner1 }} &amp; {{ settings.partner2 }} · 2026
+
+```
+Made with love ·
+{{ settings.partner1 }}
+&amp;
+{{ settings.partner2 }}
+· 2026
+```
+
 </footer>
 
+<!-- =========================
+     WEDDING MUSIC
+     
+     IMPORTANT:
+     Only ONE audio element.
+========================= -->
+
 {% if settings.music_enabled %}
-<audio id="weddingMusic" loop preload="auto">
-    {% if settings.music_source == "upload" and settings.music_file %}
-        <source src="{{ url_for('uploaded_file', filename=settings.music_file) }}">
-    {% elif settings.music_source == "url" and settings.music_url %}
-        <source src="{{ settings.music_url }}">
-    {% endif %}
-</audio>
-<button class="music-badge" id="musicButton" type="button" aria-label="Play or pause wedding music">♫</button>
+
+<audio
+id="weddingMusic"
+loop
+preload="auto"
+
+>
+
+```
+{% if settings.music_source == "upload" and settings.music_file %}
+
+    <source
+        src="{{ url_for('uploaded_file', filename=settings.music_file) }}"
+    >
+
+{% elif settings.music_source == "url" and settings.music_url %}
+
+    <source
+        src="{{ settings.music_url }}"
+    >
+
 {% endif %}
+```
+
+</audio>
+
+<button
+class="music-badge"
+id="musicButton"
+type="button"
+aria-label="Play or pause wedding music"
+
+>
+
+```
+♫
+```
+
+</button>
+
+{% endif %}
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script>
+
+/* =========================
+   COUNTDOWN
+========================= */
+
 function updateCountdown(){
-    const target = new Date("{{ settings.weddingDate }} {{ settings.weddingTime }}");
+
+    const target =
+        new Date(
+            "{{ settings.weddingDate }} {{ settings.weddingTime }}"
+        );
+
     const now = new Date();
+
     let diff = target - now;
-    if(diff < 0) diff = 0;
-    document.getElementById("days").textContent = String(Math.floor(diff/86400000)).padStart(2,"0");
-    document.getElementById("hours").textContent = String(Math.floor(diff/3600000)%24).padStart(2,"0");
-    document.getElementById("minutes").textContent = String(Math.floor(diff/60000)%60).padStart(2,"0");
-    document.getElementById("seconds").textContent = String(Math.floor(diff/1000)%60).padStart(2,"0");
+
+    if(diff < 0){
+        diff = 0;
+    }
+
+
+    const days =
+        document.getElementById("days");
+
+    const hours =
+        document.getElementById("hours");
+
+    const minutes =
+        document.getElementById("minutes");
+
+    const seconds =
+        document.getElementById("seconds");
+
+
+    if(!days || !hours || !minutes || !seconds){
+        return;
+    }
+
+
+    days.textContent =
+        String(
+            Math.floor(diff / 86400000)
+        ).padStart(2,"0");
+
+
+    hours.textContent =
+        String(
+            Math.floor(diff / 3600000) % 24
+        ).padStart(2,"0");
+
+
+    minutes.textContent =
+        String(
+            Math.floor(diff / 60000) % 60
+        ).padStart(2,"0");
+
+
+    seconds.textContent =
+        String(
+            Math.floor(diff / 1000) % 60
+        ).padStart(2,"0");
+
 }
+
+
 updateCountdown();
-setInterval(updateCountdown,1000);
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+/* =========================
+   WEDDING MUSIC
+========================= */
 
 {% if settings.music_enabled %}
-const music = document.getElementById("weddingMusic");
-const musicButton = document.getElementById("musicButton");
-music.volume = {{ settings.music_volume|default(0.35) }};
-const musicAvailable = music && music.querySelector("source");
 
-function showMusicButton(){
-    if(musicAvailable) musicButton.classList.add("show");
-}
-async function startMusic(){
-    if(!musicAvailable) return;
-    try{
-        await music.play();
+(function(){
+
+    const music =
+        document.getElementById("weddingMusic");
+
+    const musicButton =
+        document.getElementById("musicButton");
+
+
+    if(!music || !musicButton){
+        return;
+    }
+
+
+    /* Admin volume */
+
+    let savedVolume =
+        Number(
+            "{{ settings.music_volume|default(0.35) }}"
+        );
+
+
+    if(
+        !Number.isFinite(savedVolume) ||
+        savedVolume < 0 ||
+        savedVolume > 1
+    ){
+        savedVolume = 0.35;
+    }
+
+
+    music.volume = savedVolume;
+
+
+    /* Check if music exists */
+
+    const source =
+        music.querySelector("source");
+
+
+    if(
+        !source ||
+        !source.getAttribute("src")
+    ){
+        return;
+    }
+
+
+    /* Show music button */
+
+    musicButton.classList.add("show");
+
+
+    /* Update button */
+
+    function setPlaying(){
+
         musicButton.classList.add("playing");
+
         musicButton.textContent = "❚❚";
-    }catch(e){
-        showMusicButton();
+
+        musicButton.setAttribute(
+            "aria-label",
+            "Pause wedding music"
+        );
+
     }
-}
-function toggleMusic(){
-    if(!musicAvailable) return;
-    if(music.paused){
-        music.play().then(()=>{
-            musicButton.classList.add("playing");
-            musicButton.textContent="❚❚";
-        }).catch(()=>{});
-    }else{
-        music.pause();
+
+
+    function setPaused(){
+
         musicButton.classList.remove("playing");
-        musicButton.textContent="♫";
+
+        musicButton.textContent = "♫";
+
+        musicButton.setAttribute(
+            "aria-label",
+            "Play wedding music"
+        );
+
     }
-}
-musicButton.addEventListener("click",toggleMusic);
-document.addEventListener("click",()=>{ if(music.paused) startMusic(); },{once:true});
-showMusicButton();
+
+
+    /* Play music */
+
+    function startMusic(){
+
+        if(!music.paused){
+            return;
+        }
+
+
+        const promise =
+            music.play();
+
+
+        if(promise !== undefined){
+
+            promise
+                .then(function(){
+
+                    setPlaying();
+
+                })
+                .catch(function(){
+
+                    /*
+                       Browser blocked autoplay.
+                       The music button remains visible
+                       so the visitor can start it manually.
+                    */
+
+                    setPaused();
+
+                });
+
+        }
+
+    }
+
+
+    /* Play / pause button */
+
+    musicButton.addEventListener(
+        "click",
+        function(event){
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            if(music.paused){
+
+                startMusic();
+
+            }else{
+
+                music.pause();
+
+                setPaused();
+
+            }
+
+        }
+    );
+
+
+    /* Keep button synchronized */
+
+    music.addEventListener(
+        "play",
+        setPlaying
+    );
+
+
+    music.addEventListener(
+        "pause",
+        setPaused
+    );
+
+
+    /* Try autoplay */
+
+    startMusic();
+
+
+    /*
+       If browser blocks autoplay,
+       first user interaction starts music.
+    */
+
+    function firstInteraction(){
+
+        if(music.paused){
+
+            startMusic();
+
+        }
+
+
+        document.removeEventListener(
+            "click",
+            firstInteraction
+        );
+
+        document.removeEventListener(
+            "touchstart",
+            firstInteraction
+        );
+
+        document.removeEventListener(
+            "keydown",
+            firstInteraction
+        );
+
+    }
+
+
+    document.addEventListener(
+        "click",
+        firstInteraction,
+        {once:true}
+    );
+
+
+    document.addEventListener(
+        "touchstart",
+        firstInteraction,
+        {once:true}
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        firstInteraction,
+        {once:true}
+    );
+
+
+})();
+
 {% endif %}
+
 </script>
+
 </body>
 </html>
