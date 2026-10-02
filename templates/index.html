@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,7 +136,7 @@ a{
 }
 
 .rule:after{
-    content:"♥";
+    content:"Ã¢â„¢Â¥";
     position:absolute;
     left:50%;
     top:50%;
@@ -764,7 +763,7 @@ footer{
             class="invite-btn"
             href="#countdown"
         >
-            VIEW INVITATION ›
+            VIEW INVITATION Ã¢â‚¬Âº
         </a>
 
     </div>
@@ -794,7 +793,7 @@ footer{
         </p>
 
         <div class="flourish">
-            ♥
+            Ã¢â„¢Â¥
         </div>
 
     </div>
@@ -935,7 +934,14 @@ footer{
 
         <div class="story-box">
 
-            {% if photos %}
+            {% if settings.story_photo %}
+
+            <img
+                src="{{ url_for('uploaded_file', filename=settings.story_photo) }}"
+                alt="OUR STORY photo"
+            >
+
+            {% elif photos %}
 
             <img
                 src="{{ url_for('uploaded_file', filename=photos[0]) }}"
@@ -1016,7 +1022,7 @@ footer{
         <div class="detail-card">
 
             <div class="icon">
-                ♡
+                Ã¢â„¢Â¡
             </div>
 
             <h3>
@@ -1035,7 +1041,7 @@ footer{
         <div class="detail-card">
 
             <div class="icon">
-                ⌂
+                Ã¢Å’â€š
             </div>
 
             <h3>
@@ -1052,7 +1058,7 @@ footer{
         <div class="detail-card">
 
             <div class="icon">
-                ✦
+                Ã¢Å“Â¦
             </div>
 
             <h3>
@@ -1073,6 +1079,229 @@ footer{
 <!-- =========================
      RSVP
 ========================= -->
+
+
+<!-- ==================================================
+     FEATURED PHOTO ALBUMS
+================================================== -->
+
+<section
+    class="featured-albums"
+    id="featuredAlbums"
+>
+
+    <p class="rose-label">
+        OUR MEMORIES
+    </p>
+
+    <h2>
+        Featured <em>Photos</em>
+    </h2>
+
+    <p class="description">
+        A few beautiful moments from our journey together.
+    </p>
+
+
+    {% if settings.featured_albums %}
+
+    <div class="featured-album-grid">
+
+        {% for album in settings.featured_albums %}
+
+            {% if album.photos %}
+
+            <button
+                type="button"
+                class="featured-album-card"
+                onclick="openFeaturedAlbum({{ loop.index0 }})"
+                aria-label="Open {{ album.title }}"
+            >
+
+                <div class="featured-album-cover">
+
+                    <img
+                        src="{{ url_for('uploaded_file', filename=album.photos[0]) }}"
+                        alt="{{ album.title }}"
+                    >
+
+                    <div class="featured-album-overlay">
+
+                        <span class="featured-album-icon">
+                            Ã¢â„¢Â¡
+                        </span>
+
+                        <span>
+                            VIEW PHOTOS
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="featured-album-info">
+
+                    <h3>
+                        {{ album.title }}
+                    </h3>
+
+                    <span>
+                        {{ album.photos|length }}
+                        {% if album.photos|length == 1 %}
+                            PHOTO
+                        {% else %}
+                            PHOTOS
+                        {% endif %}
+                    </span>
+
+                </div>
+
+            </button>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+
+<!-- ==================================================
+     FEATURED ALBUM STYLES
+================================================== -->
+
+<style>
+
+.featured-albums {
+    padding: 90px 20px;
+    text-align: center;
+}
+
+.featured-albums .description {
+    max-width: 650px;
+    margin: 0 auto 40px;
+}
+
+.featured-album-grid {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+}
+
+.featured-album-card {
+    appearance: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+}
+
+.featured-album-cover {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    aspect-ratio: 4 / 3;
+    background: #eee;
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.12);
+}
+
+.featured-album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition:
+        transform .5s ease;
+}
+
+.featured-album-card:hover
+.featured-album-cover img {
+    transform: scale(1.06);
+}
+
+.featured-album-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(0,0,0,.35);
+    color: white;
+    opacity: 0;
+    transition: opacity .3s ease;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.featured-album-card:hover
+.featured-album-overlay,
+.featured-album-card:focus-visible
+.featured-album-overlay {
+    opacity: 1;
+}
+
+.featured-album-icon {
+    font-size: 34px;
+    line-height: 1;
+}
+
+.featured-album-info {
+    padding: 15px 5px 0;
+}
+
+.featured-album-info h3 {
+    margin: 0 0 6px;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.featured-album-info span {
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: .65;
+}
+
+@media (max-width: 600px) {
+
+    .featured-albums {
+        padding: 65px 16px;
+    }
+
+    .featured-album-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .featured-album-overlay {
+        opacity: 1;
+        background:
+            linear-gradient(
+                to top,
+                rgba(0,0,0,.45),
+                transparent
+            );
+        justify-content: flex-end;
+        padding-bottom: 18px;
+    }
+
+}
+
+</style>
 
 <section
     class="rsvp"
@@ -1106,11 +1335,11 @@ footer{
 
 <footer>
 
-    Made with love ·
+    Made with love Ã‚Â·
     {{ settings.partner1 }}
     &amp;
     {{ settings.partner2 }}
-    · 2026
+    Ã‚Â· 2026
 
 </footer>
 
@@ -1160,7 +1389,7 @@ footer{
         type="button"
         aria-label="Play or pause wedding music"
     >
-        ♫
+        Ã¢â„¢Â«
     </button>
 
 {% endif %}
@@ -1325,7 +1554,7 @@ setInterval(
 
         musicButton.classList.add("playing");
 
-        musicButton.textContent = "❚❚";
+        musicButton.textContent = "Ã¢ÂÅ¡Ã¢ÂÅ¡";
 
         musicButton.setAttribute(
             "aria-label",
@@ -1339,7 +1568,7 @@ setInterval(
 
         musicButton.classList.remove("playing");
 
-        musicButton.textContent = "♫";
+        musicButton.textContent = "Ã¢â„¢Â«";
 
         musicButton.setAttribute(
             "aria-label",
@@ -1495,6 +1724,576 @@ setInterval(
 
 </script>
 
+
+<!-- FALLING WEDDING PETALS -->
+<style>
+#petalContainer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.wedding-petal {
+    position: absolute;
+    top: -30px;
+    width: 11px;
+    height: 16px;
+    border-radius: 70% 30% 70% 30%;
+    background: rgba(255, 190, 205, 0.75);
+    animation: weddingPetalFall linear forwards;
+}
+
+@keyframes weddingPetalFall {
+    0% {
+        transform: translateY(-30px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateY(50vh) translateX(70px) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(110vh) translateX(-70px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #petalContainer {
+        display: none;
+    }
+}
+</style>
+
+<div id="petalContainer" aria-hidden="true"></div>
+
+<script>
+(function () {
+
+    const container =
+        document.getElementById("petalContainer");
+
+    if (!container) {
+        return;
+    }
+
+    function createPetal() {
+
+        const petal =
+            document.createElement("span");
+
+        petal.className = "wedding-petal";
+
+        petal.style.left =
+            Math.random() * 100 + "vw";
+
+        const size =
+            8 + Math.random() * 8;
+
+        petal.style.width =
+            size + "px";
+
+        petal.style.height =
+            (size * 1.4) + "px";
+
+        petal.style.animationDuration =
+            (7 + Math.random() * 6) + "s";
+
+        petal.style.transform =
+            "rotate(" +
+            Math.random() * 360 +
+            "deg)";
+
+        container.appendChild(petal);
+
+        petal.addEventListener(
+            "animationend",
+            function () {
+                petal.remove();
+            }
+        );
+    }
+
+    for (let i = 0; i < 15; i++) {
+        setTimeout(
+            createPetal,
+            i * 400
+        );
+    }
+
+    setInterval(
+        createPetal,
+        900
+    );
+
+})();
+</script>
+
+
+<!-- ==================================================
+     FEATURED PHOTO ALBUM VIEWER
+================================================== -->
+
+<div
+    id="featuredViewer"
+    class="featured-viewer"
+    aria-hidden="true"
+>
+
+    <button
+        type="button"
+        class="featured-viewer-close"
+        onclick="closeFeaturedAlbum()"
+        aria-label="Close"
+    >
+        Ã—
+    </button>
+
+
+    <button
+        type="button"
+        class="featured-viewer-prev"
+        onclick="previousFeaturedPhoto()"
+        aria-label="Previous photo"
+    >
+        â€¹
+    </button>
+
+
+    <div class="featured-viewer-content">
+
+        <img
+            id="featuredViewerImage"
+            src=""
+            alt=""
+        >
+
+        <div
+            id="featuredViewerTitle"
+            class="featured-viewer-title"
+        ></div>
+
+        <div
+            id="featuredViewerCounter"
+            class="featured-viewer-counter"
+        ></div>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="featured-viewer-next"
+        onclick="nextFeaturedPhoto()"
+        aria-label="Next photo"
+    >
+        â€º
+    </button>
+
+</div>
+
+
+<style>
+
+.featured-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.94);
+    padding: 30px;
+}
+
+.featured-viewer.open {
+    display: flex;
+}
+
+.featured-viewer-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#featuredViewerImage {
+    display: block;
+    max-width: 85vw;
+    max-height: 78vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 15px 60px rgba(0,0,0,.5);
+}
+
+.featured-viewer-title {
+    color: white;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.featured-viewer-counter {
+    color: rgba(255,255,255,.7);
+    margin-top: 6px;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.featured-viewer-close,
+.featured-viewer-prev,
+.featured-viewer-next {
+    position: absolute;
+    border: 0;
+    background: rgba(255,255,255,.12);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s ease;
+}
+
+.featured-viewer-close:hover,
+.featured-viewer-prev:hover,
+.featured-viewer-next:hover {
+    background: rgba(255,255,255,.25);
+}
+
+.featured-viewer-close {
+    top: 20px;
+    right: 25px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 34px;
+    line-height: 1;
+}
+
+.featured-viewer-prev,
+.featured-viewer-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55px;
+    height: 75px;
+    border-radius: 12px;
+    font-size: 55px;
+    line-height: 1;
+}
+
+.featured-viewer-prev {
+    left: 20px;
+}
+
+.featured-viewer-next {
+    right: 20px;
+}
+
+@media (max-width: 600px) {
+
+    .featured-viewer {
+        padding: 15px;
+    }
+
+    #featuredViewerImage {
+        max-width: 92vw;
+        max-height: 75vh;
+    }
+
+    .featured-viewer-prev,
+    .featured-viewer-next {
+        width: 45px;
+        height: 60px;
+        font-size: 42px;
+    }
+
+    .featured-viewer-prev {
+        left: 8px;
+    }
+
+    .featured-viewer-next {
+        right: 8px;
+    }
+
+}
+
+
+/* Make the album cards clearly clickable */
+
+.featured-album-card {
+    position: relative;
+}
+
+.featured-album-card:active {
+    transform: scale(.98);
+}
+
+</style>
+
+
+<script>
+
+const featuredAlbums =
+    {{ settings.featured_albums|default([])|tojson }};
+
+let currentFeaturedAlbum = 0;
+let currentFeaturedPhoto = 0;
+
+
+function openFeaturedAlbum(albumIndex) {
+
+    const album =
+        featuredAlbums[albumIndex];
+
+    if (!album || !album.photos || !album.photos.length) {
+        return;
+    }
+
+    currentFeaturedAlbum = albumIndex;
+    currentFeaturedPhoto = 0;
+
+    showFeaturedPhoto();
+
+    const viewer =
+        document.getElementById("featuredViewer");
+
+    if (!viewer) {
+        return;
+    }
+
+    viewer.classList.add("open");
+    viewer.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeFeaturedAlbum() {
+
+    const viewer =
+        document.getElementById("featuredViewer");
+
+    if (!viewer) {
+        return;
+    }
+
+    viewer.classList.remove("open");
+    viewer.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+}
+
+
+function showFeaturedPhoto() {
+
+    const album =
+        featuredAlbums[currentFeaturedAlbum];
+
+    if (!album || !album.photos || !album.photos.length) {
+        return;
+    }
+
+    const filename =
+        album.photos[currentFeaturedPhoto];
+
+    const image =
+        document.getElementById("featuredViewerImage");
+
+    const title =
+        document.getElementById("featuredViewerTitle");
+
+    const counter =
+        document.getElementById("featuredViewerCounter");
+
+    if (!image) {
+        return;
+    }
+
+    image.src =
+        "{{ url_for('uploaded_file', filename='PLACEHOLDER') }}"
+            .replace(
+                "PLACEHOLDER",
+                encodeURIComponent(filename)
+            );
+
+    image.alt =
+        album.title || "Wedding photo";
+
+    if (title) {
+        title.textContent =
+            album.title || "";
+    }
+
+    if (counter) {
+        counter.textContent =
+            (currentFeaturedPhoto + 1) +
+            " / " +
+            album.photos.length;
+    }
+
+}
+
+
+function nextFeaturedPhoto() {
+
+    const album =
+        featuredAlbums[currentFeaturedAlbum];
+
+    if (!album || !album.photos.length) {
+        return;
+    }
+
+    currentFeaturedPhoto =
+        (currentFeaturedPhoto + 1) %
+        album.photos.length;
+
+    showFeaturedPhoto();
+}
+
+
+function previousFeaturedPhoto() {
+
+    const album =
+        featuredAlbums[currentFeaturedAlbum];
+
+    if (!album || !album.photos.length) {
+        return;
+    }
+
+    currentFeaturedPhoto =
+        (currentFeaturedPhoto - 1 +
+            album.photos.length) %
+        album.photos.length;
+
+    showFeaturedPhoto();
+}
+
+
+/* Keyboard navigation */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const viewer =
+            document.getElementById("featuredViewer");
+
+        if (!viewer ||
+            !viewer.classList.contains("open")) {
+            return;
+        }
+
+        if (event.key === "Escape") {
+            closeFeaturedAlbum();
+        }
+
+        if (event.key === "ArrowRight") {
+            nextFeaturedPhoto();
+        }
+
+        if (event.key === "ArrowLeft") {
+            previousFeaturedPhoto();
+        }
+
+    }
+);
+
+
+/* Click the dark background to close */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const viewer =
+            document.getElementById("featuredViewer");
+
+        if (!viewer ||
+            !viewer.classList.contains("open")) {
+            return;
+        }
+
+        if (event.target === viewer) {
+            closeFeaturedAlbum();
+        }
+
+    }
+);
+
+
+/* Touch swipe */
+
+let featuredTouchStartX = 0;
+let featuredTouchEndX = 0;
+
+
+document.addEventListener(
+    "touchstart",
+    function(event) {
+
+        const viewer =
+            document.getElementById("featuredViewer");
+
+        if (!viewer ||
+            !viewer.classList.contains("open")) {
+            return;
+        }
+
+        featuredTouchStartX =
+            event.changedTouches[0].screenX;
+
+    },
+    { passive: true }
+);
+
+
+document.addEventListener(
+    "touchend",
+    function(event) {
+
+        const viewer =
+            document.getElementById("featuredViewer");
+
+        if (!viewer ||
+            !viewer.classList.contains("open")) {
+            return;
+        }
+
+        featuredTouchEndX =
+            event.changedTouches[0].screenX;
+
+        const difference =
+            featuredTouchStartX -
+            featuredTouchEndX;
+
+        if (Math.abs(difference) < 50) {
+            return;
+        }
+
+        if (difference > 0) {
+            nextFeaturedPhoto();
+        }
+        else {
+            previousFeaturedPhoto();
+        }
+
+    },
+    { passive: true }
+);
+
+</script>
+
+
 </body>
 </html>
-```

@@ -1,4 +1,4 @@
-﻿from flask import (
+from flask import (
     Flask, render_template, request, redirect, url_for,
     session, send_from_directory, flash
 )
@@ -95,7 +95,13 @@ DEFAULT_SETTINGS = {
     "music_source": "upload",
     "music_url": "",
     "music_file": "",
-    "music_volume": 0.35
+    "music_volume": 0.35,
+
+    # Featured photo albums
+    "featured_albums": [],
+
+    # Permanent OUR STORY photo
+    "story_photo": ""
 }
 
 
@@ -778,7 +784,492 @@ def remove_music():
 
 
 # ============================================================
+# ============================================================
+# FEATURED PHOTO ALBUMS
+# ============================================================
+
+@app.route(
+    "/admin/featured/create",
+    methods=["POST"]
+)
+@admin_required
+def create_featured_album():
+
+    settings = load_settings()
+
+    albums = settings.get(
+        "featured_albums",
+        []
+    )
+
+    title = request.form.get(
+        "title",
+        ""
+    ).strip()
+
+    if not title:
+        flash(
+            "Please enter a featured album name.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    album_id = secure_filename(title).lower()
+
+    if not album_id:
+        flash(
+            "Invalid featured album name.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    existing_ids = {
+        album.get("id")
+        for album in albums
+    }
+
+    base_id = album_id
+    counter = 2
+
+    while album_id in existing_ids:
+        album_id = f"{base_id}-{counter}"
+        counter += 1
+
+    albums.append({
+        "id": album_id,
+        "title": title,
+        "photos": []
+    })
+
+    settings["featured_albums"] = albums
+
+    save_settings(settings)
+
+    flash(
+        f"Featured album '{title}' created!",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#featured"
+    )
+
+
+@app.route(
+    "/admin/featured/upload",
+    methods=["POST"]
+)
+@admin_required
+def upload_featured_photo():
+
+    settings = load_settings()
+
+    albums = settings.get(
+        "featured_albums",
+        []
+    )
+
+    album_id = request.form.get(
+        "album_id",
+        ""
+    ).strip()
+
+    album = next(
+        (
+            album
+            for album in albums
+            if album.get("id") == album_id
+        ),
+        None
+    )
+
+    if not album:
+        flash(
+            "Featured album not found.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    photo = request.files.get(
+        "featured_photo"
+    )
+
+    if not photo or not photo.filename:
+        flash(
+            "Please select a photo.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    if not allowed_file(
+        photo.filename,
+        IMAGE_EXTENSIONS
+    ):
+        flash(
+            "Only JPG, JPEG, PNG, WEBP and GIF images are allowed.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    filename = unique_filename(
+        photo.filename
+    )
+
+    if not filename:
+        flash(
+            "Invalid filename.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    try:
+
+        photo.save(
+            os.path.join(
+                UPLOAD_FOLDER,
+                filename
+            )
+        )
+
+    except OSError:
+
+        flash(
+            "There was a problem uploading the featured photo.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    album.setdefault(
+        "photos",
+        []
+    ).append(filename)
+
+    settings["featured_albums"] = albums
+
+    save_settings(settings)
+
+    flash(
+        "Featured photo added!",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#featured"
+    )
+
+
+@app.route(
+    "/admin/featured/delete-photo",
+    methods=["POST"]
+)
+@admin_required
+def delete_featured_photo():
+
+    settings = load_settings()
+
+    albums = settings.get(
+        "featured_albums",
+        []
+    )
+
+    album_id = request.form.get(
+        "album_id",
+        ""
+    ).strip()
+
+    filename = secure_filename(
+        os.path.basename(
+            request.form.get(
+                "filename",
+                ""
+            ).strip()
+        )
+    )
+
+    album = next(
+        (
+            album
+            for album in albums
+            if album.get("id") == album_id
+        ),
+        None
+    )
+
+    if not album or not filename:
+        flash(
+            "Featured photo not found.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    if filename in album.get(
+        "photos",
+        []
+    ):
+        album["photos"].remove(
+            filename
+        )
+
+    path = os.path.join(
+        UPLOAD_FOLDER,
+        filename
+    )
+
+    if os.path.isfile(path):
+
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+
+    settings["featured_albums"] = albums
+
+    save_settings(settings)
+
+    flash(
+        "Featured photo deleted.",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#featured"
+    )
+
+
+@app.route(
+    "/admin/featured/delete",
+    methods=["POST"]
+)
+@admin_required
+def delete_featured_album():
+
+    settings = load_settings()
+
+    albums = settings.get(
+        "featured_albums",
+        []
+    )
+
+    album_id = request.form.get(
+        "album_id",
+        ""
+    ).strip()
+
+    album = next(
+        (
+            album
+            for album in albums
+            if album.get("id") == album_id
+        ),
+        None
+    )
+
+    if not album:
+        flash(
+            "Featured album not found.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    for filename in album.get(
+        "photos",
+        []
+    ):
+
+        safe_filename = secure_filename(
+            os.path.basename(filename)
+        )
+
+        if not safe_filename:
+            continue
+
+        path = os.path.join(
+            UPLOAD_FOLDER,
+            safe_filename
+        )
+
+        if os.path.isfile(path):
+
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+
+    settings["featured_albums"] = [
+        item
+        for item in albums
+        if item.get("id") != album_id
+    ]
+
+    save_settings(settings)
+
+    flash(
+        "Featured album deleted.",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#featured"
+    )
+
+
+# ============================================================
+
+# ============================================================
+# OUR STORY PHOTO
+# ============================================================
+
+@app.route(
+    "/admin/story-photo",
+    methods=["POST"]
+)
+@admin_required
+def admin_story_photo():
+
+    settings = load_settings()
+
+    photo = request.files.get(
+        "story_photo"
+    )
+
+    if not photo or not photo.filename:
+
+        flash(
+            "Please select a story photo.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin") + "#story-photo"
+        )
+
+    if not allowed_file(
+        photo.filename,
+        IMAGE_EXTENSIONS
+    ):
+
+        flash(
+            "Only JPG, JPEG, PNG, WEBP and GIF images are allowed.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin") + "#story-photo"
+        )
+
+    filename = unique_filename(
+        photo.filename
+    )
+
+    if not filename:
+
+        flash(
+            "Invalid filename.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin") + "#story-photo"
+        )
+
+    try:
+
+        photo.save(
+            os.path.join(
+                UPLOAD_FOLDER,
+                filename
+            )
+        )
+
+    except OSError:
+
+        flash(
+            "There was a problem uploading the story photo.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin") + "#story-photo"
+        )
+
+    old_photo = settings.get(
+        "story_photo",
+        ""
+    )
+
+    settings["story_photo"] = filename
+
+    save_settings(settings)
+
+    # Remove the previous dedicated story photo.
+    # Do not remove it if it is also being used elsewhere.
+    if old_photo and old_photo != filename:
+
+        still_used = False
+
+        if old_photo in settings.get("featured_albums", []):
+            still_used = True
+
+        for album in settings.get(
+            "featured_albums",
+            []
+        ):
+
+            if old_photo in album.get(
+                "photos",
+                []
+            ):
+                still_used = True
+                break
+
+        if not still_used:
+
+            old_path = os.path.join(
+                UPLOAD_FOLDER,
+                secure_filename(
+                    os.path.basename(old_photo)
+                )
+            )
+
+            if os.path.isfile(old_path):
+
+                try:
+                    os.remove(old_path)
+                except OSError:
+                    pass
+
+    flash(
+        "OUR STORY photo changed successfully!",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#story-photo"
+    )
+
+
 # PHOTO UPLOAD
+# ============================================================
+
 # ============================================================
 
 @app.route(
@@ -1020,4 +1511,3 @@ if __name__ == "__main__":
         port=port,
         debug=False
     )
-

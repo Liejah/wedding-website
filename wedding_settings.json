@@ -37,5 +37,12 @@
     "rsvpTitle": "Will You Join Us?",
     "rsvpSubtitle": "We would love to celebrate this special day with you.",
     "footerText": "With love, Stevenson & Zyril Mae",
-    "footerCopyright": "© 2026 Stevenson & Zyril Mae"
+    "footerCopyright": "© 2026 Stevenson & Zyril Mae",
+    "music_enabled": false,
+    "music_source": "upload",
+    "music_url": "",
+    "music_file": "",
+    "music_volume": 0.35,
+    "featured_albums": [],
+    "story_photo": ""
 }

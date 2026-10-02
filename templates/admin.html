@@ -892,7 +892,281 @@ hr{
 
 <section class="card">
 
-    <h2>Wedding Photos</h2>
+
+<!-- =====================================================
+     FEATURED PHOTO ALBUMS
+     ===================================================== -->
+
+
+<!-- =====================================================
+     OUR STORY PHOTO
+     ===================================================== -->
+
+<section
+    class="card"
+    id="story-photo"
+>
+
+    <h2>OUR STORY PHOTO</h2>
+
+    <p class="note">
+        This is the permanent photo displayed beside the
+        OUR STORY section on your public wedding website.
+        Upload any photo you want and change it whenever you like.
+    </p>
+
+
+    {% if settings.story_photo %}
+
+    <div style="margin-bottom:20px;">
+
+        <img
+            src="{{ url_for('uploaded_file', filename=settings.story_photo) }}"
+            alt="Current OUR STORY photo"
+            style="
+                width:220px;
+                height:220px;
+                object-fit:cover;
+                border-radius:14px;
+                display:block;
+                margin-bottom:12px;
+            "
+        >
+
+        <div class="small">
+            Current photo: {{ settings.story_photo }}
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <p class="note">
+        No OUR STORY photo selected yet.
+    </p>
+
+    {% endif %}
+
+
+    <form
+        action="{{ url_for('admin_story_photo') }}"
+        method="post"
+        enctype="multipart/form-data"
+    >
+
+        <input
+            type="file"
+            name="story_photo"
+            accept="image/*"
+            required
+        >
+
+        <button type="submit">
+            {% if settings.story_photo %}
+            CHANGE STORY PHOTO
+            {% else %}
+            SET STORY PHOTO
+            {% endif %}
+        </button>
+
+    </form>
+
+</section>
+
+
+<section class="card" id="featured">
+
+    <h2>Featured Photo Albums</h2>
+
+    <p class="note">
+        Create featured albums for your public wedding website.
+        Visitors will be able to open an album and scroll through its photos.
+    </p>
+
+
+    <!-- CREATE NEW ALBUM -->
+
+    <form
+        action="{{ url_for('create_featured_album') }}"
+        method="post"
+    >
+
+        <div class="grid">
+
+            <div>
+
+                <label>FEATURED ALBUM NAME</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Example: Our Engagement"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+        <button type="submit">
+            CREATE FEATURED ALBUM
+        </button>
+
+    </form>
+
+
+    <hr>
+
+
+    <!-- FEATURED ALBUMS -->
+
+    {% if settings.featured_albums %}
+
+        {% for album in settings.featured_albums %}
+
+        <div
+            style="
+                border:1px solid rgba(0,0,0,.12);
+                border-radius:16px;
+                padding:20px;
+                margin:20px 0;
+            "
+        >
+
+            <h3 style="margin-top:0;">
+                {{ album.title }}
+            </h3>
+
+
+            <!-- UPLOAD PHOTO TO THIS ALBUM -->
+
+            <form
+                action="{{ url_for('upload_featured_photo') }}"
+                method="post"
+                enctype="multipart/form-data"
+            >
+
+                <input
+                    type="hidden"
+                    name="album_id"
+                    value="{{ album.id }}"
+                >
+
+                <input
+                    type="file"
+                    name="featured_photo"
+                    accept="image/*"
+                    required
+                >
+
+                <button type="submit">
+                    ADD PHOTO TO ALBUM
+                </button>
+
+            </form>
+
+
+            <!-- ALBUM PHOTOS -->
+
+            {% if album.photos %}
+
+            <div class="photos">
+
+                {% for photo in album.photos %}
+
+                <div class="photo">
+
+                    <img
+                        src="{{ url_for('uploaded_file', filename=photo) }}"
+                        alt="{{ album.title }}"
+                    >
+
+                    <div class="small">
+                        {{ photo }}
+                    </div>
+
+
+                    <form
+                        action="{{ url_for('delete_featured_photo') }}"
+                        method="post"
+                        onsubmit="return confirm('Delete this featured photo?');"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="album_id"
+                            value="{{ album.id }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="filename"
+                            value="{{ photo }}"
+                        >
+
+                        <button
+                            class="secondary"
+                            type="submit"
+                        >
+                            DELETE PHOTO
+                        </button>
+
+                    </form>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <p class="note">
+                No photos in this album yet.
+            </p>
+
+            {% endif %}
+
+
+            <!-- DELETE ALBUM -->
+
+            <form
+                action="{{ url_for('delete_featured_album') }}"
+                method="post"
+                onsubmit="return confirm('Delete this entire featured album and all its photos?');"
+                style="margin-top:20px;"
+            >
+
+                <input
+                    type="hidden"
+                    name="album_id"
+                    value="{{ album.id }}"
+                >
+
+                <button
+                    class="secondary"
+                    type="submit"
+                >
+                    DELETE FEATURED ALBUM
+                </button>
+
+            </form>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+    <p class="note">
+        No featured albums created yet.
+    </p>
+
+    {% endif %}
+
+</section>
+
+<h2>Wedding Photos</h2>
 
     <p class="note">
         Upload your wedding photos here.
