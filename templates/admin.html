@@ -1,2164 +1,815 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<title>Wedding Admin</title>
 
-<title>Wedding Admin Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-:root {
-    --rose: #d9a9a3;
-    --dark: #4b3034;
-    --cream: #f8f2f0;
-    --white: #ffffff;
-    --border: #ead8d5;
-    --muted: #777;
-    --danger: #b84c4c;
-    --success-bg: #dff3e3;
-    --success-text: #286b3a;
-    --error-bg: #f8dddd;
-    --error-text: #8b2d2d;
+:root{
+    --rose:#7e4b4b;
+    --rose2:#a66f6f;
+    --cream:#fff8f5;
+    --ink:#432e2e;
+    --line:#ead8d2;
 }
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:Montserrat,sans-serif;
 }
 
-body {
-    margin: 0;
-    background: var(--cream);
-    color: var(--dark);
-    font-family: "Montserrat", sans-serif;
+header{
+    background:linear-gradient(135deg,#704444,#986363);
+    color:white;
+    padding:28px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
-header {
-    background: var(--dark);
-    color: white;
-    padding: 18px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 18px rgba(75,48,52,.15);
+h1,
+h2{
+    font-family:"Cormorant Garamond",serif;
 }
 
-header h1 {
-    margin: 0;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 30px;
-    font-weight: 600;
+h1{
+    margin:0;
+    font-size:42px;
 }
 
-.header-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+header a{
+    color:white;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.5);
+    padding:10px 16px;
+    font-size:11px;
+    letter-spacing:2px;
 }
 
-.public-button,
-.logout {
-    text-decoration: none;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 7px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    transition: .2s ease;
+main{
+    max-width:1150px;
+    margin:35px auto;
+    padding:0 20px;
 }
 
-.public-button {
-    background: var(--rose);
+.card{
+    background:white;
+    border:1px solid var(--line);
+    padding:28px;
+    margin-bottom:25px;
+    box-shadow:0 12px 30px rgba(95,50,50,.05);
 }
 
-.logout {
-    background: #6e494e;
+h2{
+    font-size:36px;
+    margin:0 0 8px;
 }
 
-.public-button:hover,
-.logout:hover {
-    opacity: .85;
+.note{
+    color:#795f5f;
+    font-size:13px;
+    line-height:1.7;
 }
 
-/* =========================================================
-   PAGE
-========================================================= */
-
-.container {
-    max-width: 1250px;
-    margin: 35px auto;
-    padding: 0 20px;
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
 }
 
-.page-intro {
-    margin-bottom: 25px;
-}
-
-.page-intro h2 {
-    margin: 0 0 5px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 40px;
-}
-
-.page-intro p {
-    color: var(--muted);
-    line-height: 1.7;
-}
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-.card {
-    background: var(--white);
-    padding: 30px;
-    margin-bottom: 25px;
-    border-radius: 16px;
-    box-shadow: 0 5px 25px rgba(75,48,52,.08);
-}
-
-.card h2 {
-    margin-top: 0;
-    color: var(--dark);
-    font-family: "Cormorant Garamond", serif;
-    font-size: 32px;
-    font-weight: 600;
-}
-
-.card h3 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 26px;
-    margin: 0 0 8px;
-}
-
-.card-description {
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 25px;
-}
-
-/* =========================================================
-   ALERTS
-========================================================= */
-
-.success,
-.error {
-    padding: 15px 18px;
-    border-radius: 9px;
-    margin-bottom: 20px;
-}
-
-.success {
-    background: var(--success-bg);
-    color: var(--success-text);
-}
-
-.error {
-    background: var(--error-bg);
-    color: var(--error-text);
-}
-
-/* =========================================================
-   FORMS
-========================================================= */
-
-label {
-    display: block;
-    margin-top: 18px;
-    margin-bottom: 7px;
-    font-weight: 600;
-    font-size: 13px;
+label{
+    display:block;
+    font-size:10px;
+    letter-spacing:2px;
+    margin:12px 0 7px;
+    font-weight:600;
 }
 
 input,
 textarea,
-select {
-    width: 100%;
-    padding: 12px 13px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 14px;
-    background: white;
-    color: var(--dark);
-    outline: none;
-    transition: border-color .2s, box-shadow .2s;
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #dec9c3;
+    background:#fff;
+    font:14px Montserrat,sans-serif;
+    color:var(--ink);
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: var(--rose);
-    box-shadow: 0 0 0 3px rgba(217,169,163,.15);
+textarea{
+    min-height:110px;
+    resize:vertical;
 }
 
-textarea {
-    min-height: 120px;
-    resize: vertical;
+button,
+.button{
+    border:0;
+    background:var(--rose);
+    color:white;
+    padding:14px 20px;
+    font-size:11px;
+    letter-spacing:2px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    margin-top:15px;
 }
 
-input[type="color"] {
-    height: 52px;
-    padding: 4px;
-    cursor: pointer;
+button.secondary{
+    background:#a77979;
 }
 
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    margin-top: 20px;
-    background: var(--rose);
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: .2s ease;
+.flash{
+    padding:13px 16px;
+    margin-bottom:15px;
+    background:#f2dfda;
 }
 
-button:hover {
-    opacity: .85;
+.flash.error{
+    background:#f7d5d0;
 }
 
-.save-button {
-    width: 100%;
-    font-size: 16px;
-    padding: 16px;
-    background: var(--dark);
+hr{
+    border:0;
+    border-top:1px solid var(--line);
+    margin:25px 0;
 }
 
-.small-save {
-    background: var(--rose);
+/* MUSIC */
+
+.music-box{
+    background:#f8eeeb;
+    border:1px solid #ead8d2;
+    padding:25px;
+    margin-top:20px;
 }
 
-/* =========================================================
-   QUICK NAV
-========================================================= */
-
-.quick-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
+.music-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:28px;
+    margin-bottom:5px;
 }
 
-.quick-nav a {
-    text-decoration: none;
-    color: var(--dark);
-    background: white;
-    border: 1px solid var(--border);
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
+.music-help{
+    font-size:12px;
+    color:#795f5f;
+    line-height:1.7;
 }
 
-.quick-nav a:hover {
-    background: #fff8f6;
+.range-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-top:10px;
 }
 
-/* =========================================================
-   EDITOR GRID
-========================================================= */
-
-.editor-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+.range-row input[type="range"]{
+    padding:0;
+    flex:1;
 }
 
-.editor-box {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    background: #fffaf8;
+.volume-value{
+    min-width:55px;
+    font-weight:600;
+    text-align:center;
+    color:var(--rose);
 }
 
-.editor-box h3 {
-    margin-top: 0;
+.music-preview{
+    background:white;
+    border:1px solid #ead8d2;
+    padding:18px;
+    margin-top:15px;
 }
 
-.full-width {
-    grid-column: 1 / -1;
+.music-preview audio{
+    width:100%;
+    margin-top:12px;
 }
 
-/* =========================================================
-   SECTION HEADERS
-========================================================= */
+/* PHOTOS */
 
-.section-heading {
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+.photos{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
 }
 
-.section-heading h3 {
-    margin-bottom: 3px;
+.photo{
+    border:1px solid var(--line);
+    padding:8px;
+    background:#fff;
 }
 
-.section-heading p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 13px;
+.photo img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    display:block;
 }
 
-/* =========================================================
-   SWITCHES
-========================================================= */
-
-.switch-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0 25px;
+.photo form{
+    margin:0;
 }
 
-.switch-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    gap: 20px;
+.small{
+    font-size:11px;
+    color:#795f5f;
+    word-break:break-all;
+    margin-top:8px;
 }
 
-.switch-row label {
-    margin: 0;
-    font-weight: 600;
+.checkbox-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
 }
 
-.switch-description {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    margin-top: 4px;
-    font-weight: 400;
+.checkbox-row input{
+    width:auto;
 }
 
-.switch-row input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: var(--rose);
-    cursor: pointer;
-    flex-shrink: 0;
-}
+@media(max-width:750px){
 
-/* =========================================================
-   PHOTO UPLOAD
-========================================================= */
-
-.upload-box {
-    border: 2px dashed var(--rose);
-    padding: 30px;
-    text-align: center;
-    border-radius: 12px;
-    background: #fffaf8;
-}
-
-.upload-box p {
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.upload-box input[type="file"] {
-    margin-top: 5px;
-}
-
-.upload-button {
-    display: inline-block;
-    background: var(--dark);
-}
-
-/* =========================================================
-   FEATURES
-========================================================= */
-
-.feature-section {
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px;
-    margin-top: 25px;
-    background: #fffdfc;
-}
-
-.feature-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
-
-.feature-title h3 {
-    margin: 0;
-    font-size: 30px;
-}
-
-.feature-title p {
-    color: var(--muted);
-    margin: 3px 0 0;
-}
-
-.feature-editor {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-}
-
-.feature-save {
-    background: var(--dark);
-}
-
-/* =========================================================
-   PHOTOS
-========================================================= */
-
-.photos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 18px;
-    margin-top: 20px;
-}
-
-.photo {
-    background: white;
-    border: 1px solid var(--border);
-    padding: 10px;
-    border-radius: 12px;
-}
-
-.photo img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    display: block;
-}
-
-.photo-name {
-    font-size: 11px;
-    margin: 10px 0;
-    word-break: break-word;
-    color: var(--muted);
-}
-
-.delete {
-    width: 100%;
-    background: var(--danger);
-    margin-top: 0;
-}
-
-/* =========================================================
-   PREVIEW
-========================================================= */
-
-.preview-area {
-    text-align: center;
-}
-
-.preview-button {
-    display: inline-block;
-    background: var(--rose);
-    color: white;
-    padding: 14px 24px;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
-.preview-button:hover {
-    opacity: .85;
-}
-
-/* =========================================================
-   INFORMATION BOX
-========================================================= */
-
-.info-box {
-    background: #fff8f6;
-    border-left: 4px solid var(--rose);
-    padding: 15px 18px;
-    border-radius: 8px;
-    margin: 20px 0;
-    color: #6b5558;
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width: 800px) {
-
-    .editor-grid {
-        grid-template-columns: 1fr;
+    .grid{
+        grid-template-columns:1fr;
     }
 
-    .full-width {
-        grid-column: auto;
+    .photos{
+        grid-template-columns:1fr 1fr;
     }
 
-    .switch-list {
-        grid-template-columns: 1fr;
+    header{
+        align-items:flex-start;
+        gap:15px;
+        flex-direction:column;
     }
 
 }
 
-@media(max-width: 600px) {
+@media(max-width:500px){
 
-    header {
-        padding: 15px;
-        align-items: flex-start;
-    }
-
-    header h1 {
-        font-size: 24px;
-    }
-
-    .header-actions {
-        gap: 5px;
-    }
-
-    .public-button,
-    .logout {
-        padding: 8px;
-        font-size: 9px;
-    }
-
-    .container {
-        padding: 0 12px;
-        margin-top: 20px;
-    }
-
-    .card {
-        padding: 20px;
-    }
-
-    .page-intro h2 {
-        font-size: 32px;
-    }
-
-    .feature-title {
-        display: block;
-    }
-
-    .photos {
-        grid-template-columns: 1fr 1fr;
-    }
-
-}
-
-@media(max-width: 450px) {
-
-    .photos {
-        grid-template-columns: 1fr;
+    .photos{
+        grid-template-columns:1fr;
     }
 
 }
 
 </style>
-
 </head>
 
-
 <body>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header>
 
     <h1>
-        💍 Wedding Editor
+        {{ settings.partner1 }} &amp; {{ settings.partner2 }}
     </h1>
 
-    <div class="header-actions">
-
-        <a
-            class="public-button"
-            href="{{ url_for('home') }}"
-            target="_blank"
-        >
-            VIEW WEBSITE
-        </a>
-
-        <a
-            class="logout"
-            href="{{ url_for('admin_logout') }}"
-        >
-            LOG OUT
-        </a>
-
-    </div>
+    <a href="{{ url_for('admin_logout') }}">
+        LOG OUT
+    </a>
 
 </header>
 
 
-<div class="container">
+<main>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% for category, message in messages %}
+
+        <div class="flash {{ category }}">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+{% endwith %}
 
 
-<!-- =====================================================
-     PAGE INTRO
-===================================================== -->
+<!-- WEBSITE SETTINGS -->
 
-<div class="page-intro">
+<section class="card">
 
-    <h2>
-        Complete Website Editor
-    </h2>
+    <h2>Wedding Design</h2>
 
-    <p>
-        Everything on your wedding website can be managed from
-        this panel. Edit your information, design, sections,
-        effects, feature albums, and photos.
+    <p class="note">
+        Control the main information displayed on your public wedding website.
     </p>
 
-</div>
 
-
-<!-- =====================================================
-     ALERTS
-===================================================== -->
-
-{% if request.args.get("saved") %}
-
-<div class="success">
-    ✅ Your changes were saved successfully.
-</div>
-
-{% endif %}
-
-
-{% if request.args.get("uploaded") %}
-
-<div class="success">
-    📸 Photo uploaded successfully.
-</div>
-
-{% endif %}
-
-
-{% if request.args.get("error") %}
-
-<div class="error">
-    ❌ {{ request.args.get("error") }}
-</div>
-
-{% endif %}
-
-
-<!-- =====================================================
-     QUICK NAVIGATION
-===================================================== -->
-
-<div class="quick-nav">
-
-    <a href="#basic">
-        📝 Basic
-    </a>
-
-    <a href="#hero">
-        💍 Hero
-    </a>
-
-    <a href="#story">
-        💕 Story
-    </a>
-
-    <a href="#details">
-        📅 Details
-    </a>
-
-    <a href="#design">
-        🎨 Design
-    </a>
-
-    <a href="#sections">
-        👁️ Sections
-    </a>
-
-    <a href="#features">
-        ✨ Features
-    </a>
-
-    <a href="#photos">
-        📸 Photos
-    </a>
-
-    <a href="#preview">
-        🌐 Preview
-    </a>
-
-</div>
-
-
-<!-- =====================================================
-     EVERYTHING BELOW IS ONE SETTINGS FORM
-===================================================== -->
-
-<form
-    method="POST"
-    action="{{ url_for('admin_save') }}"
->
-
-
-<!-- =====================================================
-     BASIC INFORMATION
-===================================================== -->
-
-<div
-    class="card"
-    id="basic"
->
-
-    <div class="section-heading">
-
-        <h2>
-            📝 Basic Information
-        </h2>
-
-        <p>
-            These are the core details of your wedding.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <h3>
-                💑 Couple
-            </h3>
-
-            <label>
-                Partner 1
-            </label>
-
-            <input
-                type="text"
-                name="partner1"
-                value="{{ settings.partner1 }}"
-            >
-
-
-            <label>
-                Partner 2
-            </label>
-
-            <input
-                type="text"
-                name="partner2"
-                value="{{ settings.partner2 }}"
-            >
-
-
-            <label>
-                Tagline
-            </label>
-
-            <input
-                type="text"
-                name="tagline"
-                value="{{ settings.tagline }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <h3>
-                📅 Wedding Details
-            </h3>
-
-            <label>
-                Wedding Date
-            </label>
-
-            <input
-                type="text"
-                name="weddingDate"
-                value="{{ settings.weddingDate }}"
-                placeholder="December 12, 2026"
-            >
-
-
-            <label>
-                Wedding Time
-            </label>
-
-            <input
-                type="text"
-                name="weddingTime"
-                value="{{ settings.weddingTime }}"
-                placeholder="4:00 PM"
-            >
-
-
-            <label>
-                Venue
-            </label>
-
-            <input
-                type="text"
-                name="venue"
-                value="{{ settings.venue }}"
-            >
-
-
-            <label>
-                Dress Code
-            </label>
-
-            <input
-                type="text"
-                name="dressCode"
-                value="{{ settings.dressCode }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <h3>
-                ✉️ RSVP
-            </h3>
-
-            <label>
-                RSVP Email
-            </label>
-
-            <input
-                type="email"
-                name="rsvpEmail"
-                value="{{ settings.rsvpEmail }}"
-            >
-
-
-            <label>
-                RSVP Message
-            </label>
-
-            <textarea
-                name="rsvpMessage"
-            >{{ settings.rsvpMessage }}</textarea>
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <h3>
-                💕 Our Story
-            </h3>
-
-            <label>
-                Story Part 1
-            </label>
-
-            <textarea
-                name="story1"
-            >{{ settings.story1 }}</textarea>
-
-
-            <label>
-                Story Part 2
-            </label>
-
-            <textarea
-                name="story2"
-            >{{ settings.story2 }}</textarea>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     HERO EDITOR
-===================================================== -->
-
-<div
-    class="card"
-    id="hero"
->
-
-    <div class="section-heading">
-
-        <h2>
-            💍 Hero / Opening Section
-        </h2>
-
-        <p>
-            Edit the first message your guests see.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <label>
-                Hero Title
-            </label>
-
-            <input
-                type="text"
-                name="heroTitle"
-                value="{{ settings.heroTitle }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <label>
-                Hero Subtitle
-            </label>
-
-            <input
-                type="text"
-                name="heroSubtitle"
-                value="{{ settings.heroSubtitle }}"
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     STORY EDITOR
-===================================================== -->
-
-<div
-    class="card"
-    id="story"
->
-
-    <div class="section-heading">
-
-        <h2>
-            💕 Story Section
-        </h2>
-
-        <p>
-            Customize the heading shown above your love story.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <label>
-                Story Section Title
-            </label>
-
-            <input
-                type="text"
-                name="storyTitle"
-                value="{{ settings.storyTitle }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <label>
-                Story Section Subtitle
-            </label>
-
-            <input
-                type="text"
-                name="storySubtitle"
-                value="{{ settings.storySubtitle }}"
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     DETAILS EDITOR
-===================================================== -->
-
-<div
-    class="card"
-    id="details"
->
-
-    <div class="section-heading">
-
-        <h2>
-            📅 Wedding Details Section
-        </h2>
-
-        <p>
-            Customize the title and subtitle of your wedding
-            details section.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <label>
-                Details Title
-            </label>
-
-            <input
-                type="text"
-                name="detailsTitle"
-                value="{{ settings.detailsTitle }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <label>
-                Details Subtitle
-            </label>
-
-            <input
-                type="text"
-                name="detailsSubtitle"
-                value="{{ settings.detailsSubtitle }}"
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     DESIGN EDITOR
-===================================================== -->
-
-<div
-    class="card"
-    id="design"
->
-
-    <div class="section-heading">
-
-        <h2>
-            🎨 Design Editor
-        </h2>
-
-        <p>
-            Control the visual style of your wedding website.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-
-        <!-- COLORS -->
-
-        <div class="editor-box">
-
-            <h3>
-                🌹 Colors
-            </h3>
-
-            <label>
-                Main Website Color
-            </label>
-
-            <input
-                type="color"
-                name="mainColor"
-                value="{{ settings.mainColor }}"
-            >
-
-
-            <label>
-                Background Style
-            </label>
-
-            <select name="backgroundStyle">
-
-                <option
-                    value="cream"
-                    {% if settings.backgroundStyle == "cream" %}
-                    selected
-                    {% endif %}
-                >
-                    Elegant Cream
-                </option>
-
-                <option
-                    value="white"
-                    {% if settings.backgroundStyle == "white" %}
-                    selected
-                    {% endif %}
-                >
-                    Classic White
-                </option>
-
-                <option
-                    value="rose"
-                    {% if settings.backgroundStyle == "rose" %}
-                    selected
-                    {% endif %}
-                >
-                    Soft Rose
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- TYPOGRAPHY -->
-
-        <div class="editor-box">
-
-            <h3>
-                🖋️ Typography
-            </h3>
-
-            <label>
-                Heading Font
-            </label>
-
-            <select name="headingFont">
-
-                <option
-                    value="Cormorant Garamond"
-                    {% if settings.headingFont == "Cormorant Garamond" %}
-                    selected
-                    {% endif %}
-                >
-                    Cormorant Garamond
-                </option>
-
-                <option
-                    value="Georgia"
-                    {% if settings.headingFont == "Georgia" %}
-                    selected
-                    {% endif %}
-                >
-                    Georgia
-                </option>
-
-                <option
-                    value="Times New Roman"
-                    {% if settings.headingFont == "Times New Roman" %}
-                    selected
-                    {% endif %}
-                >
-                    Times New Roman
-                </option>
-
-            </select>
-
-
-            <label>
-                Body Font
-            </label>
-
-            <select name="bodyFont">
-
-                <option
-                    value="Montserrat"
-                    {% if settings.bodyFont == "Montserrat" %}
-                    selected
-                    {% endif %}
-                >
-                    Montserrat
-                </option>
-
-                <option
-                    value="Arial"
-                    {% if settings.bodyFont == "Arial" %}
-                    selected
-                    {% endif %}
-                >
-                    Arial
-                </option>
-
-                <option
-                    value="Georgia"
-                    {% if settings.bodyFont == "Georgia" %}
-                    selected
-                    {% endif %}
-                >
-                    Georgia
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- EFFECTS -->
-
-        <div class="editor-box full-width">
-
-            <h3>
-                ✨ Website Effects
-            </h3>
-
-            <div class="switch-list">
-
-
-                <div class="switch-row">
-
-                    <div>
-
-                        <label>
-                            🌸 Falling Petals
-                        </label>
-
-                        <span class="switch-description">
-                            Show decorative falling petals.
-                        </span>
-
-                    </div>
-
-                    <input
-                        type="checkbox"
-                        name="petals"
-                        value="1"
-                        {% if settings.petals %}
-                        checked
-                        {% endif %}
-                    >
-
-                </div>
-
-
-                <div class="switch-row">
-
-                    <div>
-
-                        <label>
-                            🖼️ Photo Lightbox
-                        </label>
-
-                        <span class="switch-description">
-                            Open photos in a larger viewer.
-                        </span>
-
-                    </div>
-
-                    <input
-                        type="checkbox"
-                        name="lightbox"
-                        value="1"
-                        {% if settings.lightbox %}
-                        checked
-                        {% endif %}
-                    >
-
-                </div>
-
-
-                <div class="switch-row">
-
-                    <div>
-
-                        <label>
-                            ✨ Website Animations
-                        </label>
-
-                        <span class="switch-description">
-                            Enable entrance and movement animations.
-                        </span>
-
-                    </div>
-
-                    <input
-                        type="checkbox"
-                        name="animations"
-                        value="1"
-                        {% if settings.animations %}
-                        checked
-                        {% endif %}
-                    >
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     SECTION VISIBILITY
-===================================================== -->
-
-<div
-    class="card"
-    id="sections"
->
-
-    <div class="section-heading">
-
-        <h2>
-            👁️ Website Sections
-        </h2>
-
-        <p>
-            Choose which sections are visible to your guests.
-        </p>
-
-    </div>
-
-
-    <div class="switch-list">
-
-
-        <div class="switch-row">
-
-            <div>
-
-                <label>
-                    💍 Hero Section
-                </label>
-
-                <span class="switch-description">
-                    Opening section of the website.
-                </span>
-
-            </div>
-
-            <input
-                type="checkbox"
-                name="showHero"
-                value="1"
-                {% if settings.showHero %}
-                checked
-                {% endif %}
-            >
-
-        </div>
-
-
-        <div class="switch-row">
-
-            <div>
-
-                <label>
-                    💕 Our Story
-                </label>
-
-                <span class="switch-description">
-                    Your relationship story.
-                </span>
-
-            </div>
-
-            <input
-                type="checkbox"
-                name="showStory"
-                value="1"
-                {% if settings.showStory %}
-                checked
-                {% endif %}
-            >
-
-        </div>
-
-
-        <div class="switch-row">
-
-            <div>
-
-                <label>
-                    📅 Wedding Details
-                </label>
-
-                <span class="switch-description">
-                    Date, time, venue and dress code.
-                </span>
-
-            </div>
-
-            <input
-                type="checkbox"
-                name="showDetails"
-                value="1"
-                {% if settings.showDetails %}
-                checked
-                {% endif %}
-            >
-
-        </div>
-
-
-        <div class="switch-row">
-
-            <div>
-
-                <label>
-                    ✨ Feature Memories
-                </label>
-
-                <span class="switch-description">
-                    OUR DAY, TOGETHER and FOREVER.
-                </span>
-
-            </div>
-
-            <input
-                type="checkbox"
-                name="showFeatures"
-                value="1"
-                {% if settings.showFeatures %}
-                checked
-                {% endif %}
-            >
-
-        </div>
-
-
-        <div class="switch-row">
-
-            <div>
-
-                <label>
-                    🖼️ General Album
-                </label>
-
-                <span class="switch-description">
-                    Main wedding photo album.
-                </span>
-
-            </div>
-
-            <input
-                type="checkbox"
-                name="showAlbum"
-                value="1"
-                {% if settings.showAlbum %}
-                checked
-                {% endif %}
-            >
-
-        </div>
-
-
-        <div class="switch-row">
-
-            <div>
-
-                <label>
-                    💌 RSVP
-                </label>
-
-                <span class="switch-description">
-                    Guest RSVP section.
-                </span>
-
-            </div>
-
-            <input
-                type="checkbox"
-                name="showRSVP"
-                value="1"
-                {% if settings.showRSVP %}
-                checked
-                {% endif %}
-            >
-
-        </div>
-
-
-        <div class="switch-row">
-
-            <div>
-
-                <label>
-                    🌹 Footer
-                </label>
-
-                <span class="switch-description">
-                    Bottom of the wedding website.
-                </span>
-
-            </div>
-
-            <input
-                type="checkbox"
-                name="showFooter"
-                value="1"
-                {% if settings.showFooter %}
-                checked
-                {% endif %}
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     FEATURES SECTION TITLES
-===================================================== -->
-
-<div
-    class="card"
-    id="features"
->
-
-    <div class="section-heading">
-
-        <h2>
-            ✨ Feature Memories
-        </h2>
-
-        <p>
-            Customize the heading for your three feature albums.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <label>
-                Features Section Title
-            </label>
-
-            <input
-                type="text"
-                name="featuresTitle"
-                value="{{ settings.featuresTitle }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <label>
-                Features Section Subtitle
-            </label>
-
-            <input
-                type="text"
-                name="featuresSubtitle"
-                value="{{ settings.featuresSubtitle }}"
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     ALBUM SECTION
-===================================================== -->
-
-<div class="card">
-
-    <div class="section-heading">
-
-        <h2>
-            🖼️ General Album
-        </h2>
-
-        <p>
-            Customize the title and subtitle of your main album.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <label>
-                Album Title
-            </label>
-
-            <input
-                type="text"
-                name="albumTitle"
-                value="{{ settings.albumTitle }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <label>
-                Album Subtitle
-            </label>
-
-            <input
-                type="text"
-                name="albumSubtitle"
-                value="{{ settings.albumSubtitle }}"
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     RSVP SECTION
-===================================================== -->
-
-<div class="card">
-
-    <div class="section-heading">
-
-        <h2>
-            💌 RSVP Section
-        </h2>
-
-        <p>
-            Customize the heading displayed above the RSVP information.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <label>
-                RSVP Title
-            </label>
-
-            <input
-                type="text"
-                name="rsvpTitle"
-                value="{{ settings.rsvpTitle }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <label>
-                RSVP Subtitle
-            </label>
-
-            <input
-                type="text"
-                name="rsvpSubtitle"
-                value="{{ settings.rsvpSubtitle }}"
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     FOOTER EDITOR
-===================================================== -->
-
-<div class="card">
-
-    <div class="section-heading">
-
-        <h2>
-            🌹 Footer
-        </h2>
-
-        <p>
-            Customize the text at the bottom of your website.
-        </p>
-
-    </div>
-
-
-    <div class="editor-grid">
-
-        <div class="editor-box">
-
-            <label>
-                Footer Text
-            </label>
-
-            <input
-                type="text"
-                name="footerText"
-                value="{{ settings.footerText }}"
-            >
-
-        </div>
-
-
-        <div class="editor-box">
-
-            <label>
-                Footer Copyright
-            </label>
-
-            <input
-                type="text"
-                name="footerCopyright"
-                value="{{ settings.footerCopyright }}"
-            >
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     SAVE EVERYTHING
-===================================================== -->
-
-<div class="card">
-
-    <button
-        class="save-button"
-        type="submit"
+    <form
+        action="{{ url_for('admin_save') }}"
+        method="post"
     >
-        💾 SAVE ALL WEBSITE CHANGES
-    </button>
 
-</div>
+        <div class="grid">
 
+            <div>
 
-</form>
+                <label>PARTNER 1</label>
 
+                <input
+                    name="partner1"
+                    value="{{ settings.partner1 }}"
+                >
 
-<!-- =====================================================
-     FEATURE ALBUM EDITOR
-===================================================== -->
-
-<div
-    class="card"
-    id="photos"
->
-
-    <div class="section-heading">
-
-        <h2>
-            📸 Photo Manager
-        </h2>
-
-        <p>
-            Upload photos and assign them to OUR DAY, TOGETHER,
-            FOREVER, or the General Album.
-        </p>
-
-    </div>
+            </div>
 
 
-    <div class="info-box">
+            <div>
 
-        <strong>Tip:</strong>
-        Choose the destination before uploading.
-        Each photo can belong to one feature or the General Album.
+                <label>PARTNER 2</label>
 
-    </div>
+                <input
+                    name="partner2"
+                    value="{{ settings.partner2 }}"
+                >
+
+            </div>
 
 
-    <!-- =================================================
-         UPLOAD
-    ================================================= -->
+            <div>
 
-    <div class="upload-box">
+                <label>TAGLINE</label>
+
+                <input
+                    name="tagline"
+                    value="{{ settings.tagline }}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>WEDDING DATE</label>
+
+                <input
+                    name="weddingDate"
+                    value="{{ settings.weddingDate }}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>WEDDING TIME</label>
+
+                <input
+                    name="weddingTime"
+                    value="{{ settings.weddingTime }}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>VENUE</label>
+
+                <input
+                    name="venue"
+                    value="{{ settings.venue }}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>DRESS CODE</label>
+
+                <input
+                    name="dressCode"
+                    value="{{ settings.dressCode }}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>MAIN COLOR</label>
+
+                <input
+                    name="mainColor"
+                    value="{{ settings.mainColor }}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>RSVP EMAIL</label>
+
+                <input
+                    name="rsvpEmail"
+                    value="{{ settings.rsvpEmail }}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>RSVP MESSAGE</label>
+
+                <input
+                    name="rsvpMessage"
+                    value="{{ settings.rsvpMessage }}"
+                >
+
+            </div>
+
+        </div>
+
+
+        <label>
+            OUR STORY — PART 1
+        </label>
+
+        <textarea name="story1">{{ settings.story1 }}</textarea>
+
+
+        <label>
+            OUR STORY — PART 2
+        </label>
+
+        <textarea name="story2">{{ settings.story2 }}</textarea>
+
+
+        <button type="submit">
+            SAVE WEBSITE SETTINGS
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- BACKGROUND MUSIC -->
+
+<section class="card" id="music">
+
+    <h2>Background Music</h2>
+
+    <p class="note">
+        Choose a song using a direct audio URL or upload your own music file.
+        You can also control the starting volume visitors hear on the website.
+    </p>
+
+
+    <div class="music-box">
+
+        <div class="music-title">
+            🎵 Wedding Music
+        </div>
+
+        <div class="music-help">
+
+            The uploaded music or selected URL will be used as the
+            background music on your public wedding website.
+
+        </div>
+
 
         <form
-            method="POST"
-            action="{{ url_for('admin_upload') }}"
+            action="{{ url_for('admin_music') }}"
+            method="post"
             enctype="multipart/form-data"
         >
 
+
+            <!-- ENABLE -->
+
+            <label class="checkbox-row">
+
+                <input
+                    type="checkbox"
+                    name="music_enabled"
+                    {% if settings.music_enabled %}
+                    checked
+                    {% endif %}
+                >
+
+                ENABLE BACKGROUND MUSIC
+
+            </label>
+
+
+            <!-- SOURCE -->
+
             <label>
-                Select Photo
+                MUSIC SOURCE
+            </label>
+
+            <select name="music_source">
+
+                <option
+                    value="url"
+                    {% if settings.music_source == "url" %}
+                    selected
+                    {% endif %}
+                >
+                    Use music URL
+                </option>
+
+                <option
+                    value="upload"
+                    {% if settings.music_source == "upload" %}
+                    selected
+                    {% endif %}
+                >
+                    Use uploaded music
+                </option>
+
+            </select>
+
+
+            <!-- URL -->
+
+            <label>
+                MUSIC URL
+            </label>
+
+            <input
+                type="url"
+                name="music_url"
+                placeholder="https://example.com/song.mp3"
+                value="{{ settings.music_url }}"
+            >
+
+            <div class="small">
+
+                Use a direct audio-file URL.
+                For example:
+                https://example.com/music/song.mp3
+
+                <br>
+
+                A normal YouTube page link is not a direct audio file.
+
+            </div>
+
+
+            <!-- UPLOAD -->
+
+            <label>
+                UPLOAD MUSIC
             </label>
 
             <input
                 type="file"
-                name="photo"
-                accept="image/*"
-                required
+                name="music_file"
+                accept=".mp3,.wav,.ogg,.m4a,.aac,.webm,audio/*"
             >
 
+            <div class="small">
+
+                Supported:
+                MP3, WAV, OGG, M4A, AAC and WEBM.
+
+                <br>
+
+                Maximum file size: 30 MB.
+
+            </div>
+
+
+            {% if settings.music_file %}
+
+            <div class="music-preview">
+
+                <strong>
+                    Current uploaded music:
+                </strong>
+
+                <br>
+
+                {{ settings.music_file }}
+
+
+                <audio
+                    controls
+                    src="{{ url_for('uploaded_file', filename=settings.music_file) }}"
+                ></audio>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- VOLUME -->
 
             <label>
-                Put Photo In
+                MUSIC VOLUME
             </label>
 
-            <select name="destination">
+            <div class="range-row">
 
-                <option value="album">
-                    🖼️ General Album
-                </option>
+                <input
+                    id="volume"
+                    type="range"
+                    name="music_volume"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="{{ settings.music_volume|default(0.35) }}"
+                >
 
-                <option value="our-day">
-                    💍 OUR DAY
-                </option>
+                <span
+                    class="volume-value"
+                    id="volumeValue"
+                >
+                    {{ (settings.music_volume|default(0.35) * 100)|round|int }}%
+                </span>
 
-                <option value="together">
-                    💕 TOGETHER
-                </option>
-
-                <option value="forever">
-                    ♾️ FOREVER
-                </option>
-
-            </select>
+            </div>
 
 
-            <button
-                class="upload-button"
-                type="submit"
-            >
-                📤 UPLOAD PHOTO
+            <div class="small">
+
+                0% = muted
+
+                <br>
+
+                100% = maximum browser volume
+
+            </div>
+
+
+            <button type="submit">
+                SAVE MUSIC SETTINGS
             </button>
 
         </form>
 
+
+        {% if settings.music_file %}
+
+        <form
+            action="{{ url_for('remove_music') }}"
+            method="post"
+            onsubmit="return confirm('Remove the uploaded wedding music?');"
+        >
+
+            <button
+                class="secondary"
+                type="submit"
+            >
+                REMOVE UPLOADED MUSIC
+            </button>
+
+        </form>
+
+        {% endif %}
+
     </div>
 
+</section>
 
-    <!-- =================================================
-         FEATURES
-    ================================================= -->
 
-    {% for feature in features %}
+<!-- PHOTOS -->
 
-    <div class="feature-section">
+<section class="card">
 
-        <div class="feature-title">
+    <h2>Wedding Photos</h2>
 
-            <div>
+    <p class="note">
 
-                <h3>
+        Upload your wedding photos here.
+        They will appear on the public wedding website.
 
-                    {% if feature.id == "our-day" %}
-                        💍
-                    {% elif feature.id == "together" %}
-                        💕
-                    {% else %}
-                        ♾️
-                    {% endif %}
+    </p>
 
-                    {{ feature.title }}
 
-                </h3>
+    <form
+        action="{{ url_for('admin_upload') }}"
+        method="post"
+        enctype="multipart/form-data"
+    >
 
-                <p>
-                    {{ feature.subtitle }}
-                </p>
+        <input
+            type="file"
+            name="photo"
+            accept="image/*"
+            required
+        >
 
+        <button type="submit">
+            UPLOAD PHOTO
+        </button>
+
+    </form>
+
+
+    <hr>
+
+
+    {% if photos %}
+
+    <div class="photos">
+
+        {% for photo in photos %}
+
+        <div class="photo">
+
+            <img
+                src="{{ url_for('uploaded_file', filename=photo) }}"
+                alt="Wedding photo"
+            >
+
+
+            <div class="small">
+                {{ photo }}
             </div>
 
-        </div>
-
-
-        <!-- FEATURE TEXT EDITOR -->
-
-        <div class="feature-editor">
 
             <form
-                method="POST"
-                action="{{ url_for('save_feature') }}"
+                action="{{ url_for('delete_photo') }}"
+                method="post"
+                onsubmit="return confirm('Delete this photo?');"
             >
 
                 <input
                     type="hidden"
-                    name="feature_id"
-                    value="{{ feature.id }}"
+                    name="filename"
+                    value="{{ photo }}"
                 >
-
-
-                <label>
-                    Feature Title
-                </label>
-
-                <input
-                    type="text"
-                    name="title"
-                    value="{{ feature.title }}"
-                >
-
-
-                <label>
-                    Feature Subtitle
-                </label>
-
-                <input
-                    type="text"
-                    name="subtitle"
-                    value="{{ feature.subtitle }}"
-                >
-
-
-                <label>
-                    Feature Description
-                </label>
-
-                <textarea
-                    name="description"
-                >{{ feature.description }}</textarea>
-
 
                 <button
-                    class="feature-save"
+                    class="secondary"
                     type="submit"
                 >
-                    💾 SAVE {{ feature.title }}
+                    DELETE
                 </button>
 
             </form>
 
         </div>
 
-
-        <!-- FEATURE PHOTOS -->
-
-        {% if feature.photos %}
-
-        <div class="photos">
-
-            {% for photo in feature.photos %}
-
-            <div class="photo">
-
-                <img
-                    src="{{ url_for('uploaded_file', filename=photo) }}"
-                    alt="{{ feature.title }}"
-                    loading="lazy"
-                >
-
-
-                <div class="photo-name">
-                    {{ photo }}
-                </div>
-
-
-                <form
-                    method="POST"
-                    action="{{ url_for('delete_photo') }}"
-                    onsubmit="return confirm('Delete this photo?');"
-                >
-
-                    <input
-                        type="hidden"
-                        name="filename"
-                        value="{{ photo }}"
-                    >
-
-
-                    <button
-                        type="submit"
-                        class="delete"
-                    >
-                        🗑️ DELETE
-                    </button>
-
-                </form>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-        {% else %}
-
-        <p style="color:#777;">
-            No photos assigned to this feature yet.
-        </p>
-
-        {% endif %}
+        {% endfor %}
 
     </div>
 
-    {% endfor %}
+    {% else %}
 
-
-    <!-- =================================================
-         GENERAL ALBUM
-    ================================================= -->
-
-    <div class="feature-section">
-
-        <div class="feature-title">
-
-            <div>
-
-                <h3>
-                    🖼️ GENERAL ALBUM
-                </h3>
-
-                <p>
-                    Photos stored in the main wedding album.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        {% if album %}
-
-        <div class="photos">
-
-            {% for photo in album %}
-
-            <div class="photo">
-
-                <img
-                    src="{{ url_for('uploaded_file', filename=photo) }}"
-                    alt="Wedding album photo"
-                    loading="lazy"
-                >
-
-
-                <div class="photo-name">
-                    {{ photo }}
-                </div>
-
-
-                <form
-                    method="POST"
-                    action="{{ url_for('delete_photo') }}"
-                    onsubmit="return confirm('Delete this photo?');"
-                >
-
-                    <input
-                        type="hidden"
-                        name="filename"
-                        value="{{ photo }}"
-                    >
-
-
-                    <button
-                        type="submit"
-                        class="delete"
-                    >
-                        🗑️ DELETE
-                    </button>
-
-                </form>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-        {% else %}
-
-        <p style="color:#777;">
-            No general album photos yet.
-        </p>
-
-        {% endif %}
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     PUBLIC WEBSITE PREVIEW
-===================================================== -->
-
-<div
-    class="card preview-area"
-    id="preview"
->
-
-    <h2>
-        🌐 Public Website
-    </h2>
-
-    <p class="card-description">
-        Open the exact website your guests will see.
-        Your admin panel will remain separate.
+    <p class="note">
+        No photos uploaded yet.
     </p>
 
-    <a
-        class="preview-button"
-        href="{{ url_for('home') }}"
-        target="_blank"
-    >
-        👀 OPEN PUBLIC WEBSITE
-    </a>
+    {% endif %}
 
-</div>
+</section>
+
+</main>
 
 
-</div>
+<script>
 
+const volume =
+    document.getElementById("volume");
+
+const volumeValue =
+    document.getElementById("volumeValue");
+
+
+if(volume){
+
+    volume.addEventListener(
+        "input",
+        function(){
+
+            volumeValue.textContent =
+                Math.round(
+                    Number(volume.value) * 100
+                ) + "%";
+
+        }
+    );
+
+}
+
+</script>
 
 </body>
-
 </html>
-```
