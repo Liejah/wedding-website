@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,6 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -43,7 +43,6 @@ body{
 a{
     text-decoration:none;
 }
-
 
 /* =========================
    HERO
@@ -197,7 +196,6 @@ a{
     background:#fff0eb;
 }
 
-
 /* =========================
    NAVIGATION
 ========================= */
@@ -238,9 +236,8 @@ nav{
     letter-spacing:2px;
 }
 
-
 /* =========================
-   GENERAL SECTIONS
+   SECTIONS
 ========================= */
 
 .section{
@@ -286,7 +283,6 @@ h2 em{
     font-size:38px;
 }
 
-
 /* =========================
    COUNTDOWN
 ========================= */
@@ -328,7 +324,6 @@ h2 em{
     margin-top:5px;
 }
 
-
 /* =========================
    PHOTOS
 ========================= */
@@ -342,10 +337,8 @@ h2 em{
     margin:60px auto 0;
 
     display:grid;
-
     grid-template-columns:1.5fr 1fr;
     grid-template-rows:280px 280px;
-
     gap:18px;
 }
 
@@ -386,10 +379,10 @@ h2 em{
         );
 
     color:#fff;
+
     font-size:10px;
     letter-spacing:3px;
 }
-
 
 /* =========================
    STORY
@@ -401,8 +394,8 @@ h2 em{
 
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:9%;
 
+    gap:9%;
     align-items:center;
 }
 
@@ -464,7 +457,6 @@ h2 em{
     color:var(--rose);
 }
 
-
 /* =========================
    DETAILS
 ========================= */
@@ -514,7 +506,6 @@ h2 em{
     color:#f9e8e2;
 }
 
-
 /* =========================
    RSVP
 ========================= */
@@ -545,13 +536,13 @@ h2 em{
     font-size:10px;
 }
 
-
 /* =========================
    FOOTER
 ========================= */
 
 footer{
     text-align:center;
+
     padding:35px;
 
     background:#704444;
@@ -561,9 +552,12 @@ footer{
     letter-spacing:2px;
 }
 
-
 /* =========================
    MUSIC BUTTON
+   This button is ONLY a
+   public play/pause button.
+   Music configuration is
+   controlled from /admin.
 ========================= */
 
 .music-badge{
@@ -572,7 +566,7 @@ footer{
     right:20px;
     bottom:20px;
 
-    z-index:100;
+    z-index:9999;
 
     width:52px;
     height:52px;
@@ -596,15 +590,15 @@ footer{
 
     font-size:18px;
 
-    transition:.3s;
-}
-
-.music-badge.show{
-    display:flex;
+    transition:.25s;
 }
 
 .music-badge:hover{
     transform:scale(1.08);
+}
+
+.music-badge.show{
+    display:flex;
 }
 
 .music-badge.playing{
@@ -617,11 +611,6 @@ footer{
     }
 }
 
-
-/* =========================
-   ANIMATIONS
-========================= */
-
 @keyframes rise{
     from{
         opacity:0;
@@ -633,7 +622,6 @@ footer{
         transform:none;
     }
 }
-
 
 /* =========================
    MOBILE
@@ -707,36 +695,34 @@ footer{
 }
 
 </style>
-
 </head>
 
 <body>
 
 <!-- =========================
-     NAVIGATION
+     NAV
 ========================= -->
 
 <nav>
 
-```
-<div class="logo">
-    {{ settings.partner1 }}
-    <span>&</span>
-    {{ settings.partner2 }}
-</div>
+    <div class="logo">
+        {{ settings.partner1 }}
+        <span>&</span>
+        {{ settings.partner2 }}
+    </div>
 
-<div class="nav-links">
+    <div class="nav-links">
 
-    <a href="#story">OUR STORY</a>
-    <a href="#countdown">COUNTDOWN</a>
-    <a href="#photos">PHOTOS</a>
-    <a href="#details">DETAILS</a>
-    <a href="#rsvp">RSVP</a>
+        <a href="#story">OUR STORY</a>
+        <a href="#countdown">COUNTDOWN</a>
+        <a href="#photos">PHOTOS</a>
+        <a href="#details">DETAILS</a>
+        <a href="#rsvp">RSVP</a>
 
-</div>
-```
+    </div>
 
 </nav>
+
 
 <!-- =========================
      HERO
@@ -744,88 +730,82 @@ footer{
 
 <section class="hero">
 
-```
-<img
-    class="floral left"
-    src="{{ url_for('static', filename='wedding-floral.png') }}"
-    alt=""
->
-
-<img
-    class="floral right"
-    src="{{ url_for('static', filename='wedding-floral.png') }}"
-    alt=""
->
-
-
-<div class="hero-content">
-
-    <p class="eyebrow">
-        WE'RE GETTING MARRIED
-    </p>
-
-    <div class="rule"></div>
-
-    <h1>
-        {{ settings.partner1 }}
-        <i>&amp;</i>
-        {{ settings.partner2 }}
-    </h1>
-
-    <p class="tagline">
-        {{ settings.tagline }}
-    </p>
-
-    <div class="date">
-        {{ settings.weddingDate }}
-        &nbsp; | &nbsp;
-        {{ settings.weddingTime }}
-    </div>
-
-    <br>
-
-    <a
-        class="invite-btn"
-        href="#countdown"
+    <img
+        class="floral left"
+        src="{{ url_for('static', filename='wedding-floral.png') }}"
+        alt=""
     >
-        VIEW INVITATION ›
-    </a>
 
-</div>
-```
+    <img
+        class="floral right"
+        src="{{ url_for('static', filename='wedding-floral.png') }}"
+        alt=""
+    >
+
+    <div class="hero-content">
+
+        <p class="eyebrow">
+            WE'RE GETTING MARRIED
+        </p>
+
+        <div class="rule"></div>
+
+        <h1>
+            {{ settings.partner1 }}
+            <i>&amp;</i>
+            {{ settings.partner2 }}
+        </h1>
+
+        <p class="tagline">
+            {{ settings.tagline }}
+        </p>
+
+        <div class="date">
+            {{ settings.weddingDate }}
+            &nbsp; | &nbsp;
+            {{ settings.weddingTime }}
+        </div>
+
+        <br>
+
+        <a class="invite-btn" href="#countdown">
+            VIEW INVITATION ›
+        </a>
+
+    </div>
 
 </section>
 
+
 <!-- =========================
-     SAVE THE DATE
+     INTRO
 ========================= -->
 
 <section class="section">
 
-```
-<div class="center">
+    <div class="center">
 
-    <p class="rose-label">
-        SAVE THE DATE
-    </p>
+        <p class="rose-label">
+            SAVE THE DATE
+        </p>
 
-    <h2>
-        A day made for <em>love.</em>
-    </h2>
+        <h2>
+            A day made for <em>love.</em>
+        </h2>
 
-    <p class="description">
-        We would be delighted to celebrate this beautiful day
-        with the people closest to our hearts.
-    </p>
+        <p class="description">
+            We would be delighted to celebrate this beautiful day
+            with the people closest to our hearts.
+        </p>
 
-    <div class="flourish">
-        ♥
+        <div class="flourish">
+            ♥
+        </div>
+
     </div>
 
-</div>
-```
-
 </section>
+
 
 <!-- =========================
      COUNTDOWN
@@ -836,46 +816,44 @@ footer{
     id="countdown"
 >
 
-```
-<div class="center">
+    <div class="center">
 
-    <p class="rose-label">
-        COUNTING DOWN TO FOREVER
-    </p>
+        <p class="rose-label">
+            COUNTING DOWN TO FOREVER
+        </p>
 
-    <h2>
-        Until we say <em>"I do."</em>
-    </h2>
+        <h2>
+            Until we say <em>"I do."</em>
+        </h2>
 
+        <div class="countdown">
 
-    <div class="countdown">
+            <div class="count-box">
+                <span id="days">00</span>
+                <small>DAYS</small>
+            </div>
 
-        <div class="count-box">
-            <span id="days">00</span>
-            <small>DAYS</small>
-        </div>
+            <div class="count-box">
+                <span id="hours">00</span>
+                <small>HOURS</small>
+            </div>
 
-        <div class="count-box">
-            <span id="hours">00</span>
-            <small>HOURS</small>
-        </div>
+            <div class="count-box">
+                <span id="minutes">00</span>
+                <small>MINUTES</small>
+            </div>
 
-        <div class="count-box">
-            <span id="minutes">00</span>
-            <small>MINUTES</small>
-        </div>
+            <div class="count-box">
+                <span id="seconds">00</span>
+                <small>SECONDS</small>
+            </div>
 
-        <div class="count-box">
-            <span id="seconds">00</span>
-            <small>SECONDS</small>
         </div>
 
     </div>
 
-</div>
-```
-
 </section>
+
 
 <!-- =========================
      PHOTOS
@@ -886,73 +864,64 @@ footer{
     id="photos"
 >
 
-```
-<div class="center">
+    <div class="center">
 
-    <p class="rose-label">
-        OUR FAVORITE MOMENTS
-    </p>
+        <p class="rose-label">
+            OUR FAVORITE MOMENTS
+        </p>
 
-    <h2>
-        Moments worth <em>remembering.</em>
-    </h2>
+        <h2>
+            Moments worth <em>remembering.</em>
+        </h2>
 
-    <p class="description">
-        A collection of beautiful memories and the beginning
-        of our forever.
-    </p>
-
-</div>
-
-
-<div class="featured">
-
-    {% for number in [1,2,3] %}
-
-    {% set photo =
-        photos[number-1]
-        if photos|length >= number
-        else ""
-    %}
-
-    <div
-        class="photo-card
-        {% if number == 1 %}large{% endif %}"
-    >
-
-        {% if photo %}
-
-        <img
-            src="{{ url_for('uploaded_file', filename=photo) }}"
-            alt="Wedding memory"
-        >
-
-        {% endif %}
-
-
-        <div class="photo-label">
-
-            {% if number == 1 %}
-                OUR DAY
-            {% elif number == 2 %}
-                TOGETHER
-            {% else %}
-                FOREVER
-            {% endif %}
-
-        </div>
+        <p class="description">
+            A collection of beautiful memories and the beginning
+            of our forever.
+        </p>
 
     </div>
 
-    {% endfor %}
 
-</div>
-```
+    <div class="featured">
+
+        {% for number in [1,2,3] %}
+
+            {% set photo = photos[number-1] if photos|length >= number else "" %}
+
+            <div class="photo-card {% if number == 1 %}large{% endif %}">
+
+                {% if photo %}
+
+                    <img
+                        src="{{ url_for('uploaded_file', filename=photo) }}"
+                        alt="Wedding memory"
+                    >
+
+                {% endif %}
+
+                <div class="photo-label">
+
+                    {% if number == 1 %}
+                        OUR DAY
+                    {% elif number == 2 %}
+                        TOGETHER
+                    {% else %}
+                        FOREVER
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
 
 </section>
 
+
 <!-- =========================
-     OUR STORY
+     STORY
 ========================= -->
 
 <section
@@ -960,59 +929,60 @@ footer{
     id="story"
 >
 
-```
-<div class="story">
+    <div class="story">
 
-    <div class="story-box">
+        <div class="story-box">
 
-        {% if photos %}
+            {% if photos %}
 
-        <img
-            src="{{ url_for('uploaded_file', filename=photos[0]) }}"
-            alt="Wedding photo"
-        >
+                <img
+                    src="{{ url_for('uploaded_file', filename=photos[0]) }}"
+                    alt="Wedding photo"
+                >
 
-        {% endif %}
+            {% endif %}
 
-        <span>
-            {{ settings.partner1 }}
-            &amp;
-            {{ settings.partner2 }}
-        </span>
+            <span>
+                {{ settings.partner1 }}
+                &amp;
+                {{ settings.partner2 }}
+            </span>
 
-    </div>
+        </div>
 
 
-    <div class="story-text">
+        <div class="story-text">
 
-        <p class="rose-label">
-            OUR STORY
-        </p>
+            <p class="rose-label">
+                OUR STORY
+            </p>
 
-        <h2>
-            From a moment to a <em>lifetime.</em>
-        </h2>
+            <h2>
+                From a moment to a <em>lifetime.</em>
+            </h2>
 
-        <p>
-            {{ settings.story1 }}
-        </p>
+            <p>
+                {{ settings.story1 }}
+            </p>
 
-        <p>
-            {{ settings.story2 }}
-        </p>
+            <p>
+                {{ settings.story2 }}
+            </p>
 
-        <div class="signature">
-            {{ settings.partner1 }}
-            &amp;
-            {{ settings.partner2 }}
+            <div class="signature">
+
+                {{ settings.partner1 }}
+                &amp;
+                {{ settings.partner2 }}
+
+            </div>
+
         </div>
 
     </div>
 
-</div>
-```
-
 </section>
+
 
 <!-- =========================
      DETAILS
@@ -1023,83 +993,80 @@ footer{
     id="details"
 >
 
-```
-<div class="center">
+    <div class="center">
 
-    <p
-        class="rose-label"
-        style="color:#f2d7cd"
-    >
-        THE CELEBRATION
-    </p>
-
-    <h2>
-        Join us as we say <em>"I do."</em>
-    </h2>
-
-</div>
-
-
-<div class="details-grid">
-
-
-    <div class="detail-card">
-
-        <div class="icon">
-            ♡
-        </div>
-
-        <h3>
-            WHEN
-        </h3>
-
-        <p>
-            {{ settings.weddingDate }}
-            <br>
-            {{ settings.weddingTime }}
+        <p
+            class="rose-label"
+            style="color:#f2d7cd"
+        >
+            THE CELEBRATION
         </p>
+
+        <h2>
+            Join us as we say <em>"I do."</em>
+        </h2>
 
     </div>
 
 
-    <div class="detail-card">
+    <div class="details-grid">
 
-        <div class="icon">
-            ⌂
+        <div class="detail-card">
+
+            <div class="icon">
+                ♡
+            </div>
+
+            <h3>
+                WHEN
+            </h3>
+
+            <p>
+                {{ settings.weddingDate }}
+                <br>
+                {{ settings.weddingTime }}
+            </p>
+
         </div>
 
-        <h3>
-            WHERE
-        </h3>
 
-        <p>
-            {{ settings.venue }}
-        </p>
+        <div class="detail-card">
 
-    </div>
+            <div class="icon">
+                ⌂
+            </div>
 
+            <h3>
+                WHERE
+            </h3>
 
-    <div class="detail-card">
+            <p>
+                {{ settings.venue }}
+            </p>
 
-        <div class="icon">
-            ✦
         </div>
 
-        <h3>
-            DRESS CODE
-        </h3>
 
-        <p>
-            {{ settings.dressCode }}
-        </p>
+        <div class="detail-card">
+
+            <div class="icon">
+                ✦
+            </div>
+
+            <h3>
+                DRESS CODE
+            </h3>
+
+            <p>
+                {{ settings.dressCode }}
+            </p>
+
+        </div>
 
     </div>
-
-
-</div>
-```
 
 </section>
+
 
 <!-- =========================
      RSVP
@@ -1110,28 +1077,26 @@ footer{
     id="rsvp"
 >
 
-```
-<p class="rose-label">
-    RSVP
-</p>
+    <p class="rose-label">
+        RSVP
+    </p>
 
-<h2>
-    Will you celebrate<br>
-    with <em>us?</em>
-</h2>
+    <h2>
+        Will you celebrate
+        <br>
+        with <em>us?</em>
+    </h2>
 
-<p>
-    {{ settings.rsvpMessage }}
-</p>
+    <p>
+        {{ settings.rsvpMessage }}
+    </p>
 
-<a
-    href="mailto:{{ settings.rsvpEmail }}"
->
-    RSVP BY EMAIL
-</a>
-```
+    <a href="mailto:{{ settings.rsvpEmail }}">
+        RSVP BY EMAIL
+    </a>
 
 </section>
+
 
 <!-- =========================
      FOOTER
@@ -1139,69 +1104,67 @@ footer{
 
 <footer>
 
-```
-Made with love ·
-{{ settings.partner1 }}
-&amp;
-{{ settings.partner2 }}
-· 2026
-```
+    Made with love ·
+    {{ settings.partner1 }}
+    &amp;
+    {{ settings.partner2 }}
+    · 2026
 
 </footer>
 
-<!-- =========================
+
+<!-- ==================================================
      WEDDING MUSIC
-     
+
      IMPORTANT:
-     Only ONE audio element.
-========================= -->
+     The music settings come ONLY from the admin panel.
+
+     The public visitor gets only a play/pause button.
+
+     There are NO public controls for:
+     - uploading music
+     - choosing URL
+     - changing volume
+     - enabling/disabling music
+================================================== -->
 
 {% if settings.music_enabled %}
 
-<audio
-id="weddingMusic"
-loop
-preload="auto"
-
->
-
-```
-{% if settings.music_source == "upload" and settings.music_file %}
-
-    <source
-        src="{{ url_for('uploaded_file', filename=settings.music_file) }}"
+    <audio
+        id="weddingMusic"
+        loop
+        preload="auto"
     >
 
-{% elif settings.music_source == "url" and settings.music_url %}
+        {% if settings.music_source == "upload" and settings.music_file %}
 
-    <source
-        src="{{ settings.music_url }}"
+            <source
+                src="{{ url_for('uploaded_file', filename=settings.music_file) }}"
+            >
+
+        {% elif settings.music_source == "url" and settings.music_url %}
+
+            <source
+                src="{{ settings.music_url }}"
+            >
+
+        {% endif %}
+
+    </audio>
+
+
+    <button
+        class="music-badge"
+        id="musicButton"
+        type="button"
+        aria-label="Play or pause wedding music"
+        title="Play / Pause Music"
     >
-
-{% endif %}
-```
-
-</audio>
-
-<button
-class="music-badge"
-id="musicButton"
-type="button"
-aria-label="Play or pause wedding music"
-
->
-
-```
-♫
-```
-
-</button>
+        ♫
+    </button>
 
 {% endif %}
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
 
 <script>
 
@@ -1209,72 +1172,90 @@ aria-label="Play or pause wedding music"
    COUNTDOWN
 ========================= */
 
-function updateCountdown(){
+(function(){
 
-    const target =
-        new Date(
-            "{{ settings.weddingDate }} {{ settings.weddingTime }}"
-        );
-
-    const now = new Date();
-
-    let diff = target - now;
-
-    if(diff < 0){
-        diff = 0;
-    }
-
-
-    const days =
+    const daysElement =
         document.getElementById("days");
 
-    const hours =
+    const hoursElement =
         document.getElementById("hours");
 
-    const minutes =
+    const minutesElement =
         document.getElementById("minutes");
 
-    const seconds =
+    const secondsElement =
         document.getElementById("seconds");
 
 
-    if(!days || !hours || !minutes || !seconds){
-        return;
+    function updateCountdown(){
+
+        const target =
+            new Date(
+                "{{ settings.weddingDate }} {{ settings.weddingTime }}"
+            );
+
+        const now =
+            new Date();
+
+        let diff =
+            target - now;
+
+
+        if(diff < 0){
+            diff = 0;
+        }
+
+
+        if(daysElement){
+
+            daysElement.textContent =
+                String(
+                    Math.floor(diff / 86400000)
+                ).padStart(2,"0");
+
+        }
+
+
+        if(hoursElement){
+
+            hoursElement.textContent =
+                String(
+                    Math.floor(diff / 3600000) % 24
+                ).padStart(2,"0");
+
+        }
+
+
+        if(minutesElement){
+
+            minutesElement.textContent =
+                String(
+                    Math.floor(diff / 60000) % 60
+                ).padStart(2,"0");
+
+        }
+
+
+        if(secondsElement){
+
+            secondsElement.textContent =
+                String(
+                    Math.floor(diff / 1000) % 60
+                ).padStart(2,"0");
+
+        }
+
     }
 
 
-    days.textContent =
-        String(
-            Math.floor(diff / 86400000)
-        ).padStart(2,"0");
+    updateCountdown();
 
+    setInterval(
+        updateCountdown,
+        1000
+    );
 
-    hours.textContent =
-        String(
-            Math.floor(diff / 3600000) % 24
-        ).padStart(2,"0");
-
-
-    minutes.textContent =
-        String(
-            Math.floor(diff / 60000) % 60
-        ).padStart(2,"0");
-
-
-    seconds.textContent =
-        String(
-            Math.floor(diff / 1000) % 60
-        ).padStart(2,"0");
-
-}
-
-
-updateCountdown();
-
-setInterval(
-    updateCountdown,
-    1000
-);
+})();
 
 
 /* =========================
@@ -1297,48 +1278,47 @@ setInterval(
     }
 
 
-    /* Admin volume */
+    /* Volume comes ONLY from admin settings. */
 
-    let savedVolume =
+    let configuredVolume =
         Number(
-            "{{ settings.music_volume|default(0.35) }}"
+            {{ settings.music_volume|default(0.35) }}
         );
 
 
     if(
-        !Number.isFinite(savedVolume) ||
-        savedVolume < 0 ||
-        savedVolume > 1
+        Number.isNaN(configuredVolume) ||
+        configuredVolume < 0 ||
+        configuredVolume > 1
     ){
-        savedVolume = 0.35;
+        configuredVolume = 0.35;
     }
 
 
-    music.volume = savedVolume;
+    music.volume =
+        configuredVolume;
 
 
-    /* Check if music exists */
+    /* Check whether an actual music source exists. */
 
-    const source =
-        music.querySelector("source");
+    const hasSource =
+        Boolean(
+            music.querySelector("source") &&
+            music.querySelector("source").getAttribute("src")
+        );
 
 
-    if(
-        !source ||
-        !source.getAttribute("src")
-    ){
+    if(!hasSource){
         return;
     }
 
 
-    /* Show music button */
+    /* Show the public music button. */
 
     musicButton.classList.add("show");
 
 
-    /* Update button */
-
-    function setPlaying(){
+    function setPlayingState(){
 
         musicButton.classList.add("playing");
 
@@ -1352,7 +1332,7 @@ setInterval(
     }
 
 
-    function setPaused(){
+    function setPausedState(){
 
         musicButton.classList.remove("playing");
 
@@ -1366,45 +1346,44 @@ setInterval(
     }
 
 
-    /* Play music */
+    function playMusic(){
 
-    function startMusic(){
+        music.play()
+            .then(function(){
 
-        if(!music.paused){
-            return;
-        }
+                setPlayingState();
+
+            })
+            .catch(function(){
+
+                /*
+                   Browser autoplay protection may prevent
+                   automatic playback until the visitor interacts.
+                */
+
+                setPausedState();
+
+            });
+
+    }
 
 
-        const promise =
-            music.play();
+    function toggleMusic(){
 
+        if(music.paused){
 
-        if(promise !== undefined){
+            playMusic();
 
-            promise
-                .then(function(){
+        }else{
 
-                    setPlaying();
+            music.pause();
 
-                })
-                .catch(function(){
-
-                    /*
-                       Browser blocked autoplay.
-                       The music button remains visible
-                       so the visitor can start it manually.
-                    */
-
-                    setPaused();
-
-                });
+            setPausedState();
 
         }
 
     }
 
-
-    /* Play / pause button */
 
     musicButton.addEventListener(
         "click",
@@ -1414,70 +1393,42 @@ setInterval(
 
             event.stopPropagation();
 
-
-            if(music.paused){
-
-                startMusic();
-
-            }else{
-
-                music.pause();
-
-                setPaused();
-
-            }
+            toggleMusic();
 
         }
     );
 
 
-    /* Keep button synchronized */
-
     music.addEventListener(
         "play",
-        setPlaying
+        setPlayingState
     );
 
 
     music.addEventListener(
         "pause",
-        setPaused
+        setPausedState
     );
 
 
-    /* Try autoplay */
-
-    startMusic();
-
-
     /*
-       If browser blocks autoplay,
-       first user interaction starts music.
+       Try to start automatically.
+
+       Some browsers will block this.
+       If blocked, the button remains visible and
+       the first visitor interaction starts the music.
     */
+
+    playMusic();
+
 
     function firstInteraction(){
 
         if(music.paused){
 
-            startMusic();
+            playMusic();
 
         }
-
-
-        document.removeEventListener(
-            "click",
-            firstInteraction
-        );
-
-        document.removeEventListener(
-            "touchstart",
-            firstInteraction
-        );
-
-        document.removeEventListener(
-            "keydown",
-            firstInteraction
-        );
 
     }
 
@@ -1485,21 +1436,27 @@ setInterval(
     document.addEventListener(
         "click",
         firstInteraction,
-        {once:true}
+        {
+            once:true
+        }
     );
 
 
     document.addEventListener(
         "touchstart",
         firstInteraction,
-        {once:true}
+        {
+            once:true
+        }
     );
 
 
     document.addEventListener(
         "keydown",
         firstInteraction,
-        {once:true}
+        {
+            once:true
+        }
     );
 
 
