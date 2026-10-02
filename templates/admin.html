@@ -19,10 +19,16 @@
     --cream:#fff8f5;
     --ink:#432e2e;
     --line:#ead8d2;
+    --soft:#f8eeeb;
+    --white:#fff;
 }
 
 *{
     box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -42,7 +48,8 @@ header{
 }
 
 h1,
-h2{
+h2,
+.music-title{
     font-family:"Cormorant Garamond",serif;
 }
 
@@ -108,6 +115,7 @@ select{
     background:#fff;
     font:14px Montserrat,sans-serif;
     color:var(--ink);
+    border-radius:0;
 }
 
 textarea{
@@ -127,6 +135,11 @@ button,
     text-decoration:none;
     display:inline-block;
     margin-top:15px;
+}
+
+button:hover,
+.button:hover{
+    opacity:.9;
 }
 
 button.secondary{
@@ -149,24 +162,93 @@ hr{
     margin:25px 0;
 }
 
-/* MUSIC */
+
+/* =========================================================
+   MUSIC
+   ========================================================= */
 
 .music-box{
-    background:#f8eeeb;
-    border:1px solid #ead8d2;
+    background:var(--soft);
+    border:1px solid var(--line);
     padding:25px;
     margin-top:20px;
 }
 
 .music-title{
-    font-family:"Cormorant Garamond",serif;
-    font-size:28px;
+    font-size:30px;
     margin-bottom:5px;
 }
 
 .music-help{
     font-size:12px;
     color:#795f5f;
+    line-height:1.7;
+}
+
+.checkbox-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:20px 0;
+}
+
+.checkbox-row input{
+    width:auto;
+    margin:0;
+}
+
+.source-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:10px;
+}
+
+.source-option{
+    position:relative;
+}
+
+.source-option input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.source-option label{
+    display:block;
+    margin:0;
+    padding:15px 10px;
+    text-align:center;
+    border:1px solid #dec9c3;
+    background:white;
+    cursor:pointer;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.source-option input:checked + label{
+    background:#7e4b4b;
+    color:white;
+    border-color:#7e4b4b;
+}
+
+.music-source-panel{
+    display:none;
+    margin-top:18px;
+    padding:18px;
+    background:white;
+    border:1px solid var(--line);
+}
+
+.music-source-panel.active{
+    display:block;
+}
+
+.small{
+    font-size:11px;
+    color:#795f5f;
+    word-break:break-word;
+    margin-top:8px;
     line-height:1.7;
 }
 
@@ -191,7 +273,7 @@ hr{
 
 .music-preview{
     background:white;
-    border:1px solid #ead8d2;
+    border:1px solid var(--line);
     padding:18px;
     margin-top:15px;
 }
@@ -201,7 +283,29 @@ hr{
     margin-top:12px;
 }
 
-/* PHOTOS */
+.url-preview{
+    margin-top:15px;
+    padding:15px;
+    background:#f8eeeb;
+    border:1px solid var(--line);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.warning{
+    padding:14px;
+    background:#fff1d9;
+    border:1px solid #ead2a8;
+    color:#684d28;
+    font-size:12px;
+    line-height:1.7;
+    margin-top:15px;
+}
+
+
+/* =========================================================
+   PHOTOS
+   ========================================================= */
 
 .photos{
     display:grid;
@@ -226,31 +330,26 @@ hr{
     margin:0;
 }
 
-.small{
-    font-size:11px;
-    color:#795f5f;
-    word-break:break-all;
-    margin-top:8px;
+.photo .small{
+    min-height:35px;
 }
 
-.checkbox-row{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:20px;
-}
 
-.checkbox-row input{
-    width:auto;
-}
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
-@media(max-width:750px){
+@media(max-width:800px){
 
     .grid{
         grid-template-columns:1fr;
     }
 
     .photos{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .source-grid{
         grid-template-columns:1fr 1fr;
     }
 
@@ -266,6 +365,14 @@ hr{
 
     .photos{
         grid-template-columns:1fr;
+    }
+
+    .source-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:20px;
     }
 
 }
@@ -303,16 +410,18 @@ hr{
 {% endwith %}
 
 
-<!-- WEBSITE SETTINGS -->
+<!-- =====================================================
+     WEBSITE SETTINGS
+     ===================================================== -->
 
 <section class="card">
 
     <h2>Wedding Design</h2>
 
     <p class="note">
-        Control the main information displayed on your public wedding website.
+        Control the information displayed on your public wedding website.
+        These settings are only editable from this admin panel.
     </p>
-
 
     <form
         action="{{ url_for('admin_save') }}"
@@ -322,126 +431,88 @@ hr{
         <div class="grid">
 
             <div>
-
                 <label>PARTNER 1</label>
-
                 <input
                     name="partner1"
                     value="{{ settings.partner1 }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>PARTNER 2</label>
-
                 <input
                     name="partner2"
                     value="{{ settings.partner2 }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>TAGLINE</label>
-
                 <input
                     name="tagline"
                     value="{{ settings.tagline }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>WEDDING DATE</label>
-
                 <input
                     name="weddingDate"
                     value="{{ settings.weddingDate }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>WEDDING TIME</label>
-
                 <input
                     name="weddingTime"
                     value="{{ settings.weddingTime }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>VENUE</label>
-
                 <input
                     name="venue"
                     value="{{ settings.venue }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>DRESS CODE</label>
-
                 <input
                     name="dressCode"
                     value="{{ settings.dressCode }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>MAIN COLOR</label>
-
                 <input
+                    type="text"
                     name="mainColor"
                     value="{{ settings.mainColor }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>RSVP EMAIL</label>
-
                 <input
+                    type="email"
                     name="rsvpEmail"
                     value="{{ settings.rsvpEmail }}"
                 >
-
             </div>
 
-
             <div>
-
                 <label>RSVP MESSAGE</label>
-
                 <input
                     name="rsvpMessage"
                     value="{{ settings.rsvpMessage }}"
                 >
-
             </div>
 
         </div>
-
 
         <label>
             OUR STORY — PART 1
@@ -449,13 +520,11 @@ hr{
 
         <textarea name="story1">{{ settings.story1 }}</textarea>
 
-
         <label>
             OUR STORY — PART 2
         </label>
 
         <textarea name="story2">{{ settings.story2 }}</textarea>
-
 
         <button type="submit">
             SAVE WEBSITE SETTINGS
@@ -466,17 +535,18 @@ hr{
 </section>
 
 
-<!-- BACKGROUND MUSIC -->
+<!-- =====================================================
+     BACKGROUND MUSIC
+     ===================================================== -->
 
 <section class="card" id="music">
 
     <h2>Background Music</h2>
 
     <p class="note">
-        Choose a song using a direct audio URL or upload your own music file.
-        You can also control the starting volume visitors hear on the website.
+        Choose the music for your public wedding website.
+        Everything here is controlled from this admin panel.
     </p>
-
 
     <div class="music-box">
 
@@ -485,10 +555,9 @@ hr{
         </div>
 
         <div class="music-help">
-
-            The uploaded music or selected URL will be used as the
-            background music on your public wedding website.
-
+            Select where your wedding music comes from.
+            You can upload your own audio file or use a supported
+            music URL.
         </div>
 
 
@@ -516,106 +585,236 @@ hr{
             </label>
 
 
-            <!-- SOURCE -->
+            <!-- MUSIC SOURCE -->
 
             <label>
                 MUSIC SOURCE
             </label>
 
-            <select name="music_source">
+            <div class="source-grid">
 
-                <option
-                    value="url"
-                    {% if settings.music_source == "url" %}
-                    selected
-                    {% endif %}
-                >
-                    Use music URL
-                </option>
+                <div class="source-option">
 
-                <option
-                    value="upload"
-                    {% if settings.music_source == "upload" %}
-                    selected
-                    {% endif %}
-                >
-                    Use uploaded music
-                </option>
+                    <input
+                        type="radio"
+                        id="sourceUpload"
+                        name="music_source"
+                        value="upload"
+                        {% if settings.music_source == "upload" %}
+                        checked
+                        {% endif %}
+                    >
 
-            </select>
+                    <label for="sourceUpload">
+                        📁 UPLOAD
+                    </label>
+
+                </div>
 
 
-            <!-- URL -->
+                <div class="source-option">
 
-            <label>
-                MUSIC URL
-            </label>
+                    <input
+                        type="radio"
+                        id="sourceUrl"
+                        name="music_source"
+                        value="url"
+                        {% if settings.music_source == "url" %}
+                        checked
+                        {% endif %}
+                    >
 
-            <input
-                type="url"
-                name="music_url"
-                placeholder="https://example.com/song.mp3"
-                value="{{ settings.music_url }}"
+                    <label for="sourceUrl">
+                        🔗 DIRECT URL
+                    </label>
+
+                </div>
+
+
+                <div class="source-option">
+
+                    <input
+                        type="radio"
+                        id="sourceYoutube"
+                        name="music_source"
+                        value="youtube"
+                        {% if settings.music_source == "youtube" %}
+                        checked
+                        {% endif %}
+                    >
+
+                    <label for="sourceYoutube">
+                        ▶ YOUTUBE
+                    </label>
+
+                </div>
+
+
+                <div class="source-option">
+
+                    <input
+                        type="radio"
+                        id="sourceSpotify"
+                        name="music_source"
+                        value="spotify"
+                        {% if settings.music_source == "spotify" %}
+                        checked
+                        {% endif %}
+                    >
+
+                    <label for="sourceSpotify">
+                        ● SPOTIFY
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- UPLOAD PANEL -->
+
+            <div
+                class="music-source-panel"
+                id="uploadPanel"
             >
 
-            <div class="small">
+                <label>
+                    UPLOAD MUSIC
+                </label>
 
-                Use a direct audio-file URL.
-                For example:
-                https://example.com/music/song.mp3
+                <input
+                    type="file"
+                    name="music_file"
+                    accept=".mp3,.wav,.ogg,.m4a,.aac,.webm,audio/*"
+                >
 
-                <br>
+                <div class="small">
 
-                A normal YouTube page link is not a direct audio file.
+                    Supported:
+                    MP3, WAV, OGG, M4A, AAC and WEBM.
+
+                    <br>
+
+                    Maximum file size: 30 MB.
+
+                </div>
+
+
+                {% if settings.music_file %}
+
+                <div class="music-preview">
+
+                    <strong>
+                        Current uploaded music:
+                    </strong>
+
+                    <br><br>
+
+                    {{ settings.music_file }}
+
+                    <audio
+                        controls
+                        src="{{ url_for('uploaded_file', filename=settings.music_file) }}"
+                    ></audio>
+
+                </div>
+
+                {% endif %}
 
             </div>
 
 
-            <!-- UPLOAD -->
+            <!-- URL PANEL -->
 
-            <label>
-                UPLOAD MUSIC
-            </label>
-
-            <input
-                type="file"
-                name="music_file"
-                accept=".mp3,.wav,.ogg,.m4a,.aac,.webm,audio/*"
+            <div
+                class="music-source-panel"
+                id="urlPanel"
             >
 
-            <div class="small">
+                <label>
+                    DIRECT AUDIO URL
+                </label>
 
-                Supported:
-                MP3, WAV, OGG, M4A, AAC and WEBM.
+                <input
+                    type="url"
+                    name="music_url"
+                    placeholder="https://example.com/music/song.mp3"
+                    value="{{ settings.music_url }}"
+                >
 
-                <br>
+                <div class="small">
 
-                Maximum file size: 30 MB.
+                    This must point directly to an audio file,
+                    such as an MP3, WAV or OGG file.
+
+                </div>
+
+            </div>
+
+
+            <!-- YOUTUBE PANEL -->
+
+            <div
+                class="music-source-panel"
+                id="youtubePanel"
+            >
+
+                <label>
+                    YOUTUBE LINK
+                </label>
+
+                <input
+                    type="url"
+                    name="youtube_display_url"
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    value="{% if settings.music_source == 'youtube' %}{{ settings.music_url }}{% endif %}"
+                    id="youtubeInput"
+                >
+
+                <div class="warning">
+
+                    YouTube links are handled differently from direct
+                    audio files. The public website will use the
+                    YouTube player rather than treating the YouTube
+                    page as an MP3 file.
+
+                    <br><br>
+
+                    Paste the normal YouTube video URL here.
+
+                </div>
 
             </div>
 
 
-            {% if settings.music_file %}
+            <!-- SPOTIFY PANEL -->
 
-            <div class="music-preview">
+            <div
+                class="music-source-panel"
+                id="spotifyPanel"
+            >
 
-                <strong>
-                    Current uploaded music:
-                </strong>
+                <label>
+                    SPOTIFY LINK
+                </label>
 
-                <br>
+                <input
+                    type="url"
+                    name="spotify_display_url"
+                    placeholder="https://open.spotify.com/track/..."
+                    value="{% if settings.music_source == 'spotify' %}{{ settings.music_url }}{% endif %}"
+                    id="spotifyInput"
+                >
 
-                {{ settings.music_file }}
+                <div class="warning">
 
+                    Spotify links use Spotify's own embedded player.
+                    A normal Spotify page URL cannot be used directly
+                    as an HTML audio file.
 
-                <audio
-                    controls
-                    src="{{ url_for('uploaded_file', filename=settings.music_file) }}"
-                ></audio>
+                </div>
 
             </div>
-
-            {% endif %}
 
 
             <!-- VOLUME -->
@@ -644,7 +843,6 @@ hr{
                 </span>
 
             </div>
-
 
             <div class="small">
 
@@ -688,17 +886,17 @@ hr{
 </section>
 
 
-<!-- PHOTOS -->
+<!-- =====================================================
+     PHOTOS
+     ===================================================== -->
 
 <section class="card">
 
     <h2>Wedding Photos</h2>
 
     <p class="note">
-
         Upload your wedding photos here.
         They will appear on the public wedding website.
-
     </p>
 
 
@@ -738,11 +936,9 @@ hr{
                 alt="Wedding photo"
             >
 
-
             <div class="small">
                 {{ photo }}
             </div>
-
 
             <form
                 action="{{ url_for('delete_photo') }}"
@@ -786,14 +982,17 @@ hr{
 
 <script>
 
+/* =========================================================
+   VOLUME DISPLAY
+   ========================================================= */
+
 const volume =
     document.getElementById("volume");
 
 const volumeValue =
     document.getElementById("volumeValue");
 
-
-if(volume){
+if(volume && volumeValue){
 
     volume.addEventListener(
         "input",
@@ -808,6 +1007,140 @@ if(volume){
     );
 
 }
+
+
+/* =========================================================
+   MUSIC SOURCE PANELS
+   ========================================================= */
+
+const sourceUpload =
+    document.getElementById("sourceUpload");
+
+const sourceUrl =
+    document.getElementById("sourceUrl");
+
+const sourceYoutube =
+    document.getElementById("sourceYoutube");
+
+const sourceSpotify =
+    document.getElementById("sourceSpotify");
+
+const uploadPanel =
+    document.getElementById("uploadPanel");
+
+const urlPanel =
+    document.getElementById("urlPanel");
+
+const youtubePanel =
+    document.getElementById("youtubePanel");
+
+const spotifyPanel =
+    document.getElementById("spotifyPanel");
+
+const musicUrlInput =
+    document.querySelector(
+        'input[name="music_url"]'
+    );
+
+const youtubeInput =
+    document.getElementById("youtubeInput");
+
+const spotifyInput =
+    document.getElementById("spotifyInput");
+
+
+function updateMusicPanels(){
+
+    uploadPanel.classList.remove("active");
+    urlPanel.classList.remove("active");
+    youtubePanel.classList.remove("active");
+    spotifyPanel.classList.remove("active");
+
+    if(sourceUpload.checked){
+
+        uploadPanel.classList.add("active");
+
+    }
+
+    else if(sourceUrl.checked){
+
+        urlPanel.classList.add("active");
+
+    }
+
+    else if(sourceYoutube.checked){
+
+        youtubePanel.classList.add("active");
+
+    }
+
+    else if(sourceSpotify.checked){
+
+        spotifyPanel.classList.add("active");
+
+    }
+
+}
+
+
+sourceUpload.addEventListener(
+    "change",
+    updateMusicPanels
+);
+
+sourceUrl.addEventListener(
+    "change",
+    updateMusicPanels
+);
+
+sourceYoutube.addEventListener(
+    "change",
+    updateMusicPanels
+);
+
+sourceSpotify.addEventListener(
+    "change",
+    updateMusicPanels
+);
+
+
+/*
+   Before submitting, copy the YouTube or Spotify URL
+   into the main music_url field used by Flask.
+*/
+
+const musicForm =
+    document.querySelector(
+        'form[action="{{ url_for("admin_music") }}"]'
+    );
+
+if(musicForm){
+
+    musicForm.addEventListener(
+        "submit",
+        function(){
+
+            if(sourceYoutube.checked){
+
+                musicUrlInput.value =
+                    youtubeInput.value.trim();
+
+            }
+
+            if(sourceSpotify.checked){
+
+                musicUrlInput.value =
+                    spotifyInput.value.trim();
+
+            }
+
+        }
+    );
+
+}
+
+
+updateMusicPanels();
 
 </script>
 
