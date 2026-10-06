@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -515,13 +515,13 @@ hr{
         </div>
 
         <label>
-            OUR STORY — PART 1
+            OUR STORY â€” PART 1
         </label>
 
         <textarea name="story1">{{ settings.story1 }}</textarea>
 
         <label>
-            OUR STORY — PART 2
+            OUR STORY â€” PART 2
         </label>
 
         <textarea name="story2">{{ settings.story2 }}</textarea>
@@ -551,7 +551,7 @@ hr{
     <div class="music-box">
 
         <div class="music-title">
-            🎵 Wedding Music
+            ðŸŽµ Wedding Music
         </div>
 
         <div class="music-help">
@@ -606,7 +606,7 @@ hr{
                     >
 
                     <label for="sourceUpload">
-                        📁 UPLOAD
+                        ðŸ“ UPLOAD
                     </label>
 
                 </div>
@@ -625,7 +625,7 @@ hr{
                     >
 
                     <label for="sourceUrl">
-                        🔗 DIRECT URL
+                        ðŸ”— DIRECT URL
                     </label>
 
                 </div>
@@ -644,7 +644,7 @@ hr{
                     >
 
                     <label for="sourceYoutube">
-                        ▶ YOUTUBE
+                        â–¶ YOUTUBE
                     </label>
 
                 </div>
@@ -663,7 +663,7 @@ hr{
                     >
 
                     <label for="sourceSpotify">
-                        ● SPOTIFY
+                        â— SPOTIFY
                     </label>
 
                 </div>
@@ -867,7 +867,7 @@ hr{
         <form
             action="{{ url_for('remove_music') }}"
             method="post"
-            onsubmit="return confirm('Remove the uploaded wedding music?');"
+            
         >
 
             <button
@@ -1089,7 +1089,7 @@ hr{
                     <form
                         action="{{ url_for('delete_featured_photo') }}"
                         method="post"
-                        onsubmit="return confirm('Delete this featured photo?');"
+                        
                     >
 
                         <input
@@ -1133,7 +1133,7 @@ hr{
             <form
                 action="{{ url_for('delete_featured_album') }}"
                 method="post"
-                onsubmit="return confirm('Delete this entire featured album and all its photos?');"
+                
                 style="margin-top:20px;"
             >
 
@@ -1217,7 +1217,7 @@ hr{
             <form
                 action="{{ url_for('delete_photo') }}"
                 method="post"
-                onsubmit="return confirm('Delete this photo?');"
+                
             >
 
                 <input
@@ -1418,5 +1418,137 @@ updateMusicPanels();
 
 </script>
 
+
+<script>
+/* =========================================================
+   ADMIN AJAX FORM HANDLER
+   Saves/uploads without leaving the current page
+   or jumping back to the top.
+========================================================= */
+
+(function () {
+
+    function showAdminMessage(message, success = true) {
+
+        let box = document.getElementById("adminSaveMessage");
+
+        if (!box) {
+            box = document.createElement("div");
+            box.id = "adminSaveMessage";
+
+            box.style.position = "fixed";
+            box.style.right = "24px";
+            box.style.bottom = "24px";
+            box.style.zIndex = "99999";
+            box.style.padding = "14px 20px";
+            box.style.borderRadius = "12px";
+            box.style.fontFamily = "Montserrat, sans-serif";
+            box.style.fontSize = "13px";
+            box.style.boxShadow = "0 10px 30px rgba(0,0,0,.18)";
+            box.style.transition = "opacity .3s ease";
+
+            document.body.appendChild(box);
+        }
+
+        box.textContent = message;
+
+        box.style.background = success ? "#7e4b4b" : "#8b3f3f";
+        box.style.color = "#fff";
+        box.style.opacity = "1";
+
+        clearTimeout(box._timer);
+
+        box._timer = setTimeout(function () {
+            box.style.opacity = "0";
+        }, 2500);
+    }
+
+
+    document.addEventListener("submit", async function (event) {
+
+        const form = event.target;
+
+        if (!(form instanceof HTMLFormElement)) {
+            return;
+        }
+
+        /*
+         * Remember exactly where the administrator is
+         * before submitting.
+         */
+        const currentScroll = window.scrollY;
+
+        event.preventDefault();
+
+        const submitButton =
+            form.querySelector(
+                'button[type="submit"], input[type="submit"]'
+            );
+
+        const originalText =
+            submitButton ? submitButton.textContent : "";
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.style.opacity = "0.65";
+        }
+
+        try {
+
+            const formData = new FormData(form);
+
+            const response = await fetch(
+                form.action || window.location.href,
+                {
+                    method: form.method || "POST",
+                    body: formData,
+                    credentials: "same-origin",
+                    redirect: "follow"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Server returned " + response.status
+                );
+            }
+
+            /*
+             * Keep the administrator exactly where they were.
+             */
+            requestAnimationFrame(function () {
+                window.scrollTo(0, currentScroll);
+            });
+
+            showAdminMessage("? Saved successfully");
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAdminMessage(
+                "Something went wrong. Please try again.",
+                false
+            );
+
+        } finally {
+
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.style.opacity = "1";
+
+                if (originalText) {
+                    submitButton.textContent = originalText;
+                }
+            }
+
+        }
+
+    });
+
+})();
+</script>
+
 </body>
 </html>
+
