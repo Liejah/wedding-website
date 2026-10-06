@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -136,7 +136,7 @@ a{
 }
 
 .rule:after{
-    content:"♥";
+    content:"â™¥";
     position:absolute;
     left:50%;
     top:50%;
@@ -1096,7 +1096,7 @@ footer{
 
         <div class="heart-divider">
             <span></span>
-            <b>♥</b>
+            <b>â™¥</b>
             <span></span>
         </div>
 
@@ -1120,7 +1120,7 @@ footer{
             class="invite-btn"
             href="#countdown"
         >
-            VIEW INVITATION <span>›</span>
+            VIEW INVITATION <span>â€º</span>
         </a>
 
     </div>
@@ -1150,7 +1150,7 @@ footer{
         </p>
 
         <div class="flourish">
-            ♥
+            â™¥
         </div>
 
     </div>
@@ -1477,7 +1477,7 @@ footer{
         <div class="detail-card">
 
             <div class="icon">
-                ♡
+                â™¡
             </div>
 
             <h3>
@@ -1496,7 +1496,7 @@ footer{
         <div class="detail-card">
 
             <div class="icon">
-                ⌂
+                âŒ‚
             </div>
 
             <h3>
@@ -1513,7 +1513,7 @@ footer{
         <div class="detail-card">
 
             <div class="icon">
-                ✦
+                âœ¦
             </div>
 
             <h3>
@@ -1583,7 +1583,7 @@ footer{
                     <div class="featured-album-overlay">
 
                         <span class="featured-album-icon">
-                            ♡
+                            â™¡
                         </span>
 
                         <span>
@@ -1790,11 +1790,11 @@ footer{
 
 <footer>
 
-    Made with love ·
+    Made with love Â·
     {{ settings.partner1 }}
     &amp;
     {{ settings.partner2 }}
-    · 2026
+    Â· 2026
 
 </footer>
 
@@ -1844,7 +1844,7 @@ footer{
         type="button"
         aria-label="Play or pause wedding music"
     >
-        ♫
+        â™«
     </button>
 
 {% endif %}
@@ -2009,7 +2009,7 @@ setInterval(
 
         musicButton.classList.add("playing");
 
-        musicButton.textContent = "❚❚";
+        musicButton.textContent = "âšâš";
 
         musicButton.setAttribute(
             "aria-label",
@@ -2023,7 +2023,7 @@ setInterval(
 
         musicButton.classList.remove("playing");
 
-        musicButton.textContent = "♫";
+        musicButton.textContent = "â™«";
 
         musicButton.setAttribute(
             "aria-label",
@@ -2308,7 +2308,7 @@ setInterval(
         onclick="closeFeaturedAlbum()"
         aria-label="Close"
     >
-        ×
+        Ã—
     </button>
 
 
@@ -2318,7 +2318,7 @@ setInterval(
         onclick="previousFeaturedPhoto()"
         aria-label="Previous photo"
     >
-        ×
+        Ã—
     </button>
 
 
@@ -2349,7 +2349,7 @@ setInterval(
         onclick="nextFeaturedPhoto()"
         aria-label="Next photo"
     >
-        ×
+        Ã—
     </button>
 
 </div>
@@ -2941,3 +2941,65 @@ document.addEventListener(
 
 </body>
 </html>
+
+/* =========================
+   ANDROID / MOBILE PHOTOS
+========================= */
+
+@media (max-width: 600px){
+
+    .featured{
+        width:calc(100% - 24px);
+        max-width:100%;
+        margin:30px auto 0;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:160px 160px;
+        gap:10px;
+    }
+
+    .photo-card{
+        min-width:0;
+        border-radius:12px;
+    }
+
+    .photo-card.large{
+        grid-row:span 2;
+    }
+
+    .photo-card img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+}
+
+@media (max-width: 380px){
+
+    .featured{
+        width:calc(100% - 20px);
+        grid-template-rows:135px 135px;
+        gap:8px;
+    }
+
+    .photo-card{
+        border-radius:10px;
+    }
+
+}
+
+
+/* =========================
+   RESPONSIVE IMAGES
+========================= */
+
+img{
+    max-width:100%;
+}
+
+html,
+body{
+    max-width:100%;
+    overflow-x:hidden;
+}
