@@ -1207,7 +1207,7 @@ footer{
 
 
 <!-- =========================
-     PHOTOS
+     PHOTOS / FEATURED ALBUMS
 ========================= -->
 
 <section
@@ -1232,50 +1232,148 @@ footer{
 
     </div>
 
+    <div class="featured-albums">
 
-    <div class="featured">
+        {% if settings.featured_albums %}
 
-        {% for number in [1,2,3] %}
+            {% for album in settings.featured_albums %}
 
-        {% set photo =
-            photos[number-1]
-            if photos|length >= number
-            else ""
-        %}
-
-        <div
-            class="photo-card
-            {% if number == 1 %}large{% endif %}"
-        >
-
-            {% if photo %}
-
-            <img
-                src="{{ url_for('uploaded_file', filename=photo) }}"
-                alt="Wedding memory"
+            <button
+                type="button"
+                class="featured-album-button"
+                onclick="openWeddingAlbum('{{ album.id }}')"
             >
 
-            {% endif %}
+                <span class="album-button-title">
+                    {{ album.title }}
+                </span>
 
-            <div class="photo-label">
+                <span class="album-button-count">
+                    {{ album.photos|length }}
+                    {% if album.photos|length == 1 %}
+                        PHOTO
+                    {% else %}
+                        PHOTOS
+                    {% endif %}
+                </span>
 
-                {% if number == 1 %}
-                    OUR DAY
-                {% elif number == 2 %}
-                    TOGETHER
-                {% else %}
-                    FOREVER
-                {% endif %}
+            </button>
 
-            </div>
+            {% endfor %}
 
-        </div>
+        {% else %}
 
-        {% endfor %}
+            <p class="description">
+                Our photo albums will appear here.
+            </p>
+
+        {% endif %}
 
     </div>
 
 </section>
+
+
+<!-- =========================
+     ALBUM VIEWER
+========================= -->
+
+<div
+    id="weddingAlbumViewer"
+    class="wedding-album-viewer"
+    aria-hidden="true"
+>
+
+    <div
+        class="wedding-album-overlay"
+        onclick="closeWeddingAlbum()"
+    ></div>
+
+    <div class="wedding-album-window">
+
+        <button
+            type="button"
+            class="wedding-album-close"
+            onclick="closeWeddingAlbum()"
+            aria-label="Close album"
+        >
+            &times;
+        </button>
+
+        {% if settings.featured_albums %}
+
+            {% for album in settings.featured_albums %}
+
+            <div
+                class="wedding-album-content"
+                id="album-{{ album.id }}"
+                data-album-id="{{ album.id }}"
+            >
+
+                <div class="wedding-album-heading">
+
+                    <p class="rose-label">
+                        OUR MEMORIES
+                    </p>
+
+                    <h2>
+                        {{ album.title }}
+                    </h2>
+
+                </div>
+
+                {% if album.photos %}
+
+                <div class="wedding-album-slider">
+
+                    <div class="wedding-album-track">
+
+                        {% for photo in album.photos %}
+
+                        <div class="wedding-album-slide">
+
+                            <img
+                                src="{{ url_for('uploaded_file', filename=photo) }}"
+                                alt="{{ album.title }}"
+                            >
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                <div class="wedding-album-progress">
+
+                    {% for photo in album.photos %}
+
+                    <span
+                        class="wedding-album-dot {% if loop.first %}active{% endif %}"
+                    ></span>
+
+                    {% endfor %}
+
+                </div>
+
+                {% else %}
+
+                <p class="description">
+                    There are no photos in this album yet.
+                </p>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+</div>
 
 
 <!-- =========================
@@ -2651,6 +2749,195 @@ document.addEventListener(
 
 </script>
 
+
+
+<script>
+/* =========================================================
+   WEDDING ALBUM VIEWER
+========================================================= */
+
+let weddingAlbumTimers = {};
+let weddingAlbumPositions = {};
+
+function openWeddingAlbum(albumId) {
+
+    const viewer = document.getElementById("weddingAlbumViewer");
+
+    if (!viewer) {
+        return;
+    }
+
+    const albums = document.querySelectorAll(
+        ".wedding-album-content"
+    );
+
+    albums.forEach(function(album) {
+        album.classList.remove("active");
+    });
+
+    const selectedAlbum = document.getElementById(
+        "album-" + albumId
+    );
+
+    if (!selectedAlbum) {
+        return;
+    }
+
+    selectedAlbum.classList.add("active");
+
+    viewer.classList.add("active");
+    viewer.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+
+    weddingAlbumPositions[albumId] = 0;
+
+    updateWeddingAlbum(albumId);
+
+    startWeddingAlbumAutoScroll(albumId);
+}
+
+
+function closeWeddingAlbum() {
+
+    const viewer = document.getElementById(
+        "weddingAlbumViewer"
+    );
+
+    if (!viewer) {
+        return;
+    }
+
+    viewer.classList.remove("active");
+    viewer.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+
+    Object.keys(weddingAlbumTimers).forEach(
+        function(albumId) {
+
+            clearInterval(
+                weddingAlbumTimers[albumId]
+            );
+
+            delete weddingAlbumTimers[albumId];
+
+        }
+    );
+}
+
+
+function updateWeddingAlbum(albumId) {
+
+    const album = document.getElementById(
+        "album-" + albumId
+    );
+
+    if (!album) {
+        return;
+    }
+
+    const track = album.querySelector(
+        ".wedding-album-track"
+    );
+
+    const slides = album.querySelectorAll(
+        ".wedding-album-slide"
+    );
+
+    const dots = album.querySelectorAll(
+        ".wedding-album-dot"
+    );
+
+    if (!track || !slides.length) {
+        return;
+    }
+
+    let position =
+        weddingAlbumPositions[albumId] || 0;
+
+    if (position >= slides.length) {
+        position = 0;
+    }
+
+    weddingAlbumPositions[albumId] = position;
+
+    track.style.transform =
+        "translateX(-" +
+        (position * 100) +
+        "%)";
+
+    dots.forEach(function(dot, index) {
+
+        dot.classList.toggle(
+            "active",
+            index === position
+        );
+
+    });
+}
+
+
+function startWeddingAlbumAutoScroll(albumId) {
+
+    if (weddingAlbumTimers[albumId]) {
+
+        clearInterval(
+            weddingAlbumTimers[albumId]
+        );
+
+    }
+
+    const album = document.getElementById(
+        "album-" + albumId
+    );
+
+    if (!album) {
+        return;
+    }
+
+    const slides = album.querySelectorAll(
+        ".wedding-album-slide"
+    );
+
+    if (slides.length <= 1) {
+        return;
+    }
+
+    /*
+       Automatically move to the next photo
+       every 4 seconds.
+    */
+
+    weddingAlbumTimers[albumId] = setInterval(
+        function() {
+
+            weddingAlbumPositions[albumId] =
+                (
+                    weddingAlbumPositions[albumId] + 1
+                ) % slides.length;
+
+            updateWeddingAlbum(albumId);
+
+        },
+        4000
+    );
+}
+
+
+/* ESC closes the album */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+            closeWeddingAlbum();
+        }
+
+    }
+);
+</script>
 
 </body>
 </html>

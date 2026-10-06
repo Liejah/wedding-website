@@ -860,6 +860,73 @@ def create_featured_album():
 
 
 @app.route(
+    "/admin/featured/rename",
+    methods=["POST"]
+)
+@admin_required
+def rename_featured_album():
+
+    settings = load_settings()
+
+    albums = settings.get(
+        "featured_albums",
+        []
+    )
+
+    album_id = request.form.get(
+        "album_id",
+        ""
+    ).strip()
+
+    title = request.form.get(
+        "title",
+        ""
+    ).strip()
+
+    if not album_id or not title:
+        flash(
+            "Please enter an album name.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    album = next(
+        (
+            album
+            for album in albums
+            if album.get("id") == album_id
+        ),
+        None
+    )
+
+    if not album:
+        flash(
+            "Featured album not found.",
+            "error"
+        )
+        return redirect(
+            url_for("admin") + "#featured"
+        )
+
+    album["title"] = title
+
+    settings["featured_albums"] = albums
+
+    save_settings(settings)
+
+    flash(
+        "Featured album name updated!",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin") + "#featured"
+    )
+
+
+@app.route(
     "/admin/featured/upload",
     methods=["POST"]
 )

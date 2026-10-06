@@ -1033,9 +1033,35 @@ hr{
             "
         >
 
-            <h3 style="margin-top:0;">
-                {{ album.title }}
-            </h3>
+            <form
+                action="{{ url_for('rename_featured_album') }}"
+                method="post"
+                style="margin-bottom:18px;"
+            >
+
+                <input
+                    type="hidden"
+                    name="album_id"
+                    value="{{ album.id }}"
+                >
+
+                <label>
+                    ALBUM NAME
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ album.title }}"
+                    required
+                    maxlength="80"
+                >
+
+                <button type="submit">
+                    SAVE ALBUM NAME
+                </button>
+
+            </form>
 
 
             <!-- UPLOAD PHOTO TO THIS ALBUM -->
