@@ -671,6 +671,368 @@ footer{
     }
 }
 
+
+/* =========================================================
+   NEW WEDDING HERO DESIGN
+   ========================================================= */
+
+.redesigned-hero {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(145, 91, 91, 0.35) 0%,
+            rgba(105, 58, 58, 0.15) 45%,
+            rgba(76, 40, 40, 0.20) 100%
+        ),
+        linear-gradient(
+            135deg,
+            #7b4949 0%,
+            #8d5757 48%,
+            #754343 100%
+        );
+
+    color: #fffaf7;
+    isolation: isolate;
+}
+
+.redesigned-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 45%,
+            rgba(255,255,255,.055),
+            transparent 60%
+        );
+
+    pointer-events: none;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(54, 27, 27, .08),
+            transparent 35%,
+            rgba(45, 23, 23, .12)
+        );
+
+    z-index: -1;
+}
+
+/* Decorative flowers */
+
+.hero-floral {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+
+    background-image: url("{{ url_for('static', filename='wedding-floral.png') }}");
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    opacity: .95;
+    pointer-events: none;
+
+    filter:
+        brightness(1.08)
+        saturate(.75);
+}
+
+.hero-floral-top {
+    top: -70px;
+    left: -55px;
+}
+
+.hero-floral-bottom {
+    right: -60px;
+    bottom: -80px;
+    transform: rotate(180deg);
+}
+
+/* Center content */
+
+.redesigned-hero .hero-content {
+    position: relative;
+    z-index: 5;
+
+    width: min(1400px, 92%);
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    animation: heroFadeIn 1.2s ease both;
+}
+
+.redesigned-hero .eyebrow {
+    margin: 0 0 25px;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(13px, 1.2vw, 19px);
+    font-weight: 400;
+
+    letter-spacing: .48em;
+    text-transform: uppercase;
+
+    color: #fff5ee;
+}
+
+/* Heart divider */
+
+.heart-divider {
+    width: min(530px, 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+    margin-bottom: 32px;
+}
+
+.heart-divider span {
+    height: 1px;
+    flex: 1;
+
+    background: rgba(255, 236, 225, .85);
+}
+
+.heart-divider b {
+    font-family: Georgia, serif;
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 1;
+
+    color: #f9d8c8;
+
+    text-shadow:
+        0 2px 12px rgba(60, 25, 25, .25);
+}
+
+/* Names */
+
+.redesigned-hero h1 {
+    margin: 0;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 500;
+
+    font-size: clamp(58px, 8vw, 145px);
+    line-height: .82;
+
+    letter-spacing: -.045em;
+
+    color: #fffaf7;
+
+    text-shadow:
+        0 3px 20px rgba(55, 27, 27, .16);
+}
+
+.redesigned-hero h1 i {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 300;
+    font-style: italic;
+
+    color: #f5d5c9;
+
+    margin: 0 .06em;
+}
+
+/* Tagline */
+
+.redesigned-hero .tagline {
+    margin: 38px 20px 38px;
+
+    max-width: 800px;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(21px, 2.1vw, 32px);
+    font-style: italic;
+    font-weight: 400;
+
+    letter-spacing: .03em;
+
+    color: #fff1e9;
+}
+
+/* Date */
+
+.redesigned-hero .date {
+    min-width: min(595px, 80vw);
+
+    padding: 19px 35px;
+
+    border: 1px solid rgba(255, 235, 224, .78);
+
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(12px, 1.1vw, 17px);
+    font-weight: 400;
+
+    letter-spacing: .28em;
+    text-transform: uppercase;
+
+    color: #fff4ed;
+
+    background: rgba(75, 38, 38, .08);
+}
+
+.redesigned-hero .date span {
+    margin: 0 15px;
+    color: #f3d0c4;
+}
+
+/* Invitation button */
+
+.redesigned-hero .invite-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 43px;
+    padding: 20px 48px;
+
+    min-width: 310px;
+
+    background: #fff0eb;
+    color: #714646;
+
+    border: 1px solid rgba(255,255,255,.35);
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    letter-spacing: .25em;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    box-shadow:
+        0 12px 35px rgba(50, 24, 24, .18);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+.redesigned-hero .invite-btn span {
+    margin-left: 12px;
+    font-size: 22px;
+    line-height: 0;
+}
+
+.redesigned-hero .invite-btn:hover {
+    transform: translateY(-4px);
+
+    background: #fffaf7;
+
+    box-shadow:
+        0 18px 45px rgba(50, 24, 24, .27);
+}
+
+/* Gentle entrance */
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .redesigned-hero {
+        min-height: 100svh;
+        height: auto;
+        padding: 100px 0 80px;
+    }
+
+    .hero-floral {
+        width: 280px;
+        height: 280px;
+    }
+
+    .hero-floral-top {
+        top: -45px;
+        left: -75px;
+    }
+
+    .hero-floral-bottom {
+        right: -80px;
+        bottom: -45px;
+    }
+
+    .redesigned-hero .eyebrow {
+        font-size: 10px;
+        letter-spacing: .34em;
+        margin-bottom: 20px;
+    }
+
+    .heart-divider {
+        width: 75%;
+        gap: 15px;
+        margin-bottom: 27px;
+    }
+
+    .heart-divider b {
+        font-size: 27px;
+    }
+
+    .redesigned-hero h1 {
+        font-size: clamp(50px, 15vw, 82px);
+        line-height: .86;
+    }
+
+    .redesigned-hero .tagline {
+        font-size: 20px;
+        margin: 30px 15px;
+    }
+
+    .redesigned-hero .date {
+        min-width: 0;
+        width: 88%;
+        padding: 15px 10px;
+
+        font-size: 10px;
+        letter-spacing: .15em;
+    }
+
+    .redesigned-hero .date span {
+        margin: 0 7px;
+    }
+
+    .redesigned-hero .invite-btn {
+        min-width: 240px;
+        padding: 17px 25px;
+        margin-top: 30px;
+
+        font-size: 11px;
+        letter-spacing: .18em;
+    }
+}
+
 </style>
 </head>
 
@@ -719,19 +1081,12 @@ footer{
      HERO
 ========================= -->
 
-<section class="hero">
+<section class="hero redesigned-hero">
 
-    <img
-        class="floral left"
-        src="{{ url_for('static', filename='wedding-floral.png') }}"
-        alt=""
-    >
+    <div class="hero-floral hero-floral-top"></div>
+    <div class="hero-floral hero-floral-bottom"></div>
 
-    <img
-        class="floral right"
-        src="{{ url_for('static', filename='wedding-floral.png') }}"
-        alt=""
-    >
+    <div class="hero-overlay"></div>
 
     <div class="hero-content">
 
@@ -739,7 +1094,11 @@ footer{
             WE'RE GETTING MARRIED
         </p>
 
-        <div class="rule"></div>
+        <div class="heart-divider">
+            <span></span>
+            <b>♥</b>
+            <span></span>
+        </div>
 
         <h1>
             {{ settings.partner1 }}
@@ -753,17 +1112,15 @@ footer{
 
         <div class="date">
             {{ settings.weddingDate }}
-            &nbsp; | &nbsp;
+            <span>|</span>
             {{ settings.weddingTime }}
         </div>
-
-        <br>
 
         <a
             class="invite-btn"
             href="#countdown"
         >
-            VIEW INVITATION ›
+            VIEW INVITATION <span>›</span>
         </a>
 
     </div>
